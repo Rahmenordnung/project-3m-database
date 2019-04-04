@@ -1,0 +1,206 @@
+{% extends 'fundation_template.html' %} {% block content %}
+
+
+<h3>Edit Task</h3>
+
+<div class="row" >           
+    <form action = "{{url_for ('update_recipe', procedure_id = procedure._id)}}" method = "POST" class = "col s12">    
+       <div class="input-field col s5 m6">
+           <i class="material-icons prefix">poll</i>
+            <select id="cuisine" name="cuisine_name">
+                  <option value="" disabled selected>Choose Category</option>
+                  {% for cat in cuisine %}
+                      {% if cat.cuisine_name == procedure.cuisine_name %}
+                  <option value="{{cat.cuisine_name}}" selected >{{cat.cuisine_name}}</option>
+                      {% else %}
+                  <option value="{{cat.cuisine_name}}">{{cat.cuisine_name}}</option>
+                      {% endif %}
+                  {% endfor %}
+            </select>
+        <label>Task Category</label>
+</div>
+           
+            
+         
+            
+            
+    <form action="{{url_for('insert_recipe')}}" method="POST" class="col s12">
+        <div class="input-field col s5 m6">
+            <i class="material-icons prefix">cake</i>
+            <select id="food_type" name="food_course">
+                 <option value="" disabled selected>Course election</option>
+                  {% for fod in food_type %}
+                      {% if fod.food_course == procedure.food_course %}
+                <option value="{{fod.food_course}}" selected >{{fod.food_course}}</option>
+                      {% else %}
+                <option value="{{fod.food_course}}">{{fod.food_course}}</option>
+                      {% endif %}
+                  {% endfor %}
+            </select>
+        <label>Course type</label>
+</div>
+           
+   
+<div class="row" >   
+    <form action="{{url_for('insert_recipe')}}" method="POST" class="col s5">
+        <div class="input-field col s5 m6">
+            <i class="material-icons prefix">report_problem</i>
+            <select id="food_group" name="predominant_group">
+                <option value="" disabled selected>Group election</option>
+                  {% for fod in food_group %}
+                      {% if fod.predominant_group == procedure.predominant_group %}
+                <option value="{{fod.predominant_group}}" selected >{{fod.predominant_group}}</option>
+                      {% else %}
+                <option value="{{fod.predominant_group}}">{{fod.predominant_group}}</option>
+                      {% endif %}
+                  {% endfor %}
+            </select>
+        <label>Food Group</label>
+</div>
+
+
+         
+            
+<div class="row" >
+    <form action="{{url_for('insert_recipe')}}" method="POST" class="col s5">
+        <div class="input-field col s5 m6">
+            <i class="material-icons prefix">report_problem</i>
+            <select id="recipe_author" name="author_name">
+                <option value="" disabled selected>Author</option>
+                    {% for fod in recipe_author %}
+                       {% if fod.author_name == procedure.author_name %}
+                <option value="{{fod.author_name}}" selected >{{fod.author_name}}</option>
+                       {% else %}
+                <option value="{{fod.author_name}}">{{fod.author_name}}</option>
+                       {% endif %}
+                    {% endfor %}
+            </select>
+        <label>Author</label>
+</div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">insert_comment</i>
+                <input id="food_context" name="food_context" type="text" class="validate" value="{{procedure.food_context}}">
+                <label for="icon_prefix">Facts</label>
+            </div>
+        </div>     
+   
+                   
+                        
+
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">insert_comment</i>
+                <input id="Food Name" name="food_name" type="text" class="validate" value="{{procedure.food_name}}">
+                <label for="icon_prefix">Food Name</label>
+            </div>
+        </div> 
+        
+         <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">description of the dish</i>
+                    <textarea name="food_ingredients" id="food_ingredients" class="materialize-textarea">{{procedure.food_ingredients}}</textarea>
+                    <label for="Ingredients">Ingredients</label>
+                </div>
+                </div>
+        
+            
+        <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">description of the dish</i>
+                    <textarea name="food_description" id="food_description" class="materialize-textarea">{{procedure.food_description}}</textarea>
+                    <label for="description_food">Task Description</label>
+                </div>
+                </div>
+            
+            
+            
+            <div class="row  col s2">
+                
+                    <p>
+                        <label>
+                {% if procedure.is_celiac_ok %}            
+                <input name="celiacs" id="celiacs" type="checkbox" class="filled-in" checked="checked" />
+                {% else %}
+                <input name="celiacs" id="celiacs" type="checkbox" class="filled-in"  />
+                {% endif %}
+                <span>Celiacs</span>
+              </label>
+                    </p>
+               
+            </div>
+
+
+
+            <div class="row  col s2">
+                
+                    <p>
+                        <label>
+                {% if procedure.is_gluten_ok %}             
+                <input name="gluten_free" id="gluten_free" type="checkbox" class="filled-in" checked="checked" />
+                {% else %}
+                <input name="gluten_free" id="gluten_free" type="checkbox" class="filled-in"  />
+                {% endif %}
+                <span>gluten_free</span>
+              </label>
+                    </p>
+               
+
+            </div>
+            
+    
+    
+
+    <div class="row col s4">
+
+        
+            <p class="range-field">
+                <span>preparation time for your food (min)</span>
+
+                <input type="range" name="preparation_food" id="preparation_food" min="0" max="250" />
+
+            </p>
+            
+        </div>
+        
+        <div class="row col s4">
+        
+        <p class="range-field">
+                <span>cooking time for your food (min)</span>
+
+                <input type="range" name="cooking_time" id="cooking_time" min="0" max="700" />
+
+            </p>
+            
+        </div> 
+        
+                                      
+   
+            <div class="row col s7">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Edit receipe
+                     <i class="material-icons right">create</i>
+                    </button>
+            </div>
+
+            <div>
+
+    </form>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+    preparation_food = time.parse ('{{procedure.preparation_food}}');
+    $ ('#preparation_food').range-field('range').set('select', preparation_food, {format:'mm'}).trigger('change')
+    
+        
+    });    
+        
+
+        
+        
+    </script>
+    
+    
+
+    {% endblock %}

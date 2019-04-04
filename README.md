@@ -16,3 +16,13 @@ http://www.youtube.com/user/c9ide.
 
 Happy coding!
 The Cloud9 IDE team
+
+
+
+  {{procedures.food_name}}
+            {{procedures.cuisine_name}}
+            {{procedures.food_description}}
+            {{procedures.food_urgency}}
+            {{procedures.preparation_food}}
+            {{procedures.food_type}}
+            {{procedures.food_ingredients}}

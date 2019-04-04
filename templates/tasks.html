@@ -1,0 +1,54 @@
+{% extends 'fundation_template.html' %} {% block content %}
+
+ 
+
+  <p>Click <a href="/logout">here</a>to logout</p>
+  <p>Click <a href="/login">here</a>to login</p>
+  
+     {% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}
+
+
+<ul class="collapsible" data-collapsible="accordion">
+    {% for procedures in procedure %}
+    <li>
+
+        <div class="collapsible-header">
+            <div class="col s1">
+                <i class="fa fa-cutlery" aria-hidden="true"></i>
+
+                
+               
+                <a href="{{url_for('edit_recipe', procedure_id=procedures._id)}}" class="waves-effect waves-light btn btn_large">Edit</a>
+                <a href="{{url_for('see_recipe', procedure_id=procedures._id) }}" class="btn-floating btn-large waves-effect waves-light red btn_small"><i class="material-icons">arrow_forward</i></a>
+                
+                
+                
+                
+
+
+            </div>
+            <div class="coll s12">
+                <strong>{{procedures.food_name}}</strong> - {{procedures.predominant_group}}
+
+
+            </div>
+        </div>
+
+        <div class="collapsible-body">
+            <span>
+              {{procedures.food_context}}
+          </span>
+        </div>
+    </li>
+
+    {% endfor %}
+</ul>
+   <div class="row">
+        <a  href="{{url_for('add_recipe')}}" class="waves-effect waves-light btn">
+            <i class="material-icons right">add_circle_outline</i>Add recipe</a>
+    </div>
+
+
+{% endblock %}

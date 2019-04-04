@@ -1,0 +1,21 @@
+.btn_small{
+    
+    line-height: 4px;
+    margin: -5px 8px ;
+   
+}
+
+.btn-large{
+    height: 24px;
+    width: 60px;
+    line-height: 24px;
+    margin: 5px 5px;
+    padding: 0 0.5em;
+}
+
+
+
+.recipe-titles{
+    color:blue;
+    
+}

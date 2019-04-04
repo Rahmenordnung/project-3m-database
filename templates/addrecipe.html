@@ -1,0 +1,161 @@
+{% extends 'fundation_template.html' %} {% block content %}
+<p>Click <a href="/logout">here</a>to logout</p>
+<p>Click <a href="/login">here</a>to login</p>
+
+{% for message in get_flashed_messages() %} {{ message }} {% endfor %}
+
+
+<h3>Add Task</h3>
+<div class="row">
+    <form action="{{url_for('insert_recipe')}}" method="POST" class="col s12">
+        <div class="input-field col s6 m6">
+            <i class="material-icons prefix">poll</i>
+            <select id="cuisine" name="cuisine_name">
+                  <option value="" disabled selected>Choose Category</option>
+                      {% for cat in cuisine %}
+                  <option value="{{cat.cuisine_name}}">{{cat.cuisine_name}}</option>
+                      {% endfor %}
+            </select>
+                <label>Task Category</label>
+        </div>
+
+
+
+    <form action="{{url_for('insert_recipe')}}" method="POST" class="col s12">
+        <div class="input-field col s6 m6">
+                    <i class="material-icons prefix">poll</i>
+                <select id="food_type" name="food_course">
+                    <option value="" disabled selected>Choose Course</option>
+                        {% for fod in food_type %}
+                    <option value="{{fod.food_course}}">{{fod.food_course}}</option>
+                        {% endfor %}
+                </select>
+                    <label>Course selection</label>
+            </div>
+
+
+    <form action={{url_for('insert_recipe')}}" method="POST" class="col s12">
+        <div class="input-field col s6 m6">
+                    <i class="material-icons prefix">poll</i>
+                <select id="food_group" name="predominant_group">
+                    <option value="" disabled selected>Choose Group</option>
+                        {% for fod in food_group %}
+                    <option value="{{fod.predominant_group}}">{{fod.predominant_group}}</option>
+                        {% endfor %}
+                </select>
+                    <label>Food group</label>
+        </div>
+
+
+
+    <form action="{{url_for('insert_recipe')}}" method="POST" class="col s12">
+        <div class="input-field col s6 m6">
+                    <i class="material-icons prefix">poll</i>
+                <select id="recipe_author" name="author_name">
+                    <option value="" disabled selected>Choose Chef</option>
+                         {% for fod in recipe_author %}
+                    <option value="{{fod.author_name}}">{{fod.author_name}}</option>
+                         {% endfor %}
+                </select>
+                    <label>Chef selection</label>
+        </div>
+                                <div class="row">
+                                 <div class="input-field col s12">
+                                        <i class="material-icons prefix">description of the dish</i>
+                                        <textarea name="food_context" id="food_context" class="materialize-textarea"></textarea>
+                                        <label for="description_food">facts</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">insert_comment</i>
+                                        <input id="food_name" name="food_name" type="text" class="validate">
+                                        <label for="icon_prefix">Food Name</label>
+                                    </div>
+                                    
+                                    
+                                    
+                                <div class="row">    
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">description of the dish</i>
+                                        <textarea name="food_ingredients" id="food_ingredients" class="materialize-textarea"></textarea>
+                                        <label for="description_food">Ingredients</label>
+                                    </div>
+                                </div>
+
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">description of the dish</i>
+                                        <textarea name="food_description" id="food_description" class="materialize-textarea"></textarea>
+                                        <label for="description_food">Task Description</label>
+                                    </div>
+                                </div>
+                                        
+                                        
+                                        
+                                        
+                                <div class="row  col s2">
+                                    <p>
+                                            <label>
+                <input name="celiacs" id="celiacs" type="checkbox" class="filled-in" checked="checked" /><span>Celiacs</span>
+                                            </label>
+                                    </p>
+                                </div>
+
+
+
+                                <div class="row  col s2">
+                                   <p>
+                                        <label>
+                <input name="gluten_free" id="gluten_free" type="checkbox" class="filled-in" checked="checked" /><span>gluten_free</span>
+                                        </label>
+                                    </p>
+                                </div>
+                               
+                                
+                                
+                                <div class="row col s4">
+                                    <p class="range-field">
+                                            <span>preparation time  (min)</span>
+                                            <input type="range" name="preparation_food" id="preparation_food" min="0" max="250" />
+                                    </p>
+                                </div>
+                            
+
+
+                                
+                                
+                                <div class="row col s4">
+                                    <p class="range-field">
+                                            <span>cooking time  (min)</span>
+                                            <input type="range" name="cooking_time" id="cooking_time" min="0" max="700" />
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            
+                              
+
+                                                                                   
+
+
+<div class="row col s8">
+        <button class="btn waves-effect waves-light" type="submit" name="action">Add recipe
+            <i class="material-icons right">create</i>
+    </button>
+                            </div>
+
+</div>
+                                
+
+                            
+
+
+
+</form>
+
+                            
+
+
+{% endblock %}
