@@ -1,0 +1,41 @@
+def login_required(f):
+    @wraps(f)
+    def wrap(*args,**kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('Please log in first!!!')
+            return redirect(url_for('login'))
+    return wrap
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    session.pop('logged_in', None)
+    flash('you\'re now logged out')
+    return redirect(url_for('get_tasks'))
+    
+    # Route for handling the login page logic
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            session['logged_in'] = True
+            flash('you\'re logging has been successful')
+            return redirect(url_for('add_recipe'))
+    return render_template('login.html', error=error)
+    
+    
+    {% block sort %}
+<div class="input-field">
+    <select id="sort-select">
+        <option value="disabled" disabled selected>Sort recipes</option>
+        <option value="desc">Cooking-time desc</option>
+        <option value="asc">Cooking-time asc</option>
+    s</select>
+</div>
+<% endblock %>

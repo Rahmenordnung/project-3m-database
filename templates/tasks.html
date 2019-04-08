@@ -1,54 +1,96 @@
-{% extends 'fundation_template.html' %} {% block content %}
+{% extends 'fundation_template.html' %} {% block content %} 
 
- 
-
-  <p>Click <a href="/logout">here</a>to logout</p>
-  <p>Click <a href="/login">here</a>to login</p>
-  
-     {% for message in get_flashed_messages() %}
-        {{ message }}
-    {% endfor %}
-
-
-<ul class="collapsible" data-collapsible="accordion">
-    {% for procedures in procedure %}
-    <li>
-
-        <div class="collapsible-header">
-            <div class="col s1">
-                <i class="fa fa-cutlery" aria-hidden="true"></i>
-
-                
-               
-                <a href="{{url_for('edit_recipe', procedure_id=procedures._id)}}" class="waves-effect waves-light btn btn_large">Edit</a>
-                <a href="{{url_for('see_recipe', procedure_id=procedures._id) }}" class="btn-floating btn-large waves-effect waves-light red btn_small"><i class="material-icons">arrow_forward</i></a>
-                
-                
-                
-                
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large red">
+    <i class="large material-icons">mode_edit</i>
+  </a>
+  <ul>
+    <li><a href="{{url_for('recipes_time_desc')}}" class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+    <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+    <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+    <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+  </ul>
+</div>
 
 
+
+
+<a href="{{url_for('recipes_time_desc')}}" class="waves-effect waves-light btn btn_large blue">Sort</a>
+
+
+
+
+
+
+    <p>Click <a href="/logout">here</a>to logout</p>
+    <p>Click <a href="/login">here</a>to login</p>
+
+    {% for message in get_flashed_messages() %} {{ message }} {% endfor %}
+
+    <ul class="collapsible" data-collapsible="accordion">
+        {% for procedures in procedure %}
+        <li>
+
+            <div class="collapsible-header">
+                <div class="col s1">
+                    <i class="fa fa-cutlery" aria-hidden="true"></i>
+
+
+
+                    <a href="{{url_for('edit_recipe', procedure_id=procedures._id)}}" class="waves-effect waves-light btn btn_large">Edit</a>
+                    <a href="{{url_for('see_recipe', procedure_id=procedures._id) }}" class="btn-floating btn-large waves-effect waves-light red btn_small"><i class="material-icons">arrow_forward</i></a>
+
+
+
+
+
+
+                </div>
+                <div class="coll s12">
+                    <strong>{{procedures.food_name}}</strong> - {{procedures.predominant_group}}
+
+
+                </div>
             </div>
-            <div class="coll s12">
-                <strong>{{procedures.food_name}}</strong> - {{procedures.predominant_group}}
 
-
-            </div>
-        </div>
-
-        <div class="collapsible-body">
-            <span>
+            <div class="collapsible-body">
+                <span>
               {{procedures.food_context}}
           </span>
-        </div>
-    </li>
+            </div>
+        </li>
 
-    {% endfor %}
-</ul>
-   <div class="row">
-        <a  href="{{url_for('add_recipe')}}" class="waves-effect waves-light btn">
+        {% endfor %}
+    </ul>
+    <div class="row">
+        <a href="{{url_for('add_recipe')}}" class="waves-effect waves-light btn">
             <i class="material-icons right">add_circle_outline</i>Add recipe</a>
     </div>
+    
+    
+    
+    <script type="text/javascript">
+    
+      document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems, options);
+  });
+     var instance = M.FloatingActionButton.getInstance(elem);
+    
+    
+     document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems, {
+      toolbarEnabled: true
+    });
+  });       
+ 
 
-
-{% endblock %}
+        
+        
+    </script>
+    
+    
+    
+    
+    {% endblock %}

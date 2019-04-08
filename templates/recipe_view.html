@@ -57,11 +57,45 @@
           
         
         
-        
-        
         <div class="col s12">
-        <input type=file name=recipe_image>
-        {{procedure.image_url}}
+        <div class="container">
+          <h6>File Input</h6>
+          <form method="POST" action="/upload" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="text" name="username">
+            <input type="file" name=profile_image">
+            <input type="submit">
+          </form>
+          
+          
+          <div class="input-field">
+    <select id="sort-select">
+        <option value="disabled" disabled selected>Sort recipes</option>
+        <option value="desc">Cooking-time desc</option>
+        <option value="asc">Cooking-time asc</option>
+        <option value="votes-desc">Votes desc</option>
+        <option value="votes-asc">Votes asc</option>
+        <option value="date-desc">Newest</option>
+        <option value="date-asc">Oldest</option>
+    </select>
+</div>
+            
+            
+            
+            
+            
+            <label for="inputFile">File Input</label>
+            <input type="file" name="inputFile">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+            
+        </div>
+        
+    
+          
+          
+          
+        
     </div>
       </div>
     </div>

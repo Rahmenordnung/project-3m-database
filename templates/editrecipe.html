@@ -8,7 +8,7 @@
        <div class="input-field col s5 m6">
            <i class="material-icons prefix">poll</i>
             <select id="cuisine" name="cuisine_name">
-                  <option value="" disabled selected>Choose Category</option>
+                  <option value=" disabled selected">Choose Category</option>
                   {% for cat in cuisine %}
                       {% if cat.cuisine_name == procedure.cuisine_name %}
                   <option value="{{cat.cuisine_name}}" selected >{{cat.cuisine_name}}</option>
@@ -19,6 +19,10 @@
             </select>
         <label>Task Category</label>
 </div>
+
+
+
+
            
             
          
@@ -28,7 +32,7 @@
         <div class="input-field col s5 m6">
             <i class="material-icons prefix">cake</i>
             <select id="food_type" name="food_course">
-                 <option value="" disabled selected>Course election</option>
+                 <option value=" disabled selected">Course election</option>
                   {% for fod in food_type %}
                       {% if fod.food_course == procedure.food_course %}
                 <option value="{{fod.food_course}}" selected >{{fod.food_course}}</option>
@@ -46,7 +50,7 @@
         <div class="input-field col s5 m6">
             <i class="material-icons prefix">report_problem</i>
             <select id="food_group" name="predominant_group">
-                <option value="" disabled selected>Group election</option>
+                <option value="disabled selected">Group election</option>
                   {% for fod in food_group %}
                       {% if fod.predominant_group == procedure.predominant_group %}
                 <option value="{{fod.predominant_group}}" selected >{{fod.predominant_group}}</option>
@@ -66,7 +70,7 @@
         <div class="input-field col s5 m6">
             <i class="material-icons prefix">report_problem</i>
             <select id="recipe_author" name="author_name">
-                <option value="" disabled selected>Author</option>
+                <option value="disabled selected">Author</option>
                     {% for fod in recipe_author %}
                        {% if fod.author_name == procedure.author_name %}
                 <option value="{{fod.author_name}}" selected >{{fod.author_name}}</option>
