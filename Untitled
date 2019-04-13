@@ -39,3 +39,47 @@ def login():
     s</select>
 </div>
 <% endblock %>
+
+
+
+# Search results route
+@app.route('/search_results', methods=["GET", "POST"])
+def search_results():
+    value = request.form.get('search_text')
+    if request.method == 'POST':
+        if len(value.split()) > 0:
+            mongo.db.procedures.create_index([("$**", 'text')])
+            search_results = mongo.db.procedures.find(
+                {'$text': {'$search': value}})
+            # for item in search_results:
+            #     print("Search results: ", item)
+            return render_template("tasks1.html", procedures=search_results) 
+        else:
+            flash("Type something")
+            return redirect("tasks1.html")
+
+
+    else: 
+        flash("You are not allowed to perform this action")
+        return redirect('/')
+        
+        
+        
+        
+      ###searchhhhhhhhhhhhhhhhhhhh
+      
+     
+<div class="row"  "center-align margin-top-3vh" "card-content">
+    <div class="row hide-on-med-and-up">
+        <nav class="mobile-search-bar">
+            <div class="card-content">
+                <form id="search-form-mobile" action="{{ url_for('search_results') }}"  value:"search" method="POST" class="col s12">
+                    <div class="input-field">
+                        <input class="mobile-search-bar" type="search" name="search" id="search" placeholder="Search" required>
+                        <i class="material-icons" id="sendFormMobile" for="submit-form">search</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+    

@@ -42,7 +42,7 @@ def login_required(f):
 @app.route('/')
 @app.route('/get_tasks')
 def get_tasks():
-    return render_template("tasks.html", procedure=mongo.db.procedures.find().sort('cooking_time', pymongo.ASCENDING))
+    return render_template("tasks.html", procedure=mongo.db.procedures.find().sort('cooking_time', pymongo.DESCENDING))
     
     
 @app.route('/upload', methods=['POST'])
@@ -61,8 +61,8 @@ def file(filename):
 @app.route('/profile/<username>')
 def profile(username):
     user = mongo.db.users.find_one_or_404({'username' : username})
-    
-    return '/file/<filename>'
+    return render_template("task1.html")
+        
        
     
     
@@ -121,7 +121,8 @@ def update_recipe(procedure_id):
         'preparation_food': request.form.get ('preparation_food'),
         'cooking_time': request.form.get('cooking_time'),
         'food_context': request.form.get('food_context'),
-        'food_ingredients': request.form.get('food_ingredients')
+        'food_ingredients': request.form.get('food_ingredients'),
+        'image':request.form.get('image')
     })
     return redirect(url_for('get_tasks'))
     
@@ -201,7 +202,11 @@ def insert_cuisine():
 @app.route('/new_cuisine')
 def new_cuisine():
     return render_template('addcuisine.html')
-###---------------------------------------------    
+
+
+###---------SOrtings------------------------------------
+
+# by Cooking-time descending
 @app.route('/recipes_time_desc')
 def recipes_time_desc():
     tasks_sorted_desc = mongo.db.recipes.find(
@@ -215,6 +220,48 @@ def recipes_time_asc():
     tasks_sorted_asc = mongo.db.recipes.find(
         {"cooking-time": {"$gt": 0}}).sort([("cooking_time", 1)])
     return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('cooking_time', pymongo.ASCENDING))
+    
+# by Author_name ascending
+@app.route('/author_name_asc')
+def author_name_asc():
+    tasks_sorted_asc = mongo.db.recipes.find(
+        {"author_name": {"$gt": 0}}).sort([("author_name", 1)])
+    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('author_name', pymongo.ASCENDING))
+    
+# by Author_name descending
+@app.route('/author_name_desc')
+def author_name_desc():
+    tasks_sorted_desc = mongo.db.recipes.find(
+        {"author_name": {"$gt": 0}}).sort([("author_name", -1)])
+    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('author_name', pymongo.DESCENDING))
+    
+    # by Predominant group descending
+@app.route('/predominant_group_desc')
+def predominant_group_desc():
+    tasks_sorted_desc = mongo.db.recipes.find(
+        {"predominant_group": {"$gt": 0}}).sort([("predominant_group", -1)])
+    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('predominant_group', pymongo.DESCENDING))
+
+# by Gluten free descending
+@app.route('/gluten_free_desc')
+def gluten_free_desc():
+    tasks_sorted_desc = mongo.db.recipes.find(
+        {"gluten_free": {"$gt": 0}}).sort([("gluten_free", -1)])
+    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('gluten_free', pymongo.DESCENDING))
+    
+# by Celiacs free descending
+@app.route('/celiacs_desc')
+def celiacs_desc():
+    tasks_sorted_desc = mongo.db.recipes.find(
+        {"celiacs": {"$gt": 0}}).sort([("celiacs", -1)])
+    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('celiacs', pymongo.DESCENDING))
+    
+# by food gourse free descending
+@app.route('/food_course_desc')
+def food_course_desc():
+    tasks_sorted_desc = mongo.db.recipes.find(
+        {"food_course": {"$gt": 0}}).sort([("food_course", -1)])
+    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('food_course', pymongo.DESCENDING))    
 ###-----------------------------------  
 @app.route('/graphic')
 def graphic():
@@ -243,6 +290,42 @@ def donor_projects():
     json_procedures = json.dumps(json_procedures, default=json_util.default)
     # connection.close()
     return json_procedures
+    
+    
+# Search  **********************************************************************
+# Search term from search box
+@app.route('/search_box/', methods=["POST"])
+def search_box():
+    search_term = request.form['search_text']
+    if search_term:
+        return redirect(url_for('search_results', search_text=search_term))
+    else:
+        return render_template("task.html", procedures=mongo.db.procedures.find())
+
+# Search results route
+@app.route('/search_results', methods=["GET", "POST"])
+def search_results():
+    value = request.form.get('search_text')
+    if request.method == 'POST':
+        if len(value.split()) > 0:
+            mongo.db.procedures.create_index([("$**", 'text')])
+            search_results = mongo.db.procedures.find(
+                {'$text': {'$search': value}})
+            # for item in search_results:
+            #     print("Search results: ", item)
+            return render_template("tasks1.html", procedures=search_results) 
+        else:
+            flash("Type something")
+            return redirect(url_for('get_tasks'))  
+
+
+    else: 
+        flash("You are not allowed to perform this action")
+        return redirect('/')
+        
+        
+        
+
     
     
 

@@ -2,92 +2,97 @@
 <html>
 
 <head>
-    <title>Hello Food recipe, me fire don´t know</title>
+  <title>Hello Food recipe, me fire don´t know</title>
 </head>
 
 <body>
   <div class="row">
     <div class="col s12 m12">
       <div class="card">
-        
+
         <div class="card-image">
-          
-        
+
+
           <a class="btn-floating halfway-fab waves-effect waves-light yellow"><i class="material-icons">star</i></a>
-        
-        <img class="featurette-image img-responsive" src="https://i.pinimg.com/originals/1a/2d/60/1a2d603ef215914fbb7ee499b6c2a558.jpg" style="width:100%;" alt="Generic placeholder image">
-    
+
+          <img class="featurette-image img-responsive" src="{{procedure.image}}" style="width:100%;" alt="Generic placeholder image">
           
-          
+
+
           <span class="card-title"><h3>{{procedure.food_name}}</h3></span>
-          
+
         </div>
-        
+
         <div class="card-content">
           <h5 class="recipe-titles">Know what you eat</h5>
           <p>{{procedure.food_context}} </p>
-          </div>
-        
-         <div class="card-content">
-          <h5 class="recipe-titles">Ingredients</h5>
-            <p>{{procedure.food_ingredients}}</p>
         </div>
-        
+
+        <div class="card-content">
+          <h5 class="recipe-titles">Ingredients</h5>
+          <p>{{procedure.food_ingredients}}</p>
+        </div>
+
         <div class="card-content">
           <h5 class="recipe-titles">Preparation</h5>
-          <p>{{procedure.food_description}}
-              
-          </p>
+          <p>{{procedure.food_description}}</p>
         </div>
-       
+
         <div class="card-content">
-          <p>Recipe with <em><strong>{{procedure.cuisine_name}}</strong></em> style that can be prepared in <em><strong>{{procedure.preparation_food}} minutes </strong></em> approximately, That will result in a <em><strong>{{procedure.food_course}}</strong></em> ready to after <em><strong>{{procedure.cooking_time}}</strong></em> coocking time.
-          
-          <a href="{{url_for('delete_recipe', procedure_id = procedure._id)}}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">delete_forever</i></a>
+          <p>Recipe with <em><strong>{{procedure.cuisine_name}}</strong></em> style that can be prepared in <em><strong>{{procedure.preparation_food}} minutes </strong></em> approximately, That will result in a <em><strong>{{procedure.food_course}}</strong></em>            ready to after <em><strong>{{procedure.cooking_time}} minutes</strong></em> coocking time.
+
+              <!-- Modal Trigger -->
+            <a class="btn-floating halfway-fab waves-effect waves-light red btn modal-trigger" href="#modal1"><i class="material-icons">delete_forever</i></a>  
               
-          </p>
+            
+
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+              <div class="modal-content">
+                <p>Do you really want to delete the recipe?</p>
+                <div class="modal-footer">
+                <a href="{{url_for('delete_recipe', procedure_id = procedure._id)}}" class="modal-close waves-effect waves-red btn-flat">Agree</a>
+              </div>
+              <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Decline</a>
+              </div>
+              
+              </div>
+            </div>
+            
           
+
+          </p>
+
         </div>
         <div class="card-content">
           The author of the recipe is <em><strong>{{procedure.author_name}}</em></strong>. And nutritionally stand in the <em><strong>{{procedure.predominant_group}}</em></strong> group. The preparate is
           <em><strong>{{procedure.celiacs}}</strong></em> for <u>Celiacs</u> and <em><strong>{{procedure.gluten_free}}</strong></em> for <u>Gluten free</u> diet.
-          </div>
           
           
-          
-        
-        
+        </div>
+
+
+
+
+
         <div class="col s12">
-        <div class="container">
-          <h6>File Input</h6>
-          <form method="POST" action="/upload" enctype="multipart/form-data">
-          <div class="form-group">
-            <input type="text" name="username">
-            <input type="file" name=profile_image">
-            <input type="submit">
+          <div class="container">
+            <h6>File Input</h6>
+            <form method="POST" action="/upload" enctype="multipart/form-data">
+              <div class="form-group">
+                <input type="text" name="username">
+                <input type="file" name=profile_image ">
+            <input type="submit ">
+            <button type="submit " class="btn btn-default ">Submit</button>
           </form>
           
           
-          <div class="input-field">
-    <select id="sort-select">
-        <option value="disabled" disabled selected>Sort recipes</option>
-        <option value="desc">Cooking-time desc</option>
-        <option value="asc">Cooking-time asc</option>
-        <option value="votes-desc">Votes desc</option>
-        <option value="votes-asc">Votes asc</option>
-        <option value="date-desc">Newest</option>
-        <option value="date-asc">Oldest</option>
-    </select>
-</div>
+     
+
             
             
             
-            
-            
-            <label for="inputFile">File Input</label>
-            <input type="file" name="inputFile">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
             
         </div>
         
@@ -105,5 +110,11 @@
 </body>
 
 </html>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.modal').modal();
+  });
+
+</script>
 
 {% endblock %}
