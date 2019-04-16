@@ -83,3 +83,85 @@ def search_results():
         </nav>
     </div>
     
+    
+    
+    
+    login#######################
+    
+    
+    
+    def index():
+    if 'username' in session:
+        return 'Zou are logged in as ' + session ['username']
+    return render_template('logyin.html')
+    
+@app.route('/logyn')
+def logyn():
+    return ''
+    
+@app.route('/registration', methods=['POST', 'GET'])
+def registration():
+    if request.method == 'POST':
+        users = mongo.db.users
+        user_alive = users.find_one({'name' : request.form['username']})
+        
+        if user_alive is None:
+            hashpass = bcrypt.hashpw(request.form['pass'], bcrypt.genSalt())
+            users.insert({'name': request.form['username'], 'password': hashpass})
+            session['username'] = request.form['username']
+            return redirect(url_for('index'))
+            
+        return 'User name already exists!'
+        
+    return render_template('registration.html')
+    
+    
+    
+    ######pagination####
+    
+    
+    @app.route('/')
+
+@app.route('/get_tasks', methods=['GET'])
+def get_tasks():
+    
+    procedure = mongo.db.procedures
+    
+    limit = 10
+    
+    procedures = procedure.find().sort('_id', pymongo.ASCENDING).limit(limit)
+    
+    output = []
+    
+    for i in procedures:
+        output.append({'procedure' : i['procedure']})
+        
+    return jsonify ({'result' : output, 'prev_url' : '', 'next_url' : ''})
+    
+    
+    procedure = mongo.db.procedures
+    
+    limit = 10
+    
+   
+    
+    output = []
+    
+    for i in procedures:
+        output.append({'procedure' : i['procedure']})
+        
+    return jsonify ({'result' : output, 'prev_url' : '', 'next_url' : ''}) 
+    
+    
+    
+    return render_template("tasks.html", procedure=mongo.db.procedures.find().sort('_id', pymongo.ASCENDING))
+    
+    
+    
+    {{url_for('upvote_recipe', recipe_id=recipe._id)}}   {{recipe.votes}}
+    
+    {{url_for('upvote_recipe', procedures_id=procedure._id)}}
+    
+    {{procedures.votes}}
+    
+    

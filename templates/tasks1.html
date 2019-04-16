@@ -7,7 +7,7 @@
 {% if procedures.count() == 0 %}
 <h6 class="text-center">No recipes found....</h6>  
 {% else %}
-  <div class="schwantz"><em><strong>{% for search in procedures %}</strong></em></div>
+  <em><strong>{% for search in procedures %}</strong></em>
      
     <div class="card-image">      
       
@@ -40,6 +40,18 @@
           <em><strong>{{search.celiacs}}</strong></em> for <u>Celiacs</u> and <em><strong>{{search.gluten_free}}</strong></em> for <u>Gluten free</u> diet.
           </div>
          </div>
+         <br>
+         <br>
+         <br>
+         <ul class="pagination">
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <li class="active"><a href="#!">1</a></li>
+            <li class="waves-effect"><a href="#!">2</a></li>
+            <li class="waves-effect"><a href="#!">3</a></li>
+            <li class="waves-effect"><a href="#!">4</a></li>
+            <li class="waves-effect"><a href="#!">5</a></li>
+            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+         </ul>
          <br>
          <br>
          <br>

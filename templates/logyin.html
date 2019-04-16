@@ -1,0 +1,23 @@
+{% extends 'fundation_template.html' %} {% block content %}
+<div class="container">
+    <div class="row">
+         <div class="col-md-4 col-md-offset-4">
+             <form method=POST action="{{ url_for('logyn') }}">
+                 <div class="form-group">
+                     <label for="exampleImputEmail">Username</label>
+                     <input type="text" class="form-control" name="username" placeholder="Username">
+                 </div>
+                <div class="form-group">
+                    <label for="exampleImputPasword1">Password</label>
+                    <input type="password" class="form-control" name="pass" placeholder="Password">
+                 </div>
+                 <button type="submit" class="btn btn-primary btn-block">Log In</button>
+             </form>
+             <br>
+             <div>
+              Don´t have an account yet?<a href="{{ url_for('registration') }}">Sign up here</a>   
+             </div>
+         </div> 
+    </div>
+</div>
+{% endblock %}

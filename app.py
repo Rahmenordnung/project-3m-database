@@ -1,6 +1,8 @@
 import os
+
 from flask import (Flask, render_template, redirect, request, url_for,
     send_from_directory,session, flash, jsonify)
+   
 from functools import wraps
 from flask_pymongo import PyMongo, pymongo 
 from bson.objectid import ObjectId
@@ -8,6 +10,8 @@ from pymongo import MongoClient
 from bson import json_util
 from bson.json_util import dumps
 import json
+
+
 
 
 app = Flask(__name__)
@@ -40,10 +44,37 @@ def login_required(f):
 
 
 @app.route('/')
-@app.route('/get_tasks')
+
+@app.route('/get_tasks', methods=['GET'])
 def get_tasks():
-    return render_template("tasks.html", procedure=mongo.db.procedures.find().sort('cooking_time', pymongo.DESCENDING))
     
+    procedure = mongo.db.procedures
+    
+    limit = 100
+    
+    procedures = procedure.find().sort('_id', pymongo.ASCENDING).limit(limit)
+    
+    output = []
+    
+    ##for i in procedures:
+        ##print(i)
+    
+    
+    ##for i in procedures:
+        ##output.append({'procedure' : i['procedure']})
+        
+        
+        
+    ##return jsonify ({'result' : output, 'prev_url' : '', 'next_url' : ''})   
+    
+    return render_template("tasks.html", procedure=procedures)
+    
+       
+
+
+    
+    
+   
     
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -122,9 +153,12 @@ def update_recipe(procedure_id):
         'cooking_time': request.form.get('cooking_time'),
         'food_context': request.form.get('food_context'),
         'food_ingredients': request.form.get('food_ingredients'),
-        'image':request.form.get('image')
+        'image':request.form.get('image'),
+        'votes':request.form.ger('votes')
     })
     return redirect(url_for('get_tasks'))
+    
+
     
 @app.route('/delete_recipe/<procedure_id>')
 def delete_recipe(procedure_id):
@@ -135,7 +169,17 @@ def delete_recipe(procedure_id):
 @app.route('/see_recipe/<procedure_id>')
 def see_recipe(procedure_id):
     procedure = mongo.db.procedures.find_one({"_id": ObjectId(procedure_id)})
+    ##procedures_collection = cooking_book.procedures
+    ##procedure_ids = procedures_collection.find({},{"_id":1})
     return render_template("recipe_view.html", procedure=procedure, )
+
+##@app.route('/next_recipe/<procedure_id')
+##def next_recipe(procedure_id):
+    ##id = mongo.db.procedures_id
+    ##next_rec = '_id?limit=' + (limit) + 
+    
+    
+
 
     
 @app.route('/create', methods=['POST'])
@@ -202,6 +246,31 @@ def insert_cuisine():
 @app.route('/new_cuisine')
 def new_cuisine():
     return render_template('addcuisine.html')
+    
+###-----------------Votes-users, etc
+    # Voting:
+# Upvote recipe
+@app.route('/upvote_recipe/<procedure_id>', methods=["GET", "POST"])
+def upvote_recipe(procedure_id):
+    procedures = mongo.db.procedures
+    procedures.update({'_id': ObjectId(procedure_id)},
+                   {
+        '$inc': {'votes': 1}
+    }
+    )
+    return redirect(url_for('see_recipe'))
+
+
+# Downvote recipe
+@app.route('/downvote_recipe/<procedure_id>', methods=["GET", "POST"])
+def downvote_recipe(procedure_id):
+    procedures = mongo.db.procedures
+    procedures.update({'_id': ObjectId(procedure_id)},
+                   {
+        '$inc': {'votes': -1}
+    }
+    )
+    return redirect(url_for('see_recipe'))
 
 
 ###---------SOrtings------------------------------------
@@ -262,7 +331,7 @@ def food_course_desc():
     tasks_sorted_desc = mongo.db.recipes.find(
         {"food_course": {"$gt": 0}}).sort([("food_course", -1)])
     return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('food_course', pymongo.DESCENDING))    
-###-----------------------------------  
+###--------------------------grafic java---------  
 @app.route('/graphic')
 def graphic():
     return render_template('graphos.html')
@@ -323,6 +392,8 @@ def search_results():
         flash("You are not allowed to perform this action")
         return redirect('/')
         
+        
+
         
         
 
