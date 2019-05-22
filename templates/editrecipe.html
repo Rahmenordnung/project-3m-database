@@ -1,7 +1,7 @@
 {% extends 'fundation_template.html' %} {% block content %}
 
 
-<h3>Edit Task</h3>
+<h3>Edit Recipe</h3>
 
 <div class="row">
     <form action="{{url_for ('update_recipe', procedure_id = procedure._id)}}" method="POST" class="col s12">
@@ -17,18 +17,11 @@
                       {% endif %}
                   {% endfor %}
             </select>
-            <label>Task Category</label>
+            <label>Cuisine Category</label>
         </div>
 
 
-
-
-
-
-
-
-
-        <form action="{{url_for('insert_recipe')}}" method="POST" class="col s12">
+         <form action="{{url_for('insert_recipe')}}" method="POST" class="col s12">
             <div class="input-field col s5 m6">
                 <i class="material-icons prefix">cake</i>
                 <select id="food_type" name="food_course">
@@ -177,19 +170,24 @@
                                 </p>
 
                             </div>
-                            
-                            <div class="input-field col s12 m4">
-        <label for="upvote" >Cooking Time:</label>
-        <input type="number" id="upvote" name="upvote" required>
-    </div>
+   
 
 
 
                             <div class="row col s7">
                                 <button class="btn waves-effect waves-light" type="submit" name="action">Edit receipe
                      <i class="material-icons right">create</i>
+                     
                     </button>
+                    <button a href="{{url_for('get_tasks')}}"  class="btn waves-effect waves-light red" type="cancel" name="action">Cancel edition
+                     <i class="material-icons right">cancel</i>
+                    
+                    
                             </div>
+                        
+                    
+                    
+                            </div>s
 
 
 

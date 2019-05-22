@@ -1,7 +1,8 @@
 import os
+import math
 
 from flask import (Flask, render_template, redirect, request, url_for,
-    send_from_directory,session, flash, jsonify)
+    send_from_directory,session, flash, jsonify,abort)
    
 from functools import wraps
 from flask_pymongo import PyMongo, pymongo 
@@ -10,9 +11,6 @@ from pymongo import MongoClient
 from bson import json_util
 from bson.json_util import dumps
 import json
-
-
-
 
 app = Flask(__name__)
 app.secret_key = "Redbull gives you wings"
@@ -31,6 +29,20 @@ FIELDS = {
 
 mongo = PyMongo(app)
 
+###pagination and sorting###
+
+PAGE_SIZE = 10
+KEY_PAGE_SIZE = 'page_size'
+KEY_PAGE_NUMBER = 'page_number'
+KEY_TOTAL = 'total'
+KEY_PAGE_COUNT = 'page_count'
+KEY_ENTITIES = 'items'
+KEY_NEXT = 'next_uri'
+KEY_PREV = 'prev_uri'
+KEY_SEARCH_TEXT = 'search_text'
+KEY_ORDER_BY = 'order_by'
+KEY_ORDER = 'order'
+
 
 def login_required(f):
     @wraps(f)
@@ -43,39 +55,81 @@ def login_required(f):
     return wrap
 
 
-@app.route('/')
+def get_paginated_list(**params):
+    page_size = int(params.get(KEY_PAGE_SIZE, PAGE_SIZE))
+    page_number = int(params.get(KEY_PAGE_NUMBER, 1))
+    order_by = params.get(KEY_ORDER_BY, '_id')
+    order = params.get(KEY_ORDER, 'asc')
+    order = pymongo.ASCENDING if order == 'asc' else pymongo.DESCENDING
+    
+    if page_number < 1:
+        page_number = 1
+    
+    offset = (page_number - 1) * page_size
+    items = []
+    search_text = ''
+    if KEY_SEARCH_TEXT in params:
+        search_text = params.get(KEY_SEARCH_TEXT)
+        total_items = 0
+        if len(search_text.split()) > 0:
+            mongo.db.procedures.create_index([("$**", 'text')])
+            result = mongo.db.procedures.find({'$text': {'$search': search_text}})
+            total_items = result.count()
+            items = result.sort(order_by, order).skip(offset).limit(page_size)
+        else:
+            total_items = mongo.db.procedures.count()
+            items = mongo.db.procedures.find().sort(
+                order_by, order
+            ).skip(offset).limit(page_size)
+    else:
+        total_items = mongo.db.procedures.count()
+        items = mongo.db.procedures.find().sort(order_by, order).skip(
+            offset).limit(page_size)
+    
+    if page_size > total_items:
+        page_size = total_items
+    if page_number < 1:
+        page_number = 1
+    if page_size:
+        page_count = math.ceil(total_items / page_size)
+    else:
+        page_count = 0
 
+    if page_number > page_count:
+        page_number = page_count
+        
+    next_uri = {
+        KEY_PAGE_SIZE: page_size,
+        KEY_PAGE_NUMBER: page_number + 1
+    } if page_number < page_count else None
+    prev_uri ={
+        KEY_PAGE_SIZE: page_size,
+        KEY_PAGE_NUMBER: page_number - 1
+    } if page_number > 1 else None
+
+    return {
+        KEY_TOTAL: total_items,
+        KEY_PAGE_SIZE: page_size,
+        KEY_PAGE_COUNT: page_count,
+        KEY_PAGE_NUMBER: page_number,
+        KEY_NEXT: next_uri,
+        KEY_PREV: prev_uri,
+        KEY_SEARCH_TEXT: search_text,
+        KEY_ORDER_BY: order_by,
+        KEY_ORDER: order,
+        KEY_ENTITIES: items
+    }
+
+
+@app.route('/')
 @app.route('/get_tasks', methods=['GET'])
 def get_tasks():
-    
-    procedure = mongo.db.procedures
-    
-    limit = 100
-    
-    procedures = procedure.find().sort('_id', pymongo.ASCENDING).limit(limit)
-    
-    output = []
-    
-    ##for i in procedures:
-        ##print(i)
-    
-    
-    ##for i in procedures:
-        ##output.append({'procedure' : i['procedure']})
-        
-        
-        
-    ##return jsonify ({'result' : output, 'prev_url' : '', 'next_url' : ''})   
-    
-    return render_template("tasks.html", procedure=procedures)
-    
-       
+    print(request.args)
+    procedures = get_paginated_list(**request.args.to_dict())
+    print(procedures)
+    return render_template("tasks.html", result=procedures)
 
 
-    
-    
-   
-    
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'profile_image' in request.files:
@@ -153,8 +207,11 @@ def update_recipe(procedure_id):
         'cooking_time': request.form.get('cooking_time'),
         'food_context': request.form.get('food_context'),
         'food_ingredients': request.form.get('food_ingredients'),
-        'image':request.form.get('image'),
-        'votes':request.form.ger('votes')
+        'author_name': request.form.get('author_name'),
+        'predominant_group': request.form.get('predominant_group'),
+        'image':request.form.get('image')
+        
+        
     })
     return redirect(url_for('get_tasks'))
     
@@ -171,17 +228,9 @@ def see_recipe(procedure_id):
     procedure = mongo.db.procedures.find_one({"_id": ObjectId(procedure_id)})
     ##procedures_collection = cooking_book.procedures
     ##procedure_ids = procedures_collection.find({},{"_id":1})
-    return render_template("recipe_view.html", procedure=procedure, )
-
-##@app.route('/next_recipe/<procedure_id')
-##def next_recipe(procedure_id):
-    ##id = mongo.db.procedures_id
-    ##next_rec = '_id?limit=' + (limit) + 
-    
-    
+    return render_template("recipe_view.html", procedure=procedure )
 
 
-    
 @app.route('/create', methods=['POST'])
 def create():
     if 'profile_image' in request.files:
@@ -203,11 +252,24 @@ def get_cuisine():
     return render_template('cuisine.html',
                            cuisine=mongo.db.cuisine.find())
                            
+#@app.route('/get_author', methods=['GET'])
+#def get_author():
+    #return render_template('author_chef.html',
+      #                     author_name=mongo.db.recipe_author.find())
+                           
+
+                               
+                           
 
 @app.route('/edit_cuisine/<cuisine_id>')
 def edit_cuisine(cuisine_id):
     return render_template('editcuisine.html', 
     cuisine=mongo.db.cuisine.find_one({'_id': ObjectId(cuisine_id)}))
+    
+#@app.route('/edit_author/<recipe_author_id>')
+#def edit_author(recipe_author_id):
+ #   return render_template('editcuisine.html', 
+  #  author=mongo.db.recipe_author.find_one({'_id': ObjectId(recipe_author_id)}))     
     
     
 @app.route('/update_cuisine/<cuisine_id>', methods=['POST'])
@@ -221,6 +283,15 @@ def update_cuisine(cuisine_id):
         })
     return redirect(url_for('get_cuisine'))
     
+#@app.route('/update_author/<recipe_author_id>', methods=['POST'])
+#def update_author(recipe_author_id):
+ #   mongo.db.recipe_author.update(
+  #      {'_id': ObjectId(recipe_author_id)},
+   #     {
+    #        'author_name':request.form.get('author_name')
+     #   })
+    #return redirect(url_for('get_author'))    
+    
     
 @app.route('/delete_cuisine/<cuisine_id>')
 def delete_cuisine(cuisine_id):
@@ -231,7 +302,16 @@ def delete_cuisine(cuisine_id):
             'food_course':request.form.get('food_course')
             
         })
-    return redirect(url_for('get_cuisine'))  
+    return redirect(url_for('get_cuisine'))
+    
+#@app.route('/delete_author/<recipe_author_id>')
+#def delete_author(recipe_author_id):
+    #mongo.db.recipe_author.remove(
+        #{'_id': ObjectId(recipe_author_id)},
+       # {
+      #      'author_name':request.form.get('author_name')
+     #   })
+    #return redirect(url_for('get_author'))      
     
     
 @app.route('/insert_cuisine', methods=['POST'])
@@ -241,24 +321,38 @@ def insert_cuisine():
                         'food_course': request.form.get('food_course')}
     cuisine.insert_one(cuisine_country)
     return redirect(url_for('get_cuisine'))
+    
+
+#@app.route('/insert_author', methods=['POST'])    
+#def insert_author():
+ #   recipes_author=mongo.db.recipes_author
+  #  recipes_author.insert_one(request.form.to_dict())
+   # return redirect(url_for('get_author'))
 
     
 @app.route('/new_cuisine')
 def new_cuisine():
     return render_template('addcuisine.html')
     
+#@app.route('/new_author')
+#def new_author():
+    return render_template('addcuisine.html')    
+    
 ###-----------------Votes-users, etc
     # Voting:
 # Upvote recipe
-@app.route('/upvote_recipe/<procedure_id>', methods=["GET", "POST"])
+@app.route('/upvote_recipe/<procedure_id>', methods=["GET"])
 def upvote_recipe(procedure_id):
     procedures = mongo.db.procedures
-    procedures.update({'_id': ObjectId(procedure_id)},
-                   {
-        '$inc': {'votes': 1}
-    }
+    procedures.update({
+        '_id': ObjectId(procedure_id)
+        }, {
+            '$inc': {
+                'votes': 1
+            }
+        }
     )
-    return redirect(url_for('see_recipe'))
+    return redirect(url_for('see_recipe', procedure_id=procedure_id))
 
 
 # Downvote recipe
@@ -270,80 +364,25 @@ def downvote_recipe(procedure_id):
         '$inc': {'votes': -1}
     }
     )
-    return redirect(url_for('see_recipe'))
+    return redirect(url_for('see_recipe', procedure_id=procedure_id))
 
 
-###---------SOrtings------------------------------------
-
-# by Cooking-time descending
-@app.route('/recipes_time_desc')
-def recipes_time_desc():
-    tasks_sorted_desc = mongo.db.recipes.find(
-        {"cooking-time": {"$gt": 0}}).sort([("cooking-time", -1)])
-    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('cooking_time', pymongo.DESCENDING))
-    
-
-# by Cooking-time ascending
-@app.route('/recipes_time_asc')
-def recipes_time_asc():
-    tasks_sorted_asc = mongo.db.recipes.find(
-        {"cooking-time": {"$gt": 0}}).sort([("cooking_time", 1)])
-    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('cooking_time', pymongo.ASCENDING))
-    
-# by Author_name ascending
-@app.route('/author_name_asc')
-def author_name_asc():
-    tasks_sorted_asc = mongo.db.recipes.find(
-        {"author_name": {"$gt": 0}}).sort([("author_name", 1)])
-    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('author_name', pymongo.ASCENDING))
-    
-# by Author_name descending
-@app.route('/author_name_desc')
-def author_name_desc():
-    tasks_sorted_desc = mongo.db.recipes.find(
-        {"author_name": {"$gt": 0}}).sort([("author_name", -1)])
-    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('author_name', pymongo.DESCENDING))
-    
-    # by Predominant group descending
-@app.route('/predominant_group_desc')
-def predominant_group_desc():
-    tasks_sorted_desc = mongo.db.recipes.find(
-        {"predominant_group": {"$gt": 0}}).sort([("predominant_group", -1)])
-    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('predominant_group', pymongo.DESCENDING))
-
-# by Gluten free descending
-@app.route('/gluten_free_desc')
-def gluten_free_desc():
-    tasks_sorted_desc = mongo.db.recipes.find(
-        {"gluten_free": {"$gt": 0}}).sort([("gluten_free", -1)])
-    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('gluten_free', pymongo.DESCENDING))
-    
-# by Celiacs free descending
-@app.route('/celiacs_desc')
-def celiacs_desc():
-    tasks_sorted_desc = mongo.db.recipes.find(
-        {"celiacs": {"$gt": 0}}).sort([("celiacs", -1)])
-    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('celiacs', pymongo.DESCENDING))
-    
-# by food gourse free descending
-@app.route('/food_course_desc')
-def food_course_desc():
-    tasks_sorted_desc = mongo.db.recipes.find(
-        {"food_course": {"$gt": 0}}).sort([("food_course", -1)])
-    return render_template("tasks.html",  procedure=mongo.db.procedures.find().sort('food_course', pymongo.DESCENDING))    
 ###--------------------------grafic java---------  
-@app.route('/graphic')
-def graphic():
-    return render_template('graphos.html')
-    
-    
-@app.route('/procedures')
-def get_procedures():
+def get_recipes():
+    procedures = mongo.db.procedures.find()
     json_procedures = []
-    for procedure in mongo.db.procedures.find():
+    for procedure in procedures:
         json_procedures.append(procedure)
     json_procedures = json.dumps(json_procedures, default=json_util.default)
     return json_procedures
+
+@app.route('/graphic')
+def graphic():
+    return render_template('graphos.html', recipes=get_recipes())
+    
+@app.route('/procedures')
+def get_procedures():
+    return get_recipes()
  
     
 @app.route("/cooking_book/procedures")
@@ -371,34 +410,28 @@ def search_box():
     else:
         return render_template("task.html", procedures=mongo.db.procedures.find())
 
+    
 # Search results route
-@app.route('/search_results', methods=["GET", "POST"])
+@app.route('/search_results', methods=["POST"])
 def search_results():
-    value = request.form.get('search_text')
-    if request.method == 'POST':
-        if len(value.split()) > 0:
-            mongo.db.procedures.create_index([("$**", 'text')])
-            search_results = mongo.db.procedures.find(
-                {'$text': {'$search': value}})
-            # for item in search_results:
-            #     print("Search results: ", item)
-            return render_template("tasks1.html", procedures=search_results) 
-        else:
-            flash("Type something")
-            return redirect(url_for('get_tasks'))  
-
-
-    else: 
-        flash("You are not allowed to perform this action")
-        return redirect('/')
-        
-        
-
-        
-        
-
+    return redirect(url_for('get_tasks', search_text=request.form['search_text']))
     
     
+#Error handlers ---------------    
+    
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html') 
+
+
+@app.errorhandler(500)
+def server_error(error):
+    return render_template('500.html') 
+
+
+@app.errorhandler(403)
+def method_not_allowed(error):
+    return render_template('403.html')      
 
 
 if __name__ == '__main__':

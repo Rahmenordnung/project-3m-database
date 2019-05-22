@@ -165,3 +165,69 @@ def get_tasks():
     {{procedures.votes}}
     
     
+    
+    
+                                <div class="input-field col s12 m4">
+        <label for="upvote" >Cooking Time:</label>
+        <input type="number" id="upvote" name="upvote" required>
+    </div>
+    
+        <div class="row col s5">
+                                <button class="btn waves-effect waves-light red" type="cancel" name="action">Cancel edition
+                     <i class="material-icons right">cancel</i>
+                    </button>
+                    
+                    
+                    
+        {{url_for('upvote_recipe', recipe_id=recipe._id)}} 
+        
+        
+        
+        <a href="{{url_for('upvote_recipe', procedures_id=procedures._id)}}" id="upvote" class="hvr-grow waves-effect waves-light btn btn_big darken-1 tooltipped"
+                            data-position="bottom" data-tooltip="Upvote"><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{procedures.votes}}
+                            </a>
+                            
+                            
+                            
+          def test_get_cuisine(self):
+        tester = app.test_client(self)
+        response = tester.get('/get_cuisine', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+        
+    def test_edit_cuisine(self):
+        tester = app.test_client(self)
+        response = tester.get('edit_cuisine', content_type='html/text')
+        self.assertEqual(response.status_code, 200) 
+        
+    def test_update_cuisine(self):
+        tester = app.test_client(self)
+        response = tester.get('/update_cuisine', content_type='html/text')
+        self.assertEqual(response.status_code, 200) 
+        
+    def test_delete_cuisine(self):
+        tester = app.test_client(self)
+        response = tester.get('/delete_cuisine', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+    
+        
+    def test_new_cuisine(self):
+        tester = app.test_client(self)
+        response = tester.get('/new_cuisine', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+        
+    def test_upvote_recipe(self):
+        tester = app.test_client(self)
+        response = tester.get('/upvote_recipe', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+        
+        
+    def test_downvote_recipe(self):
+        tester = app.test_client(self)
+        response = tester.get('/downvote_recipe', content_type='html/text')
+        self.assertEqual(response.status_code, 200 
+        
+        
+        
+      <script type="text/javascript">
+    var $ENDPOINT = { { request.script_root | tojson | safe } };
+  </script>    

@@ -10,121 +10,104 @@
     <div class="col s12 m12">
       <div class="card">
 
+
         <div class="card-image">
 
 
           <a class="btn-floating halfway-fab waves-effect waves-light yellow"><i class="material-icons">star</i></a>
-          
-          <a href="" id="upvote" class="hvr-grow waves-effect waves-light btn btn_big darken-1 tooltipped"
-                            data-position="bottom" data-tooltip="Upvote"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+
+          <a href={{url_for( 'upvote_recipe', procedure_id=procedure._id)}} id="upvote" class="hvr-grow waves-effect waves-light btn btn_big darken-1 tooltipped" data-position="bottom" data-tooltip="Upvote"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                            {{procedure.votes}}
                             </a>
-                        <a class="hvr-grow waves-effect waves-light btn btn_big rose-taupe  activator"><i class="fa fa-eye"
-                                aria-hidden="true"></i>
-                        </a>
-
-          
-         <div class="card-action">
-                        
-          <img class="featurette-image img-responsive" src="{{procedure.image}}" style="width:100%;" alt="Generic placeholder image">
-          
+          <a href={{url_for( 'downvote_recipe', procedure_id=procedure._id)}} id="downvote" class="hvr-grow waves-effect waves-light btn btn_big darken-1 tooltipped" data-position="bottom" data-tooltip="Downvote"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                            {{procedure.votes}}
+                            </a>
 
 
-          <span class="card-title"><h3>{{procedure.food_name}}</h3></span>
 
-        </div>
+          </a>
 
-        <div class="card-content">
-          <h5 class="recipe-titles">Know what you eat</h5>
-          <p>{{procedure.food_context}} </p>
-        </div>
 
-        <div class="card-content">
-          <h5 class="recipe-titles">Ingredients</h5>
-          <p>{{procedure.food_ingredients}}</p>
-        </div>
+          <div class="card-action">
+            
+            {% if procedure.image  %}
 
-        <div class="card-content">
-          <h5 class="recipe-titles">Preparation</h5>
-          <p>{{procedure.food_description}}</p>
-        </div>
+            <img class="featurette-image img-responsive" src="{{procedure.image}}" style="width:100%;" alt="Generic placeholder image">
 
-        <div class="card-content">
-          <p>Recipe with <em><strong>{{procedure.cuisine_name}}</strong></em> style that can be prepared in <em><strong>{{procedure.preparation_food}} minutes </strong></em> approximately, That will result in a <em><strong>{{procedure.food_course}}</strong></em>            ready to after <em><strong>{{procedure.cooking_time}} minutes</strong></em> coocking time.
+            {% else %}
+            
+            <img class="featurette-image img-responsive" src="{{url_for('static', filename='/images/breakfast-buffet-after.jpg') }}" style="width:100%;" alt="Generic placeholder image">
+
+            {% endif  %}
+            <span class="card-title"><h3>{{procedure.food_name}}</h3></span>
+
+          </div>
+
+          <div class="card-content">
+            <h5 class="recipe-titles">Know what you eat</h5>
+            <p>{{procedure.food_context}} </p>
+          </div>
+
+          <div class="card-content">
+            <h5 class="recipe-titles">Ingredients</h5>
+            <p>{{procedure.food_ingredients}}</p>
+          </div>
+
+          <div class="card-content">
+            <h5 class="recipe-titles">Preparation</h5>
+            <p>{{procedure.food_description}}</p>
+          </div>
+
+          <div class="card-content">
+            <p>Recipe with <em><strong>{{procedure.cuisine_name}}</strong></em> style that can be prepared in <em><strong>{{procedure.preparation_food}} minutes </strong></em> approximately, That will result in a <em><strong>{{procedure.food_course}}</strong></em>              ready to after <em><strong>{{procedure.cooking_time}} minutes</strong></em> coocking time.
 
               <!-- Modal Trigger -->
-            <a class="btn-floating halfway-fab waves-effect waves-light red btn modal-trigger" href="#modal1"><i class="material-icons">delete_forever</i></a>  
-              
-            
+              <a class="btn-floating halfway-fab waves-effect waves-light red btn modal-trigger" href="#modal1"><i class="material-icons">delete_forever</i></a>
 
-            <!-- Modal Structure -->
-            <div id="modal1" class="modal">
-              <div class="modal-content">
-                <p>Do you really want to delete the recipe?</p>
-                <div class="modal-footer">
-                <a href="{{url_for('delete_recipe', procedure_id = procedure._id)}}" class="modal-close waves-effect waves-red btn-flat">Agree</a>
+
+
+              <!-- Modal Delete -->
+              <div id="modal1" class="modal">
+                <div class="modal-content">
+                  <p class='modaltext'>Do you really want to delete the recipe?</p>
+                  
+                  <span class="circle_attention"></span>
+                  <div class="modal-footer1">
+                    <a href="{{url_for('delete_recipe', procedure_id = procedure._id)}}" class="modal-close waves-effect waves-red btn waves-effect waves-light yellow">Agree</a>
+                  </div>
+                  <div class="modal-footer2">
+                    <a href="#!" class="modal-close waves-effect waves-green btn waves-effect waves-light red">Decline</a>
+                  </div>
+
+                </div>
               </div>
-              <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Decline</a>
-              </div>
-              
-              </div>
-            </div>
-            
-          
-
-          </p>
-
-        </div>
-        <div class="card-content">
-          The author of the recipe is <em><strong>{{procedure.author_name}}</em></strong>. And nutritionally stand in the <em><strong>{{procedure.predominant_group}}</em></strong> group. The preparate is
-          <em><strong>{{procedure.celiacs}}</strong></em> for <u>Celiacs</u> and <em><strong>{{procedure.gluten_free}}</strong></em> for <u>Gluten free</u> diet.
-          
-          
-        </div>
 
 
 
+            </p>
+
+          </div>
+          <div class="card-content">
+            The author of the recipe is <em><strong>{{procedure.author_name}}</em></strong>. And nutritionally stand in the <em><strong>{{procedure.predominant_group}}</em></strong> group. The preparate is
+            <em><strong>{{procedure.celiacs}}</strong></em> for <u>Celiacs</u> and <em><strong>{{procedure.gluten_free}}</strong></em> for <u>Gluten free</u> diet.
 
 
-        <div class="col s12">
-          <div class="container">
-            <h6>File Input</h6>
-            <form method="POST" action="/upload" enctype="multipart/form-data">
-              <div class="form-group">
-                <input type="text" name="username">
-                <input type="file" name=profile_image ">
-            <input type="submit ">
-            <button type="submit " class="btn btn-default ">Submit</button>
+          </div>
           </form>
-          
-          
-     
-
-            
-            
-            
-            
         </div>
-        
-    
-          
-          
-          
-        
-    </div>
       </div>
     </div>
   </div>
-       
-       
+  </div>
+
+
 </body>
 
 </html>
 <script type="text/javascript">
-$(document).ready(function(){
+  $(document).ready(function() {
     $('.modal').modal();
   });
-
 </script>
 
 {% endblock %}

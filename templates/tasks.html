@@ -1,82 +1,61 @@
 {% extends 'fundation_template.html' %} {% block content %}
 
-<aside class="col-md-3 hidden-xs hidden-sm">
-    <div class="container">
+        <h1>World Class Recipes</h1>
+        <hr>
 
-        <a href="{{url_for('gluten_free_desc')}}" type="button" class="btn btn-outline-success">Gluten free</a>
-        <a href="{{url_for('celiacs_desc')}}" class="button waves-effect waves-light btn btn_large blue">Celiacs</a>
-        <a href="{{url_for('predominant_group_desc')}}" type="button" class="btn btn-outline-success">Food group</a>
-        <a href="{{url_for('author_name_asc')}}" class="button waves-effect waves-light btn btn_large blue">Author up</a>
-        <a href="{{url_for('author_name_desc')}}" type="button" class="btn btn-outline-success">Author down</a>
-        <a href="{{url_for('predominant_group_desc')}}" class="button waves-effect waves-light btn btn_large blue">Course</a>
-
-    </div>
-
-</aside>
-
-
-<ul class="pagination">
-    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-    <li class="active"><a href="#!">1</a></li>
-    <li class="waves-effect"><a href="#!">2</a></li>
-    <li class="waves-effect"><a href="#!">3</a></li>
-    <li class="waves-effect"><a href="#!">4</a></li>
-    <li class="waves-effect"><a href="#!">5</a></li>
-    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-  </ul>
-
-
-
-
-<form id="search-form-mobile" action="{{ url_for('search_results') }}" value: "search" method="POST" class="col s12">
-    <div class="input-field">
-        <input class="mobile-search-bar" type="search" name="search_text" placeholder="Search" required>
+        <form id="search-form-mobile" action="{{ url_for('search_results') }}" value: "search" method="POST" class="col s12">
+        <div class="input-field">
+        <input class="mobile-search-bar" type="search" name="search_text" value="{{result['search_text']}}" placeholder="Search">
         <i class="material-icons" id="sendFormMobile" for="submit-form">search</i>
-
-
-
-
-
-        <p>Click <a href="/logout">here</a>to logout</p>
-        <p>Click <a href="/login">here</a>to login</p>
         
-       
-   
-    
+        
 
 
         {% for message in get_flashed_messages() %} {{ message }} {% endfor %}
+        
+        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Sorting option menu</a>
+
+        <p>Click <a href="/logout">here</a>to logout</p>
+        <p>Click <a href="/login">here</a>to login</p>
+
+<ul id='dropdown1' class='dropdown-content'>
+    <li><a href="{{url_for('get_tasks')}}?order_by=gluten_free&order=desc" ><img src="/static/images/gluten-free (1).png" alt="" class="circle">&emsp;Gluten free</a></li>
+    <li><a href="{{url_for('get_tasks')}}?order_by=celiacs_desc&order=desc"><img src="/static/images/celery (1).png" alt="" class="circle">&emsp;Celiacs</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="{{url_for('get_tasks')}}?order_by=predominant_group&order=asc"><img src="/static/images/pyramid.png" alt="" class="circle">&emsp;Food group up</a></li>
+    <li><a href="{{url_for('get_tasks')}}?order_by=predominant_group&order=desc"><img src="/static/images/analytics.png" alt="" class="circle">&emsp;Food group down</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="{{url_for('get_tasks')}}?order_by=author_name&order=asc"><img src="/static/images/chef (1).png" alt="" class="circle">&emsp;Author up</a></li>
+    <li><a href="{{url_for('get_tasks')}}?order_by=author_name&order=desc"><img src="/static/images/chef.png" alt="" class="circle">&emsp;Author down</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="{{url_for('get_tasks')}}?order_by=cooking_time&order=asc"><img src="/static/images/cooking.png" alt="" class="circle">&emsp;Cooking time up</a></li>
+    <li><a href="{{url_for('get_tasks')}}?order_by=cooking_time&order=desc"><img src="/static/images/cooking-time.png" alt="" class="circle">&emsp;Cooking time down</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="{{url_for('get_tasks')}}?order_by=votes&order=asc"><img src="/static/images/thumb-down-symbol-of-a-black-hand.png" alt="" class="circle">&emsp;Downvote</a></li>
+    <li><a href="{{url_for('get_tasks')}}?order_by=votes&order=desc"><img src="/static/images/ok-like-hand-sign.png" alt="" class="circle">&emsp;Upvote</a></li>
+    
+  </ul>        
 
 
         <ul class="collapsible" data-collapsible="accordion">
-            {% for procedures in procedure %}
+            {% for procedure in result['items'] %}
             <li>
-
                 <div class="collapsible-header">
                     <div class="col s1">
                         <i class="fa fa-cutlery" aria-hidden="true"></i>
 
-
-
-                        <a href="{{url_for('edit_recipe', procedure_id=procedures._id)}}" class="waves-effect waves-light btn btn_large">Edit</a>
-                        <a href="{{url_for('see_recipe', procedure_id=procedures._id) }}" class="btn-floating btn-large waves-effect waves-light red btn_small"><i class="material-icons">arrow_forward</i></a>
-
-
-
-
-
+                        <a href="{{url_for('edit_recipe', procedure_id=procedure._id)}}" class="waves-effect waves-light btn btn_large">Edit</a>
+                        <a href="{{url_for('see_recipe', procedure_id=procedure._id) }}" class="btn-floating btn-large waves-effect waves-light red btn_small"><i class="material-icons">arrow_forward</i></a>
 
                     </div>
                     <div class="coll s12">
-                        <strong>{{procedures.food_name}}</strong> - {{procedures.predominant_group}}
-
-
+                        <strong>{{procedure.food_name}}</strong> - {{procedure.predominant_group}}
                     </div>
                 </div>
 
                 <div class="collapsible-body">
                     <span>
-              {{procedures.food_context}}
+              {{procedure.food_context}}
           </span>
                 </div>
             </li>
@@ -87,9 +66,31 @@
             <a href="{{url_for('add_recipe')}}" class="waves-effect waves-light btn">
             <i class="material-icons right">add_circle_outline</i>Add recipe</a>
         </div>
-
-
-
+        
+        <ul class="pagination">
+    {% if result['prev_uri'] is none %}
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    {% else %}
+        <li class="waves-effect"><a href="{{ url_for('get_tasks') }}?page_number={{result['prev_uri']['page_number']}}&page_size={{result['prev_uri']['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">
+            <i class="material-icons">chevron_left</i>
+        </a></li>
+    {% endif %}
+    {% for page in range(1, result['page_count'] + 1) %}
+        {% if result['page_number'] == page %}
+            <li class="waves-effect active">
+        {% else %}
+            <li class="waves-effect">
+        {% endif %}
+        <a href="{{ url_for('get_tasks') }}?page_number={{page}}&page_size={{result['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">{{ page }}</a></li>
+    {% endfor %}
+    {% if result['next_uri'] is none %}
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    {% else %}
+        <li class="waves-effect"><a href="{{ url_for('get_tasks') }}?page_number={{result['next_uri']['page_number']}}&page_size={{result['next_uri']['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">
+            <i class="material-icons">chevron_right</i>
+        </a></li>
+    {% endif %}
+</ul>
 
         <script type="text/javascript">
             function myFunction() {
@@ -99,19 +100,13 @@
             document.addEventListener('DOMContentLoaded', function() {
                 var elems = document.querySelectorAll('.fixed-action-btn');
 
-
-
-
             });
-
 
             $(document).ready(function() {
                 $('select').formSelect();
+                $('.dropdown-trigger').dropdown();
             });
             var instance = M.FormSelect.getInstance(elem);
         </script>
 
-
-
-
-        {% endblock %}
+{% endblock %}

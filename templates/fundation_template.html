@@ -6,20 +6,20 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css" type="text/css" />
 
   <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
 
-  <script type="text/javascript">
-    var $ENDPOINT = {{ request.script_root|tojson|safe }};
-  </script>
   
+
 </head>
 
+
 <body>
-  <header>
+  <header class="header1">
     <nav>
       <div class="nav-wrapper">
-        <a href="{{url_for('get_tasks')}}" class="brand-logo">Restaurant</a>
+        <a href="{{url_for('get_tasks')}}" class="brand-logo">Belly convent</a>
         <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <li><a href="{{url_for('get_tasks')}}">Recipes</a></li>
@@ -37,27 +37,36 @@
     </ul>
     </nav>
     <title>{% block title %}{% endblock %}</title>
-  <h1>{% block page_title %}{% endblock %}</h1>
+    <h1>{% block page_title %}{% endblock %}</h1>
+
+
   </header>
-  
-  
-  
-               
+
+
+
+
+
+
 
   <div class="container">
     {% block content %}{% endblock %}
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.0.js"</script>
-  
-  <script type="text/javascript">
+  <script src="https://code.jquery.com/jquery-3.4.0.js" </script>
+    
     M.AutoInit();
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script type="text/javascript">
+  <script >
     M.AutoInit();
   </script>
   {% block scripts %}{% endblock %}
+
+  </div>
+
+
+
+  
 </body>
+
 </html>
