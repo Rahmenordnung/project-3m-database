@@ -88,12 +88,13 @@ function makeGraphs(data) {
         .transitionDuration(500)
         .barPadding(0.1)
         .outerPadding(0.05)
-        .group(preparationGroup);
+        .group(preparationGroup)
+         
 
     console.log(preparationSumGroup.all());
 
     authorsBarChart
-        .width(768)
+        .width(1108)
         .height(480)
         .x(d3.scaleBand())
         .xUnits(dc.units.ordinal)
@@ -105,6 +106,7 @@ function makeGraphs(data) {
         .barPadding(0.1)
         .outerPadding(0.05)
         .group(cuisineGroup);
+        
 
     // console.log(preparationSumGroup.all());
     
@@ -113,7 +115,8 @@ function makeGraphs(data) {
         .radius(90)
         .transitionDuration(1500)
         .dimension(foodgroupname)
-        .group(foodGroup);
+        .group(foodGroup)
+        .legend(dc.legend().x(290).y(10).itemHeight(8).gap(3) ); 
         
 
     // console.log(preparationSumGroup.all());
@@ -124,7 +127,7 @@ function makeGraphs(data) {
         .transitionDuration(1500)
         .dimension(authorname)
         .group(authorGroup)
-        .legend(dc.legend().x(420).y(0).itemHeight(155).gap(5) ); 
+        .legend(dc.legend().x(290).y(10).itemHeight(8).gap(3) ); 
     
     dc.renderAll();
     // console.log(preparationSumGroup.all());

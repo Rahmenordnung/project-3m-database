@@ -230,4 +230,115 @@ def get_tasks():
         
       <script type="text/javascript">
     var $ENDPOINT = { { request.script_root | tojson | safe } };
-  </script>    
+  </script>  
+  
+  
+  
+  login sehr wichtig 
+  
+  
+  error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            session['logged_in'] = True
+            flash('you\'re logging has been successful')
+            return redirect(url_for('add_recipe'))
+            
+            <input type="text" placeholder="username" name="username" value="{{
+          request.form.username }}">
+    <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}">
+          
+          
+          
+         @app.route('/login', methods=['GET'])
+def login():
+    if 'user' in session:
+        flash('you are already logged in...') 
+        return redirect(url_for('get_tasks'))    
+    else:
+        return render_template('login.html')
+    
+    
+@app.route('/user_check', methods=['POST'])
+def user_check():
+    form = request.form.to_dict()
+    user_in_db = mongo.db.users.find_one(
+        {
+            'username': form ['username']
+        }
+    )
+    if user_in_db:
+        password = check_password_hash(user_in_db['password'], form['pass'])
+        if password:
+            session['user'] = form['username']
+            return redirect(url_for('profile', user=form['username']))
+            
+        else:
+            flash("password missmatch, try again please!!!")
+            return redirect(url_for('login'))
+    else:
+        flash("You need to register first!")
+        return redirect(url_for('register'))
+    return redirect(url_for('profile'))
+    
+##Profile Page
+@app.route('/profile/<users>')
+def profile(user):
+    if 'user' in session:
+        flash('you are already logged in...') 
+        return render_template('profile', user= user)    
+    else:
+        return redirect(url_for('get_tasks'))
+    
+
+@app.route('/logout')
+@login_required
+def logout():
+    session.clear()
+    flash('you\'re now logged out')
+    return redirect(url_for('get_tasks'))
+    
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    error = None
+    if request.method == 'POST':
+        form = request.form.to_dict()
+        if form ['user_password'] == form ['user_password1']:
+            user = mongo.db.users.find_one(
+                {
+                    'username':form['username']
+                }
+            )
+            if user:
+                error = "{request.form['username']} already exists!!!"
+                flash ("{request.form['username']} already exists!!!")
+                return redirect(url_for('register'))
+            else:
+                hash_pass = generate_password_hash(form['user_password'])
+                mongo.db.users.insert_one(
+                    {
+                        'username': form['username'],
+                        'email': form ['email'],
+                        'password': hash_pass
+                    }
+                )
+                return redirect(url_for('login'))
+                user_in_db = mongo.db.users.find_one({
+                    "username": form['username']
+                })
+                if user_in_db:
+                    session['profile_user'] = form['username']
+                    flash ("you were registered as {form['username']}")
+                    return redirect(url_for('tasks'))
+                else:
+                    flash ("Something went wrong during your registration, Please try again!")
+                    return redirect(url_for('register'))
+                
+            
+        else:
+            flash("Passwords matching error. Try again!!!")
+            return redirect(url_for('register'))
+    return render_template("register.html")   

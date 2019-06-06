@@ -14,28 +14,44 @@
 
 </head>
 
-
 <body>
   <header class="header1">
-    <nav>
-      <div class="nav-wrapper">
-        <a href="{{url_for('get_tasks')}}" class="brand-logo">Belly convent</a>
-        <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="{{url_for('get_tasks')}}">Recipes</a></li>
-          <li><a href="{{url_for('add_recipe')}}">Add</a></li>
-          <li><a href="{{url_for('get_cuisine')}}">Cuisines</a></li>
-          <li><a href="{{url_for('graphic')}}">Graph</a></li>
-        </ul>
-      </div>
-    </nav>
+<!-- Dropdown Structure -->
+<ul id="dropdown" class="dropdown-content">
+  <li><a href="{{url_for('get_cuisine')}}">Cuisines</a></li>
+  <li class="divider"></li>
+  <li><a href="{{url_for('get_author')}}">Chefs</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">three</a></li>
+</ul>
+<nav>
+  <div class="nav-wrapper">
+    <a href="{{url_for('get_tasks')}}" class="brand-logo">Belly convent</a>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="{{url_for('get_tasks')}}">Recipes</a></li>
+      <li><a href="{{url_for('add_recipe')}}">Add</a></li>
+      <li><a href="{{url_for('graphic')}}">Graph</a></li>
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-trigger" href="#!" data-target="dropdown">Preferences<i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
     <ul class="sidenav" id="mobile-nav">
       <li><a href="{{url_for('get_tasks')}}">Recipes</a></li>
       <li><a href="{{url_for('add_recipe')}}">Add</a></li>
-      <li><a href="{{url_for('get_cuisine')}}">Cuisines </a></li>
       <li><a href="{{url_for('graphic')}}">Graph</a></li>
+      <li><a href="{{url_for('get_cuisine')}}">Cuisines </a></li>
+      <li><a href="{{url_for('get_author')}}">Chefs</a></li>
+      
     </ul>
-    </nav>
+  </div>
+</nav>  
+  
+  
+  
+  
+  
+  
+  
     <title>{% block title %}{% endblock %}</title>
     <h1>{% block page_title %}{% endblock %}</h1>
 
@@ -43,15 +59,22 @@
   </header>
 
 
+<p>Click <a href="/logout">here</a>to logout</p>
+<p>Click <a href="/login">here</a>to login</p>
+
 
 
 
 
 
   <div class="container">
+    <div>
+      {% for message in get_flashed_messages() %} {{ message }} {% endfor %}
+    </div><br><br>
     {% block content %}{% endblock %}
+    
   </div>
-
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.0.js" </script>
     
@@ -59,6 +82,7 @@
   </script>
   <script >
     M.AutoInit();
+    $(".dropdown-trigger").dropdown();
   </script>
   {% block scripts %}{% endblock %}
 

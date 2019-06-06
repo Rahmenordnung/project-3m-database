@@ -1,11 +1,11 @@
-.btn_small{
-    
+.btn_small {
+
     line-height: 4px;
-    margin: -5px 8px ;
-   
+    margin: -5px 8px;
+
 }
 
-.btn-large{
+.btn-large {
     height: 24px;
     width: 60px;
     line-height: 24px;
@@ -15,34 +15,55 @@
 
 
 
-.recipe-titles{
-    color:blue;
-    
+.recipe-titles {
+    color: blue;
+
 }
 
 .nav {
-  height:100%;  
+    height: 100%;
 }
 
 
 .nav-wrapper {
-    
-    background-image: url("/static/images/veg-mural-long.jpg");
+
+    background-image: url(/static/images/now-natural-foods-ingredients-hero-2x_0.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+
+}
+
+.recipes_body {
+    background-image: url(/static/images/explore-our-world-ingredients.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.wrapper {
+    background-color: white;
+}
+
+.tudor {
+    background-color: white;
+}
+.recipes_title{
+    text-align: center;
+}
+.add_button{
     
 }
 
 /*error handlrer image*/
-.image-wrapper{
-    width:100%;
-    height:100%;
+
+.image-wrapper {
+    width: 100%;
+    height: 100%;
 }
 
-.pagination{
-    text-align:right;
-   
-    
+.pagination {
+    text-align: center;
+
+
 }
 
 .collection .collection-item.avatar .secondary-content {
@@ -50,41 +71,28 @@
 }
 
 
-.modal-content{
-    
-text-align: center;
-background-image: url("/static/images/grid_bee.png");
+.modal-content {
+
+    text-align: center;
+    background-image: url("/static/images/grid_bee.png");
 }
 
-.modaltext{
+.modaltext {
     font-size: large;
     font-weight: bold;
-    
+
 }
 
-.modal-footer1{
-    
+.modal-footer1 {
+
     margin-bottom: 5px;
 }
 
 
-.circle_attention  {
-  height: 64px;
-  width: 68px;
-  background-image: url("/static/images/icons8-cancel-64.png");
-  border-radius: 50%;
-  display: inline-block;
-} 
-
-
-
-
-
-
-
-
-
-
-
-
-
+.circle_attention {
+    height: 64px;
+    width: 68px;
+    background-image: url("/static/images/icons8-cancel-64.png");
+    border-radius: 50%;
+    display: inline-block;
+}
