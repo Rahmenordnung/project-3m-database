@@ -1,10 +1,7 @@
 .btn_small {
-
     line-height: 4px;
     margin: -5px 8px;
-
 }
-
 .btn-large {
     height: 24px;
     width: 60px;
@@ -12,47 +9,123 @@
     margin: 5px 5px;
     padding: 0 0.5em;
 }
-
-
-
-.recipe-titles {
-    color: blue;
-
+.nav-wrapper a {
+    background-color: #d1d1d12e;
 }
 
+.s12 {line-height: 250%;}
 .nav {
     height: 100%;
 }
-
-
 .nav-wrapper {
-
-    background-image: url(/static/images/now-natural-foods-ingredients-hero-2x_0.jpg);
+    background-image: url(/static/images/shutterstock_275683796.0.0.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 
 }
-
 .recipes_body {
-    background-image: url(/static/images/explore-our-world-ingredients.jpg);
+    background-color:white;
+}
+.dropdown1 {
+    float: right;
+}
+.brand-logo{
+    color: -webkit-linear-gradient(#eee, #333);
+}
+.login{
+    border-right: 1px solid #ffffff;
+}
+/*background images*/
+.sub_nav{
+    margin-top: 10px;
+    height:450px;
+    width: -webkit-fill-available;
+    background-image: url(/static/images/fondo-alimentos-concepto-alimentos-varios-sabrosos-ingredientes-frescos-cocinar-ingredientes-italianos-comida-vista-arriba-espacio-copia_1309-140.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding: 5px;
 }
-
+.sub_nav_course{
+    margin-top: 10px;
+    height:450px;
+    width: -webkit-fill-available;
+    background-image: url(/static/images/study-course-basic-food-safety-hazard-identification-and-control-main.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding: 5px;
+}
+.sub_nav_author{
+    margin-top: 10px;
+    height:450px;
+    width: -webkit-fill-available;
+    background-image: url(/static/images/chefmuschi.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding: 5px;
+}
+.sub_nav_food_group{
+    margin-top: 10px;
+    height:450px;
+    width: -webkit-fill-available;
+    background-image: url(/static/images/protein_650x400_41502086273.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding: 5px;
+}
+.sub_nav_cuisine{
+    margin-top: 10px;
+    height:450px;
+    width: -webkit-fill-available;
+    background-image: url(/static/images/food-and-bevarge-header.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding: 5px;
+}
 .wrapper {
     background-color: white;
 }
-
+.brand-logo{
+    margin-left: 5px
+}
 .tudor {
     background-color: white;
 }
 .recipes_title{
     text-align: center;
 }
-.add_button{
-    
+
+.pull-right{
+    margin-top: 33px;
+    margin-right: 15px;
+    float: inherit;
+}
+.row .col.s4{
+    float: inherit;
 }
 
+.row .col.s5{
+   width:36%; 
+}
+
+
+.recipes_title{
+    text-align: center;
+}
+.customisations{
+    border: groove;
+    box-shadow: inset 0px 0px 0px 0px;
+    
+}
 /*error handlrer image*/
 
 .image-wrapper {
@@ -62,6 +135,8 @@
 
 .pagination {
     text-align: center;
+    margin-top: 20px;
+    float: right;
 
 
 }
@@ -96,3 +171,67 @@
     border-radius: 50%;
     display: inline-block;
 }
+
+/*Footer*/
+
+footer{
+text-align: center;
+opacity: .8;
+padding: 50px;
+background-image: -webkit-linear-gradient(left, #BA4A00 0, #2ECC71 100%);
+background-image: -o-linear-gradient(left, #BA4A00 0, #2ECC71 100%);
+background-image: linear-gradient(to right, #BA4A00 0, #2ECC71 100%);
+background-repeat: repeat-x;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#BA4A00', endColorstr='#2ECC71', GradientType=1);
+display: block;
+}
+#lab_social_icon_footer{
+    padding: 5px 0;
+    
+}
+#lab_social_icon_footer .social:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+#lab_social_icon_footer .social {
+  -webkit-transform: scale(0.8);
+  /* Browser Variations: */
+  -moz-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+}
+/*
+    Multicoloured Hover Variations
+*/
+
+#lab_social_icon_footer #social-fb:hover {
+  color: blue;
+}
+
+#lab_social_icon_footer #social-tw:hover {
+  color: yellow ;
+}
+
+#lab_social_icon_footer #social-yu:hover {
+  color: green;
+}
+
+#lab_social_icon_footer #social-gg:hover {
+  color: red;
+}
+
+.grey-text{
+    margin-top: 15px;
+}
+
+/*graphics*/
+
+#reset-filter-button{
+    margin-top: 15px;
+}
+
+
+

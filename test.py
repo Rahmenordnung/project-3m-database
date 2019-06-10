@@ -1,6 +1,8 @@
-from app import app
+from app import app, insert_recipe_data
 import unittest
 import mock
+import json
+from bson import json_util
 
 class FlaskTestCase(unittest.TestCase):
     def setUp(self):
@@ -11,17 +13,47 @@ class FlaskTestCase(unittest.TestCase):
     ###############
     
     #Ensure that flask is set up correctly
-    def test_index(self):
-        tester = app.test_client(self)
-        response = tester.get('/login', content_type='html/text')
-        self.assertEqual(response.status_code, 200)
+    # def test_index(self):
+    #     tester = app.test_client(self)
+    #     response = tester.get('/login', content_type='html/text')
+    #     self.assertEqual(response.status_code, 200)
     
      #Ensure that add_recipe worked up correctly, and contains some text in the title
         
-    def test_add_recipe(self):
+    def test_render_add_recipes_page(self):
         tester = app.test_client(self)
         response = tester.get('/add_recipes', content_type='html/text')
         self.assertEqual(response.status_code, 200)
+        
+    def test_insert_recipe(self):
+        tester = app.test_client(self)
+        data = dict(
+            cuisine_name='Festivalooooo',
+            food_course='first coursem',
+            predominant_group='Fruits & Vegetables',
+            author_name='Joel Robuchon'
+        )
+        # food_context: Facts
+        # food_name: Food name
+        # food_ingredients: sugar
+        # food_description: task description
+        # celiacs: on
+        # gluten_free: on
+        # preparation_food: 125
+        # cooking_time: 350
+        # image: 
+        # action:
+        
+        expected_result = None
+        
+        insert_one_result = insert_recipe_data(data)
+        json_result = json.dumps(insert_one_result, default=json_util.default)
+        
+        self.assertEqual(expected_result, json_result)
+        
+        # response = tester.post('/insert_recipe', data=data)
+        # print(response)
+        # self.assertEqual(response.status_code, 302)
     
     def test_edit_recipe(self):
         tester = app.test_client(self)
@@ -81,10 +113,10 @@ class FlaskTestCase(unittest.TestCase):
         
         
     #Ensure that the login pages contains the specified words    
-    def test_words_in_login(self):
-        tester = app.test_client(self)
-        response = tester.get('/login', content_type='html/text')
-        self.assertTrue(b'Please login' in response.data)
+    # def test_words_in_login(self):
+    #     tester = app.test_client(self)
+    #     response = tester.get('/login', content_type='html/text')
+    #     self.assertTrue(b'Please login' in response.data)
         
     def test_get_tasks(self):
         tester = app.test_client(self)
@@ -99,16 +131,12 @@ class FlaskTestCase(unittest.TestCase):
         self.assertTrue(b'Recipe' in response.data)
         self.assertTrue(b'Cuisine' in response.data)
         
-        
-        
-        
-        
     #Ensure that login behaves correctly given the correct credencials
     
-    def test_login_correct(self):
-        tester = app.test_client(self)
-        response = tester.post('/login', data=dict(username="admin", password="admin"), follow_redirects=True)
-        self.assertIn(b'you&#39;re logging has been successful', response.data)
+    # def test_login_correct(self):
+    #     tester = app.test_client(self)
+    #     response = tester.post('/login', data=dict(username="admin", password="admin"), follow_redirects=True)
+    #     self.assertIn(b'you&#39;re logging has been successful', response.data)
         
     def test_edit_recipes(self):
         tester = app.test_client(self)
@@ -119,10 +147,10 @@ class FlaskTestCase(unittest.TestCase):
     #Ensure that login behaves correctly given the incorrect credencials
     
     
-    def test_login_incorrect(self):
-        tester = app.test_client(self)
-        response = tester.post('/login', data=dict(username="admins", password="adminw"), follow_redirects=True)
-        self.assertIn(b'Invalid Credentials. Please try again', response.data)
+    # def test_login_incorrect(self):
+    #     tester = app.test_client(self)
+    #     response = tester.post('/login', data=dict(username="admins", password="adminw"), follow_redirects=True)
+    #     self.assertIn(b'Invalid Credentials. Please try again', response.data)
     
     
     #Ensure that logout behaves correctly

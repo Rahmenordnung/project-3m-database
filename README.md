@@ -1,37 +1,33 @@
 # Cookbook Milestone Project (Tudor George Pascu)
 
-## Mongo db, Flask, Python, Data centric development 
+## Name
 
-### Name
+Belly convent, the project name was chosen because the user as he enters the page will be converted, for a litlle while , to a world of superiour cuisine aplied in various locations all over the world. Sometime will be the case that is a high class cuisine, other that will be a very famour recipe that represents so well a type of cuisine and it tastes so well that gain its own place among the Belly cuisine.
 
-Belly convent, the project name was chosen because the user as he enters the page will be converted, for the while he visits the page, to a world of superiour cuisine aplied in various locations all over the world. Sometime will be the case that is a high class cuisine, other that will be a very famour recipe that represents so well a type of cuisine and it tastes so well that gain its own place among the Belly cuisine.
-
-#### User Stories
+## User Stories
 
 * A mother staying at home bored, because she doesn't know how to get a superior recipes page, or very popular ones. Because she whants to impress her friends and get some good impressions and somehow climb up in the social scale.
 
 * Anybody interrested in improving their cooking level, chefs, students, and they need a fast and quick selection of recipes sorted in different ways.
 
-* A person that looks for some good ranked recipes but needs some specifications about some of the most comun allergens because of their health contions.
+* A person that looks for some good ranked recipes but needs some specifications about the most comun allergens because of their health contions.
 
-
-
-### Features
+## Features
 
 ### Existing Features
 
-* Navbar - Consists of the Bely Convent logo which returns the user to the "Home" page of the application. There is also links to the "Recipes", "Add (recipes)", "Cuisines" and Graphs. The navbar will appear on all pages.
+* __Navbar__ - Consists of the __Bely Convent__ logo which returns the user to the Home page of the application. There is also links to the **Recipes**, **Add (recipes)**, **Graphs**, **Preferences** that contains a _dropdown_ with **Cuisine**, **Chefs**, **Courses**, **Food Group**. The navbar will appear on all pages.
 
 #### __Belly Convent__  
  
-* Or Recipes is a __list of recipes__ that at the same time is the Home page. This consist of the recipes list containing  the recipe name and their food group shown in a __acordeon__ that if *clicked* will display a small intro acout the recipe. Before each recipe name there are __two options__, one is for **editing** the recipe and one is for **viewing the full recipe**, preceded by some **glyphicons**.
+* Or Recipes is a __list of recipes__ that at the same time is the Home page. This consist of the recipes list containing  the recipe name and their food group shown in a __acordeon__ that if *clicked* will display a small intro acout the recipe. Before each recipe name there are __two options__, one is for **editing** the recipe and one is for **viewing the full recipe**, preceded by a **glyphicon**.
     * The __editing button__ edites the recipe in all the fields that are available in the database.
-    * The __green arrow__ redirects the user to the recipe __full detail__, differentiated from the small preview present in the accordeon. This full detailed page consits of all the data present in the database, image, name, prep-time, etc
+    * The __red arrow__ redirects the user to the recipe __full detail__, differentiated from the small preview present in the accordeon. This full detailed page consits of all the data present in the database, image, name, prep-time, etc
 * __Sorting dropdown__ above the list, delievers different parameters to order the recipe list.
 * __The Search box__ offers the user the function of searching by words in the data-base
-* __Pagination__ is present in the Recipe list and in the searching results if required by the results
-FOOTER
+* __Pagination__ is present in the Recipe list and in the searching results if required by the results number
 * __Add Recipe__ is a green button that redirects the user to the add recipe page
+* __Footer__ contains a copyright text, a link to a restaurant with the same name, and social media icons to different cooking pages.
 
 #### __Add Recipe__ 
 
@@ -47,29 +43,35 @@ FOOTER
 * Gluten free(checkbox)
 * Cooking Time(slidebar)
 * Preparation time(slidebar)
-* Recipe Url
+* Recipe image Url
+
+#### __Graphics__
+ Five diagrams that reflect in a statistical manner different relations between different variables among the recipes database. That allows the user to easily diferenciate between authors and type of cuisine, for instance and many other different relationships. They are realized with dc.js, crossfilter, queue, and d3.js. 
 
 In this formular I didn't added the upvotes function, that is only available in the __recipes detail view__
+
+## Preferences
 
 #### __Cuisines__
 
 Presents a list of the cuisines types and also it integrates two small buttons _edit_ and _delete_. But this time the buttons edit / delete the cuisine type and not the recipe.
 
-AUTHOR
-FOOD GROUP
-COURSE
+#### __Chefs__
 
-#### __Graphics__
- Five diagrams that reflect in a statistical maner different relation between different variables between the recipes database. That allows the user to easily diferenciate between authors and type of cuisine, for instance and many other different relationships. They are realized with dc.js, crossfilter, queue, and d3.js. 
+Presents a list of the chefs and also it integrates the posibility of editing, deleting and adding new ones. 
 
+#### __Courses__
 
+Our food is sorted by different courses presented in a list that contans the possibillity of modifing the register as the user decides.
 
+#### __Food Group__
 
+ A list of the most important food group present in the daily nutrition. It integrates as in the rest of prefences the posibility of editing, deleting and adding new ones.
 
 
 Navbar - Consists of the DADDY DOES DINNER logo which returns the user to the "Home" page of the application. There is also links to the "Recipes", "My Recipes", "Login / Dashboard" and Contact forms. The navbar will appear on all pages.
-Home - The home page consists of 4 sample recipes along with some information on contacting the webmaster and a link to the contact us page of the site.
-All Recipes - Directs the user to the "All Recipes" page which displays ALL recipes from ALL users which have been entered on the site. The user can then filter or browse through the recipes. The can view more information on each recipe by selectign the "See Recipe" link which delivers the user to the "Recipe Detail" page.
+_Home_ - The home page consists of 4 sample recipes along with some information on contacting the webmaster and a link to the contact us page of the site.
+_All Recipes_ - Directs the user to the "All Recipes" page which displays ALL recipes from ALL users which have been entered on the site. The user can then filter or browse through the recipes. The can view more information on each recipe by selectign the "See Recipe" link which delivers the user to the "Recipe Detail" page.
 Recipe Detail - Provides users with the recipe details containg a recipe name, description, image (if available), flavour, meal type, base ingredients, ingredients, instructions, author and date posted.
 My Recipes - Provides the user with the recipes that they have added themselves. The user's recipes can be edited and deleted by using the buttons displayed under the recipes.
 Login/Dashboard - When first selected the user will be prompted to create a username to login to the application so that they can add recipes to the database. Once logged in the user will be presented with their dashboard which provides a count of their recipes, along with 3 data charts depicting the number of base ingredients, meal types and food flavours associated with the recipes which have been added.
@@ -83,20 +85,13 @@ Social Links - Provides users with links to the website social media pages and a
 * The edit button will take you to edit the recipe as the user desires. Selecting cusine, author, predominant group of food, food course, allergens like Gluten free and celiacs. Also one ca select  in a range selector the preparation and the cooking time set by minutes, the foor ingredients, description, contect( that is small introduction) and finally the name.
 * The arrow next to the Edit recipe button will display fully the recipe with all the fiels(food ingredients, author name, gluten free, etc) available and with an image assigend by _html_. There is also a delete button that, when clicked will guide you to a modal dialogue that will ensure that the user is aware of the complet deletion of the recipe.
 * 
-_pagination_ ...........
+_pagination_ The pagination is allowing the user to move easily and quick through the list of recipes. It was implemented 
 
 * Add recipe. Here the user will be able to ad a recipe.
 
 * Cuisine_author_, _predominant.........     etc_  a page where one can see all the cuisine list, edit them and delete them as well
 
 * Graphic a serie of five graphichs displayed with the help of d3, crossfilter that help the user see in an easy and graphic way the relation bethween for instance time of cooking and cuisine type. 
-
-
-
-
-
-
-
 
 #### Working Features
 
@@ -109,23 +104,17 @@ This is a web application which allows users to store and easily access cooking 
 
 5. **Dashboard** displays a graphic relation between cooking time, preparation tyme, cuisine name, author name and food groups
 6. **Search and sort** function allow the user to search by word among the database, and the sort function orders the list under different criteria such as author, predominant group, etc.
+ Also contains a dc.js **Interactive Graphic** , some **modal dialogues** used to advert the user that is going to delete a record, and **pagination** that allows the user to move through the web page.
+In addition I tried to implement a simple log in function that it works .
  
-
 
 #### Features Left to Implement
 
-1. Upvotes
-2. Login
-3. Pagination
-4. Fix Search functionality
-5. Add author, food group in cathegories, etc
-6. Images upload available
-7. Export to PDF, download a recipe.
-
-
-
-
-
+1. Export to PDF, download a recipe.
+2. Expand the recipes with videos, more alergens and probably the option of buying a cooking book.
+2. Improve the recipes presentation.
+3. Improve the search function.
+4. Asign each recipe to an user and have a record about that
 
 ### Technologies Used
 
@@ -133,18 +122,17 @@ This is a web application which allows users to store and easily access cooking 
 
 * **_Materialize, Front awsome_** for the display, templates and icons
 
-* **_Python, Flask, Mongo Db_** worked to connect the backend database to the frontend
+* **_Python, Flask** worked to connect the backend database to the frontend
+
+* ** Mongo Db_** a not SQl database non-relational approach. These datastores do not require fixed table schemas and try to avoid joins.
 
 * **_Heroku_**  Platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
 
-* **_TravisCl_** used to test the code
+* **_TravisCl_** continuous integration service used to build and test software projects hosted at GitHub.
 
 * **_Flask_testing_** used to test framework functionality and its coninuous integration to Flask app and database (SQL or NON SQL)
 
 * **_Unittest_** was used to build the testing framework.
-
-
-
 
 
 ### Testing 
@@ -153,17 +141,8 @@ This is a web application which allows users to store and easily access cooking 
 
  ***********The app was tested on Samsung S8, Apple iPhone 6, etc,(all the deviced served in the Chrome developer tools) and also using the Google Chrome inspect feature to test for repsonsiveness and any errors that occurred. There were many issues founded most of them with the css sidevar/ navbar not resizing, card etc. Also this tool is usefull ,using their console, in founding java errors,retrieving the raw data from the data base, and proving the flask sessions reliability. 
  ***********
-
-
-
-
-
-
-
-
-
-
-
+ 
+### Deployment
 
 
 

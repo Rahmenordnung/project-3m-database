@@ -10,7 +10,7 @@
 //   });
   
 var recipes = $('#charts-container').data('recipes');
-console.log(recipes);
+//console.log(recipes);
 makeGraphs(recipes);
   
 // What are you trying to do with this?
@@ -61,8 +61,8 @@ function makeGraphs(data) {
     // console.log(preparationSumGroup.all());
     
     cookingTimeBarChart
-        .width(568)
-        .height(480)
+        .width(528)
+        .height(450)
         .x(d3.scaleBand())
         .xUnits(dc.units.ordinal)
         .brushOn(false)
@@ -77,8 +77,8 @@ function makeGraphs(data) {
     // console.log(preparationSumGroup.all());
 
     preparationTimeBarChart
-        .width(568)
-        .height(480)
+        .width(528)
+        .height(450)
         .x(d3.scaleBand())
         .xUnits(dc.units.ordinal)
         .brushOn(false)
@@ -91,10 +91,10 @@ function makeGraphs(data) {
         .group(preparationGroup)
          
 
-    console.log(preparationSumGroup.all());
+    // console.log(preparationSumGroup.all());
 
     authorsBarChart
-        .width(1108)
+        .width(528)
         .height(480)
         .x(d3.scaleBand())
         .xUnits(dc.units.ordinal)

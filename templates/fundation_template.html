@@ -7,90 +7,86 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css" type="text/css" />
-
   <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
-
-  
-
 </head>
 
 <body>
   <header class="header1">
-<!-- Dropdown Structure -->
-<ul id="dropdown" class="dropdown-content">
-  <li><a href="{{url_for('get_cuisine')}}">Cuisines</a></li>
-  <li class="divider"></li>
-  <li><a href="{{url_for('get_author')}}">Chefs</a></li>
-  <li class="divider"></li>
-  <li><a href="#!">three</a></li>
-</ul>
-<nav>
-  <div class="nav-wrapper">
-    <a href="{{url_for('get_tasks')}}" class="brand-logo">Belly convent</a>
-    <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    <ul class="right hide-on-med-and-down">
-      <li><a href="{{url_for('get_tasks')}}">Recipes</a></li>
-      <li><a href="{{url_for('add_recipe')}}">Add</a></li>
-      <li><a href="{{url_for('graphic')}}">Graph</a></li>
-      <!-- Dropdown Trigger -->
-      <li><a class="dropdown-trigger" href="#!" data-target="dropdown">Preferences<i class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>
-    <ul class="sidenav" id="mobile-nav">
-      <li><a href="{{url_for('get_tasks')}}">Recipes</a></li>
-      <li><a href="{{url_for('add_recipe')}}">Add</a></li>
-      <li><a href="{{url_for('graphic')}}">Graph</a></li>
-      <li><a href="{{url_for('get_cuisine')}}">Cuisines </a></li>
+    <!-- Dropdown Structure -->
+    <ul id="dropdown" class="dropdown-content">
+      <li><a href="{{url_for('get_cuisine')}}">Cuisines</a></li>
+      <li class="divider"></li>
       <li><a href="{{url_for('get_author')}}">Chefs</a></li>
-      
+      <li class="divider"></li>
+      <li><a href="{{url_for('get_food_type')}}">Courses</a></li>
+      <li class="divider"></li>
+      <li><a href="{{url_for('get_food_group')}}">Food Group</a></li>
     </ul>
-  </div>
-</nav>  
-  
-  
-  
-  
-  
-  
-  
-    <title>{% block title %}{% endblock %}</title>
-    <h1>{% block page_title %}{% endblock %}</h1>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="{{url_for('get_tasks')}}" class="brand-logo"><i class="fa fa-beer">  Belly convent</i></a>
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
 
+          <li><a href="{{url_for('logout')}}"><i class="fa fa-sign-out"> log out </i></a></li>
+          <li class="login"><a href="{{url_for('login')}}"><i class="fa fa-sign-in"> log in </i></a></li>
+
+          <li><a href="{{url_for('get_tasks')}}">Recipes</a></li>
+          <li><a href="{{url_for('add_recipe')}}">Add</a></li>
+          <li><a href="{{url_for('graphic')}}">Graph</a></li>
+          <!-- Dropdown Trigger -->
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdown">Preferences<i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+        <ul class="sidenav" id="mobile-nav">
+          <li><a href="{{url_for('get_tasks')}}">Recipes</a></li>
+          <li><a href="{{url_for('add_recipe')}}">Add</a></li>
+          <li><a href="{{url_for('graphic')}}">Graph</a></li>
+          <li class="divider"></li>
+          <li><a href="{{url_for('get_cuisine')}}">Cuisines </a></li>
+          <li><a href="{{url_for('get_author')}}">Chefs</a></li>
+          <li><a href="{{url_for('get_food_type')}}">Courses</a></li>
+          <li><a href="{{url_for('get_food_group')}}">Food Group</a></li </ul>
+          <li class="divider"></li>
+          <li><a href="{{url_for('logout')}}"><i class="fa fa-sign-out"> </i> log out </a></li>
+          <li><a href="{{url_for('login')}}"><i class="fa fa-sign-in"></i> log in </a></li>
+      </div>
+    </nav>
 
   </header>
-
-
-<p>Click <a href="/logout">here</a>to logout</p>
-<p>Click <a href="/login">here</a>to login</p>
-
-
-
-
-
-
   <div class="container">
     <div>
       {% for message in get_flashed_messages() %} {{ message }} {% endfor %}
-    </div><br><br>
+    </div>
     {% block content %}{% endblock %}
-    
   </div>
-  
+
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.0.js" </script>
-    
     M.AutoInit();
   </script>
-  <script >
+  <script>
     M.AutoInit();
     $(".dropdown-trigger").dropdown();
   </script>
   {% block scripts %}{% endblock %}
 
   </div>
-
-
-
-  
+  <footer>
+  <section id="lab_social_icon_footer">
+    <div class="links">
+      <a href="https://www.facebook.com/HappyFoodbyYogaHub/"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
+      <a href="https://twitter.com/hashtag/cooking"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
+      <a href="https://www.youtube.com/watch?v=WV5DxHphUiY&t=253s"><i id="social-yu" class="fa fab fa-youtube fa-3x social"></i></a>
+      <a href="https://www.google.ie/search?ei=hUr-XM2cL7Km1fAP6cSyyAo&q=michelinne+cuisine&oq=michelinne+cuisine&gs_l=psy-ab.3..0i13j0i22i30l2j0i13i5i30l3j0i8i13i30l4.1786.13064..13505...6.0..0.110.1764.23j1......0....1..gws-wiz.....6..35i39j0j0i67j0i20i263j0i203j35i39i19j0i10j0i10i203j0i13i30j0i22i10i30j0i19j0i22i30i19j0i8i13i30i19.aktrM-lNcQc"><i id="social-gg" class="fa fab fa-google fa-3x social"></i></a> </div>
+    </div>
+    <div class="container">
+            <p class="pull-left"> © 2019 Copyright Belly Convent</p>
+            <a class="grey-text text-lighten-4 right" href="https://www.tripadvisor.ie/Restaurant_Review-g315894-d10242698-Reviews-Belly_Cafe-Mullingar_County_Westmeath.html">Other Bellies</a>
+            </div>
+  </section>
+</footer>
 </body>
 
 </html>
