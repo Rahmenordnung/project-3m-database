@@ -111,6 +111,7 @@ def get_paginated_list(**params):
     }
 
 
+
 ###-----------------main route/home-page
 @app.route('/')
 @app.route('/get_tasks', methods=['GET'])
@@ -268,8 +269,6 @@ def register():
                 else:
                     flash ("Something went wrong during your registration, Please try again!")
                     return redirect(url_for('register'))
-                
-            
         else:
             flash("Passwords matching error. Try again!!!")
             return redirect(url_for('register'))
@@ -278,15 +277,28 @@ def register():
         
 ###-----------------Recipes--    
     
+##add recipe--
 @app.route('/add_recipe')
 #@login_required
 def add_recipe():
-    return render_template('addrecipe.html', cuisine=mongo.db.cuisine.find(),
+    return render_template('addrecipe.html',
+        procedures=mongo.db.procedures,
+        cuisine=mongo.db.cuisine.find(),
         food_type=mongo.db.food_type.find(), 
         food_group=mongo.db.food_group.find(),
         recipe_author=mongo.db.recipe_author.find())
+        
+##add an new recipe--
+def insert_recipe_data(data):
+    procedures=mongo.db.procedures
+    return procedures.insert_one(data)
+
+@app.route('/insert_recipe', methods=['POST'])    
+def insert_recipe():
+    insert_recipe_data(request.form.to_dict())
+    return redirect(url_for('get_tasks'))        
     
-    
+##edit recipe--    
 @app.route('/edit_recipe/<procedure_id>')
 def edit_recipe(procedure_id):
     the_procedure = mongo.db.procedures.find_one({"_id": ObjectId(procedure_id)})
@@ -294,9 +306,9 @@ def edit_recipe(procedure_id):
     all_food = mongo.db.food_type.find()
     all_groups = mongo.db.food_group.find()
     famous_chefs= mongo.db.recipe_author.find()
-    return render_template('editrecipe.html', procedure=the_procedure, cuisine = all_cuisine, food_type = all_food, food_group = all_groups, recipe_author=famous_chefs    )
+    return render_template('editrecipe.html', procedure=the_procedure, cuisine = all_cuisine, food_type = all_food, food_group = all_groups, recipe_author=famous_chefs)
     
-    
+# Check for for the records in database and updates them    
 @app.route('/update_recipe/<procedure_id>', methods=["POST"])
 def update_recipe(procedure_id):
     procedures = mongo.db.procedures
@@ -318,12 +330,13 @@ def update_recipe(procedure_id):
     })
     return redirect(url_for('get_tasks'))
     
+##removes a recipe--    
 @app.route('/delete_recipe/<procedure_id>')
 def delete_recipe(procedure_id):
     mongo.db.procedures.remove({'_id': ObjectId(procedure_id)})
     return redirect(url_for('get_tasks'))
     
-
+## full recipe view-- 
 @app.route('/see_recipe/<procedure_id>')
 def see_recipe(procedure_id):
     procedure = mongo.db.procedures.find_one({"_id": ObjectId(procedure_id)})
@@ -331,17 +344,11 @@ def see_recipe(procedure_id):
     ##procedure_ids = procedures_collection.find({},{"_id":1})
     return render_template("recipe_view.html", procedure=procedure )
 
-def insert_recipe_data(data):
-    procedures=mongo.db.procedures
-    return procedures.insert_one(data)
-    
-@app.route('/insert_recipe', methods=['POST'])    
-def insert_recipe():
-    insert_recipe_data(request.form.to_dict())
-    return redirect(url_for('get_tasks'))
 
 
-###-----------------Cuisine--    
+
+
+###-----------------Cuisine(CRUD Functionality)    
 @app.route('/get_cuisine')
 def get_cuisine():
     cuisine = get_paginated_list(**request.args.to_dict())
@@ -385,7 +392,7 @@ def insert_cuisine():
 def new_cuisine():
     return render_template('addcuisine.html')
     
-###-----------------Chefs(Authors)
+###-----------------Chefs(Authors)CRUD Functionality
 @app.route('/get_author')
 def get_author():
     return render_template('author_chef.html',
@@ -425,7 +432,7 @@ def insert_author():
 def new_author():
     return render_template('add_author.html')    
 
-###-----------------cooking_book.food_type
+###-----------------food courses(CRUD Functionality)
 
 @app.route('/get_food_type')
 def get_food_type():
@@ -466,7 +473,7 @@ def insert_food_type():
 def new_course():
     return render_template('add_food_type.html')
 
-###-----------------Votes-users, etc
+###-----------------food-group(CRUD Functionality)
 
 @app.route('/get_food_group')
 def get_food_group():
@@ -525,7 +532,6 @@ def upvote_recipe(procedure_id):
     )
     return redirect(url_for('see_recipe', procedure_id=procedure_id))
 
-
 # Downvote recipe
 @app.route('/downvote_recipe/<procedure_id>', methods=["GET", "POST"])
 def downvote_recipe(procedure_id):
@@ -537,8 +543,6 @@ def downvote_recipe(procedure_id):
     )
     return redirect(url_for('see_recipe', procedure_id=procedure_id))
     
-
-
 ###--------------------------grafic java---------  
 def get_recipes():
     procedures = mongo.db.procedures.find()
@@ -551,9 +555,6 @@ def get_recipes():
 @app.route('/graphic')
 def graphic():
     return render_template('graphos.html', recipes=get_recipes())
-    
-
- 
     
 @app.route("/cooking_book/procedures")
 def donor_projects():

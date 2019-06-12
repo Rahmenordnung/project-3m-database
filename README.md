@@ -39,8 +39,8 @@ Belly convent, the project name was chosen because the user as he enters the pag
 * Food facts
 * Food name
 * Food description
-* Celiacs(checkbox)
-* Gluten free(checkbox)
+* Celiacs (checkbox)
+* Gluten free (checkbox)
 * Cooking Time(slidebar)
 * Preparation time(slidebar)
 * Recipe image Url
@@ -69,14 +69,7 @@ Our food is sorted by different courses presented in a list that contans the pos
  A list of the most important food group present in the daily nutrition. It integrates as in the rest of prefences the posibility of editing, deleting and adding new ones.
 
 
-Navbar - Consists of the DADDY DOES DINNER logo which returns the user to the "Home" page of the application. There is also links to the "Recipes", "My Recipes", "Login / Dashboard" and Contact forms. The navbar will appear on all pages.
-_Home_ - The home page consists of 4 sample recipes along with some information on contacting the webmaster and a link to the contact us page of the site.
-_All Recipes_ - Directs the user to the "All Recipes" page which displays ALL recipes from ALL users which have been entered on the site. The user can then filter or browse through the recipes. The can view more information on each recipe by selectign the "See Recipe" link which delivers the user to the "Recipe Detail" page.
-Recipe Detail - Provides users with the recipe details containg a recipe name, description, image (if available), flavour, meal type, base ingredients, ingredients, instructions, author and date posted.
-My Recipes - Provides the user with the recipes that they have added themselves. The user's recipes can be edited and deleted by using the buttons displayed under the recipes.
-Login/Dashboard - When first selected the user will be prompted to create a username to login to the application so that they can add recipes to the database. Once logged in the user will be presented with their dashboard which provides a count of their recipes, along with 3 data charts depicting the number of base ingredients, meal types and food flavours associated with the recipes which have been added.
-Contact - Delivers the user to the contact page. This page displays a blank form, which allows users to contact the website developers to offer feedback and suggestions (not currently wired up to an email address as this is not a real business). Their are also 4 social media buttons so that the user may interact on social networks. (Links NOT LIVE current social media pages for this project as this is not a real business)
-Social Links - Provides users with links to the website social media pages and also shortcuts to the "All Recipes" & "My Recipes" pages.(Links NOT LIVE current social media pages for this project as this is not a real business).
+N
 
 *  Above the recipe list the page displays a menu  with the name of the restaurant. And options for Recipes, add recipe, cuisine and Graphics.
 
@@ -122,7 +115,9 @@ In addition I tried to implement a simple log in function that it works .
 
 * **_Materialize, Front awsome_** for the display, templates and icons
 
-* **_Python, Flask** worked to connect the backend database to the frontend
+* __Python__ This project uses Python, for general-purpose programming and used to write the logic of this game, which is included within .py files
+* 
+* Flask** worked to connect the backend database to the frontend
 
 * ** Mongo Db_** a not SQl database non-relational approach. These datastores do not require fixed table schemas and try to avoid joins.
 
@@ -139,12 +134,26 @@ In addition I tried to implement a simple log in function that it works .
 
 ### Responsive Testing
 
- ***********The app was tested on Samsung S8, Apple iPhone 6, etc,(all the deviced served in the Chrome developer tools) and also using the Google Chrome inspect feature to test for repsonsiveness and any errors that occurred. There were many issues founded most of them with the css sidevar/ navbar not resizing, card etc. Also this tool is usefull ,using their console, in founding java errors,retrieving the raw data from the data base, and proving the flask sessions reliability. 
+ ***********The app was tested on Samsung S8, Apple iPhone 6, etc,(all the deviced served in the Chrome developer tools) and also using the Google Chrome inspect feature to test for repsonsiveness and any errors that occurred. There were many issues founded and the most critical for me was in the search function and in connection that with the main app and creation of sessions.  
  ***********
  
 ### Deployment
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+The following section describes the process to deploy this project to Heroku.
 
+Ensure all required technologies are installed locally, as per the requirements.txtfile.
+Via Linux Terminal, login to Heroku, using 'heroku login' command. Input Heroku login details.
+Create new Heroku app, using 'heroku apps:create appname' command.
+Push project to Heroku, using 'push -u heroku master' command.
+Create scale, using 'heroku ps:scale web=1' command.
+Login to Heroku and select newly created app.
+Select settings. Select ‘Reveal Config'. Add IP 0.0.0.0 and PORT 5000.
+From 'More' menu on the top right, select 'Restart all dynos'.
+View app: In settings, select Domain URL, NOT Git URL to view your hosted application.
+Deployed via Heroku: Daddy Does Dinner
+Please visit DEMO at https://cookbook-pierce.herokuapp.com/
 
+!!!!!!!!!!!!!!!!
 
 ### Challenges
 

@@ -15,55 +15,65 @@
         </div>
 <div class="col-md-12">
     <div class="row">
-        <div class="pull-right input-field col s4">
-      
-<select id="bs" class="mdb-select md-form" multiple searchable="Search for...">
-    <option value="" disabled selected>Sorting options</option>
-    <option value="{{url_for('get_tasks')}}?order_by=gluten_free&order=desc" data-icon="/static/images/gluten-free (1).png" class="rounded-circle">&emsp;Gluten free</option>
-    <option value="{{url_for('get_tasks')}}?order_by=celiacs_desc&order=desc" data-icon="/static/images/celery (1).png" class="rounded-circle">&emsp;Celiacs</option>
-    <div class="divider" tabindex="-1"></div>
-    <option value="{{url_for('get_tasks')}}?order_by=predominant_group&order=asc" data-icon="/static/images/pyramid.png" class="rounded-circle">&emsp;Food group up</option>
-    <option value="{{url_for('get_tasks')}}?order_by=predominant_group&order=desc" data-icon="/static/images/analytics.png" class="rounded-circle">&emsp;Food group down</option>
-    
-    <option value="{{url_for('get_tasks')}}?order_by=author_name&order=asc" data-icon="/static/images/chef (1).png" class="rounded-circle">&emsp;Author up</option>
-    <option value="{{url_for('get_tasks')}}?order_by=author_name&order=desc" data-icon="/static/images/chef.png" class="rounded-circle">&emsp;Author down</option>
-    
-    <option value="{{url_for('get_tasks')}}?order_by=cooking_time&order=asc" data-icon="/static/images/cooking.png" class="rounded-circle">&emsp;Cooking time up</option>
-    <option value="{{url_for('get_tasks')}}?order_by=cooking_time&order=desc" data-icon="/static/images/cooking-time.png" class="rounded-circle">&emsp;Cooking time down</option>
-    
-    <option value="{{url_for('get_tasks')}}?order_by=votes&order=asc" data-icon="/static/images/thumb-down-symbol-of-a-black-hand.png" class="rounded-circle">&emsp;Downvote</option>
-    <option value="{{url_for('get_tasks')}}?order_by=votes&order=desc" data-icon="/static/images/ok-like-hand-sign.png" class="rounded-circle">&emsp;Upvote</option>
-  </select>
-  <button class="btn-save btn btn-primary btn-sm">Save</button>
-
-</div>
-
-    
-
-  </div>
-</div>
-        <!--<div class="pull-right">-->
-        <!--   <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Sorting option menu</a>-->
-        <!--   <ul id='dropdown1' class='dropdown-content'>-->
-        <!--        <li><a href="{{url_for('get_tasks')}}?order_by=gluten_free&order=desc"><img src="/static/images/gluten-free (1).png" alt="" class="circle">&emsp;Gluten free</a></li>-->
-        <!--        <li><a href="{{url_for('get_tasks')}}?order_by=celiacs_desc&order=desc"><img src="/static/images/celery (1).png" alt="" class="circle">&emsp;Celiacs</a></li>-->
-        <!--        <li class="divider" tabindex="-1"></li>-->
-        <!--        <li><a href="{{url_for('get_tasks')}}?order_by=predominant_group&order=asc"><img src="/static/images/pyramid.png" alt="" class="circle">&emsp;Food group up</a></li>-->
-        <!--        <li><a href="{{url_for('get_tasks')}}?order_by=predominant_group&order=desc"><img src="/static/images/analytics.png" alt="" class="circle">&emsp;Food group down</a></li>-->
-        <!--        <li class="divider" tabindex="-1"></li>-->
-        <!--        <li><a href="{{url_for('get_tasks')}}?order_by=author_name&order=asc"><img src="/static/images/chef (1).png" alt="" class="circle">&emsp;Author up</a></li>-->
-        <!--        <li><a href="{{url_for('get_tasks')}}?order_by=author_name&order=desc"><img src="/static/images/chef.png" alt="" class="circle">&emsp;Author down</a></li>-->
-        <!--        <li class="divider" tabindex="-1"></li>-->
-        <!--        <li><a href="{{url_for('get_tasks')}}?order_by=cooking_time&order=asc"><img src="/static/images/cooking.png" alt="" class="circle">&emsp;Cooking time up</a></li>-->
-        <!--        <li><a href="{{url_for('get_tasks')}}?order_by=cooking_time&order=desc"><img src="/static/images/cooking-time.png" alt="" class="circle">&emsp;Cooking time down</a></li>-->
-        <!--        <li class="divider" tabindex="-1"></li>-->
-        <!--        <li><a href="{{url_for('get_tasks')}}?order_by=votes&order=asc"><img src="/static/images/thumb-down-symbol-of-a-black-hand.png" alt="" class="circle">&emsp;Downvote</a></li>-->
-        <!--        <li><a href="{{url_for('get_tasks')}}?order_by=votes&order=desc"><img src="/static/images/ok-like-hand-sign.png" alt="" class="circle">&emsp;Upvote</a></li>-->
-        <!--    </ul>-->
-        <!--</div>-->
+        <div class="pull-right ">
+            <a  class='dropdown-trigger btn' href='#' data-target='dropdown1'>Sorting option menu</a>
+           <ul id='dropdown1' class='dropdown-content'>
+                <li><a href="{{url_for('get_tasks')}}?order_by=gluten_free&order=desc" selected><img src="/static/images/gluten-free (1).png" alt="" class="circle">&emsp;Gluten free</a></li>
+                <li><a href="{{url_for('get_tasks')}}?order_by=celiacs_desc&order=desc"><img src="/static/images/celery (1).png" alt="" class="circle">&emsp;Celiacs</a></li>
+                <li class="divider" tabindex="-1"></li>
+                <li><a href="{{url_for('get_tasks')}}?order_by=predominant_group&order=asc"><img src="/static/images/pyramid.png" alt="" class="circle">&emsp;Food group up</a></li>
+                <li><a href="{{url_for('get_tasks')}}?order_by=predominant_group&order=desc"><img src="/static/images/analytics.png" alt="" class="circle">&emsp;Food group down</a></li>
+                <li class="divider" tabindex="-1"></li>
+                <li><a href="{{url_for('get_tasks')}}?order_by=author_name&order=asc"><img src="/static/images/chef (1).png" alt="" class="circle">&emsp;Author up</a></li>
+                <li><a href="{{url_for('get_tasks')}}?order_by=author_name&order=desc"><img src="/static/images/chef.png" alt="" class="circle">&emsp;Author down</a></li>
+                <li class="divider" tabindex="-1"></li>
+                <li><a href="{{url_for('get_tasks')}}?order_by=cooking_time&order=asc"><img src="/static/images/cooking.png" alt="" class="circle">&emsp;Cooking time up</a></li>
+                <li><a href="{{url_for('get_tasks')}}?order_by=cooking_time&order=desc"><img src="/static/images/cooking-time.png" alt="" class="circle">&emsp;Cooking time down</a></li>
+                <li class="divider" tabindex="-1"></li>
+                <li><a href="{{url_for('get_tasks')}}?order_by=votes&order=asc"><img src="/static/images/thumb-down-symbol-of-a-black-hand.png" alt="" class="circle">&emsp;Downvote</a></li>
+                <li><a href="{{url_for('get_tasks')}}?order_by=votes&order=desc"><img src="/static/images/ok-like-hand-sign.png" alt="" class="circle">&emsp;Upvote</a></li>
+            </ul>
+        </div>
     </div>
 </div>
+        
+        <!--<div class="pull-right input-field col s4">-->
+      
+<!--<select id="selected" class="mdb-select md-form" multiple searchable="Search for...">-->
+<!--    <option value="" disabled selected>Sorting options</option>-->
+<!--    <option value="{{url_for('get_tasks')}}?order_by=gluten_free&order=desc" data-icon="/static/images/gluten-free (1).png" class="rounded-circle">&emsp;Gluten free</option>-->
+<!--    <option value="{{url_for('get_tasks')}}?order_by=celiacs_desc&order=desc" data-icon="/static/images/celery (1).png" class="rounded-circle">&emsp;Celiacs</option>-->
+<!--    <div class="divider" tabindex="-1"></div>-->
+<!--    <option value="{{url_for('get_tasks')}}?order_by=predominant_group&order=asc"  data-icon="/static/images/pyramid.png" class="rounded-circle">&emsp;Food group up</option>-->
+<!--    <option value="{{url_for('get_tasks')}}?order_by=predominant_group&order=desc" data-icon="/static/images/analytics.png" class="rounded-circle">&emsp;Food group down</option>-->
+    
+<!--    <option value="{{url_for('get_tasks')}}?order_by=author_name&order=asc" data-icon="/static/images/chef (1).png" class="rounded-circle">&emsp;Author up</option>-->
+<!--    <option value="{{url_for('get_tasks')}}?order_by=author_name&order=desc" data-icon="/static/images/chef.png" class="rounded-circle">&emsp;Author down</option>-->
+    
+<!--    <option value="{{url_for('get_tasks')}}?order_by=cooking_time&order=asc" data-icon="/static/images/cooking.png" class="rounded-circle">&emsp;Cooking time up</option>-->
+<!--    <option value="{{url_for('get_tasks')}}?order_by=cooking_time&order=desc" data-icon="/static/images/cooking-time.png" class="rounded-circle">&emsp;Cooking time down</option>-->
+    
+<!--    <option a href="{{url_for('get_tasks')}}?order_by=votes&order=asc" selected data-icon="/static/images/thumb-down-symbol-of-a-black-hand.png" class="rounded-circle">&emsp;Downvote</a></option>-->
+<!--    <option value="{{url_for('get_tasks')}}?order_by=votes&order=desc" data-icon="/static/images/ok-like-hand-sign.png" class="rounded-circle">&emsp;Upvote</option>-->
+<!--  </select>-->
+<!--  <button class="btn-save btn btn-primary btn-sm">Save</button>-->
 
+ <!--function GetSelectedText(){-->
+	<!--			var e = document.getElementById("country");-->
+	<!--			var result = e.options[e.selectedIndex].text;-->
+				
+	<!--			document.getElementById("result").innerHTML = result;-->
+	<!--		}-->
+<!--   <select id="country">-->
+	<!--	<option value="None">-- Select --</option>-->
+	<!--	<option value="{{url_for('get_tasks')}}?order_by=gluten_free&order=desc">&emsp;Gluten free</option>-->
+	<!--	<option value="{{url_for('get_tasks')}}?order_by=celiacs_desc&order=desc" selected>&emsp;Celiacs</option>-->
+	<!--	<option value="ID003"><a href="{{url_for('get_tasks')}}?order_by=gluten_free&order=desc" selected>Malaysia</a></option>-->
+	<!--</select>-->
+
+ <!--   <button type="button" onclick="GetSelectedText()">Get Selected Text</button>-->
+    </div>
+</div>  
 <hr>
     <div class="tudor">
         <ul class="collapsible" data-collapsible="accordion">
@@ -116,6 +126,12 @@
     function myFunction() {
         document.getElementById("mySearch").value = "search";
     }
+    function GetSelectedText(){
+				var e = document.getElementById("country");
+				var result = e.options[e.selectedIndex].text;
+				
+				document.getElementById("result").innerHTML = result;
+			}
 
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.fixed-action-btn');
@@ -123,16 +139,11 @@
     document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('select');
     var instances = M.FormSelect.init(elems, options);
-    
-    
-  $('#bs').materialSelect({
+    $('#bs').materialSelect({
     BSsearchIn: true
-  });
+        });
+    });    
+});
 
-  });    
-
-    });
-
- 
 </script>
 {% endblock %}

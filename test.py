@@ -1,64 +1,47 @@
-from app import app, insert_recipe_data
+from app import app 
+# insert_recipe_data, get_recipe_data, delete_recipe_data
 import unittest
 import mock
 import json
 from bson import json_util
+from bson.objectid import ObjectId
+def toJson(data):
+    """Convert Mongo object(s) to JSON"""
+    return json.dumps(data, default=json_util.default)
+
 
 class FlaskTestCase(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client(self)
         
-    ###############
-    #### test views ####
-    ###############
     
-    #Ensure that flask is set up correctly
-    # def test_index(self):
-    #     tester = app.test_client(self)
-    #     response = tester.get('/login', content_type='html/text')
-    #     self.assertEqual(response.status_code, 200)
     
-     #Ensure that add_recipe worked up correctly, and contains some text in the title
+     #Ensure that the views from app.py worked up correctly, and contains some text in the title or content assigned in html for that specific view
+     
+    def test_index_page(self):
+        response = self.app.get('/', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Isombe', response.data) 
         
-    def test_render_add_recipes_page(self):
+    def test_get_tasks(self):
+        tester = app.test_client(self)
+        response = tester.get('/get_tasks', content_type='html/text')
+        self.assertTrue(b'Recipes' in response.data)
+        self.assertTrue(b'Isombe' in response.data)
+        self.assertTrue(b'Edit' in response.data)
+        
+    def test_add_recipes(self):
         tester = app.test_client(self)
         response = tester.get('/add_recipes', content_type='html/text')
         self.assertEqual(response.status_code, 200)
-        
-    def test_insert_recipe(self):
-        tester = app.test_client(self)
-        data = dict(
-            cuisine_name='Festivalooooo',
-            food_course='first coursem',
-            predominant_group='Fruits & Vegetables',
-            author_name='Joel Robuchon'
-        )
-        # food_context: Facts
-        # food_name: Food name
-        # food_ingredients: sugar
-        # food_description: task description
-        # celiacs: on
-        # gluten_free: on
-        # preparation_food: 125
-        # cooking_time: 350
-        # image: 
-        # action:
-        
-        expected_result = None
-        
-        insert_one_result = insert_recipe_data(data)
-        json_result = json.dumps(insert_one_result, default=json_util.default)
-        
-        self.assertEqual(expected_result, json_result)
-        
-        # response = tester.post('/insert_recipe', data=data)
-        # print(response)
-        # self.assertEqual(response.status_code, 302)
-    
+        self.assertTrue(b'Recipe' in response.data)
+        self.assertTrue(b'Cuisine' in response.data)
+
     def test_edit_recipe(self):
         tester = app.test_client(self)
         response = tester.get('/edit_recipe', content_type='html/text')
         self.assertEqual(response.status_code, 200)
+        
         
     def test_update_recipe(self):
         tester = app.test_client(self)
@@ -75,7 +58,26 @@ class FlaskTestCase(unittest.TestCase):
         response = tester.get('/see_recipe', content_type='html/text')
         self.assertEqual(response.status_code, 200)
         
+    def test_upvote_recipe(self):
+        tester = app.test_client(self)
+        response = tester.get('/upvote_recipe', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+    
+    def test_downvote_recipe(self):
+        tester = app.test_client(self)
+        response = tester.get('/downvote_recipe', content_type='html/text')
+        self.assertEqual(response.status_code, 200) 
         
+    def test_edit_recipes(self):
+        tester = app.test_client(self)
+        data = dict(
+            cuisine_name='Festivalooooo',
+            food_course='first coursem',
+            predominant_group='Fruits & Vegetables',
+            author_name='Joel Robuchon'
+        ) 
+    
+    ##cuisine tests    
     def test_get_cuisine(self):
         tester = app.test_client(self)
         response = tester.get('/get_cuisine', content_type='html/text')
@@ -93,19 +95,134 @@ class FlaskTestCase(unittest.TestCase):
         
     def test_delete_cuisine(self):
         tester = app.test_client(self)
-        response = tester.get('/delete_cuisine', content_type='html/text')
+        response = tester.get('/delete_cuisine',  follow_redirects=True)
         self.assertEqual(response.status_code, 200)
-    
+        self.assertNotIn(b'Test Recipe Name 1', response.data)
         
     def test_new_cuisine(self):
         tester = app.test_client(self)
         response = tester.get('/new_cuisine', content_type='html/text')
         self.assertEqual(response.status_code, 200)
         
-    def test_upvote_recipe(self):
+    ##author##    
+        
+    def test_get_author(self):
         tester = app.test_client(self)
-        response = tester.get('/upvote_recipe', content_type='html/text')
+        response = tester.get('/get_author', content_type='html/text')
         self.assertEqual(response.status_code, 200)
+        
+    def test_edit_author(self):
+        tester = app.test_client(self)
+        response = tester.get('edit_author', content_type='html/text')
+        self.assertEqual(response.status_code, 200) 
+        
+    def test_update_author(self):
+        tester = app.test_client(self)
+        response = tester.get('/update_author', content_type='html/text')
+        self.assertEqual(response.status_code, 200) 
+        
+    def test_delete_author(self):
+        tester = app.test_client(self)
+        response = tester.get('/delete_author',  follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn(b'Test Recipe Name 1', response.data)
+        
+    def test_new_author(self):
+        tester = app.test_client(self)
+        response = tester.get('/new_author', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+        
+    ##login##
+    
+    def test_user_check(self):
+        tester = app.test_client(self)
+        response = tester.get('/user_check',  follow_redirects=True)
+        self.assertEqual(response.status_code, 405)
+        self.assertNotIn(b'username', response.data)
+    
+    def test_login(self):
+        tester = app.test_client(self)
+        response = tester.get('/login',  follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'username', response.data)    
+
+                                                                
+    def test_logout(self):
+        tester = app.test_client(self)
+        response = tester.get('/logout',  follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+         
+        
+    
+    
+   
+        
+    
+        
+            
+        
+
+    # @mock.patch('requests.post', side_effect=mock_post)
+    @mock.patch('app.get_tasks')
+    def test_search_box_route(self, mock_get_tasks):
+        mock_get_tasks.return_value = {
+            'result': []
+        }
+        search_term = 'text'
+        response = self.app.post(
+            '/search_box',
+            data=dict(search_text=search_term))
+        self.assertEqual(response.status_code, 308)
+
+        response = self.app.post(
+            '/search_results',
+            data=dict(search_text=search_term))
+        self.assertEqual(response.status_code, 302)
+        response = self.app.get(
+            '/get_tasks',
+            data=dict(search_text=search_term))
+        
+        self.assertEqual(response.status_code, 200)
+
+if __name__ == '__main__':
+    unittest.main()
+    
+     ###############
+    #### test views ####
+    ###############
+    
+    #Ensure that flask is set up correctly
+    # def test_index(self):
+    #     tester = app.test_client(self)
+    #     response = tester.get('/login', content_type='html/text')
+    #     self.assertEqual(response.status_code, 200)
+    
+    
+        
+    # def test_insert_recipe(self):
+    #     tester = app.test_client(self)
+    #     data = dict(
+    #         cuisine_name='Festivalooooo',
+    #         food_course='first coursem',
+    #         predominant_group='Fruits & Vegetables',
+    #         author_name='Joel Robuchon'
+    #     )
+        
+    #     expected_result = {
+    #         "cuisine_name": "Festivalooooo",
+    #         "food_course": "first coursem",
+    #         "predominant_group": "Fruits & Vegetables",
+    #         "author_name": "Joel Robuchon"
+    #     }
+        
+    #     insert_one_result = insert_recipe_data(data)
+    #     recipe = get_recipe_data(insert_one_result.inserted_id)
+    #     del recipe["_id"]
+    #     json_result = toJson(recipe)
+    #     self.assertDictEqual(expected_result, json.loads(json_result))
+    #     delete_recipe_data(insert_one_result.inserted_id)
+    
+        
         
     ###----------------------------###
     #### test content of views ####
@@ -118,18 +235,7 @@ class FlaskTestCase(unittest.TestCase):
     #     response = tester.get('/login', content_type='html/text')
     #     self.assertTrue(b'Please login' in response.data)
         
-    def test_get_tasks(self):
-        tester = app.test_client(self)
-        response = tester.get('/get_tasks', content_type='html/text')
-        self.assertTrue(b'Recipes' in response.data)
-        self.assertTrue(b'Isombe' in response.data)
-        self.assertTrue(b'Edit' in response.data)
-        
-    def test_add_recipes(self):
-        tester = app.test_client(self)
-        response = tester.get('/add_recipes', content_type='html/text')
-        self.assertTrue(b'Recipe' in response.data)
-        self.assertTrue(b'Cuisine' in response.data)
+    
         
     #Ensure that login behaves correctly given the correct credencials
     
@@ -138,10 +244,15 @@ class FlaskTestCase(unittest.TestCase):
     #     response = tester.post('/login', data=dict(username="admin", password="admin"), follow_redirects=True)
     #     self.assertIn(b'you&#39;re logging has been successful', response.data)
         
-    def test_edit_recipes(self):
-        tester = app.test_client(self)
-        response = tester.post('edit_recipes', follow_redirects=True)
-        self.assertIn(b'Edit Recipe', response.data)    
+    
+        
+        # insert_one_result = insert_recipe_data(data)
+        # response = tester.get('/edit_recipe/{}'.format(insert_one_result.inserted_id))
+        # self.assertIn(b'Edit Recipe', response.data)   
+        
+        # delete_recipe_data(insert_one_result.inserted_id)
+        
+        
     
     
     #Ensure that login behaves correctly given the incorrect credencials
@@ -184,32 +295,4 @@ class FlaskTestCase(unittest.TestCase):
      #   response = tester.post('/add_recipe', data=dict(username="admin", password="admin"), follow_redirects=True)
       #  self.assertIn(b'Add recipe', response.data)
         
-    def test_index_page(self):
-        response = self.app.get('/', follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        
-
-    # @mock.patch('requests.post', side_effect=mock_post)
-    @mock.patch('app.get_tasks')
-    def test_search_box_route(self, mock_get_tasks):
-        mock_get_tasks.return_value = {
-            'result': []
-        }
-        search_term = 'text'
-        response = self.app.post(
-            '/search_box',
-            data=dict(search_text=search_term))
-        self.assertEqual(response.status_code, 308)
-
-        response = self.app.post(
-            '/search_results',
-            data=dict(search_text=search_term))
-        self.assertEqual(response.status_code, 302)
-        response = self.app.get(
-            '/get_tasks',
-            data=dict(search_text=search_term))
-        
-        self.assertEqual(response.status_code, 200)
-
-if __name__ == '__main__':
-    unittest.main()
+    

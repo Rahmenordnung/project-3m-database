@@ -1,9 +1,6 @@
 {% extends 'fundation_template.html' %} {% block content %}
 
-
 {% for message in get_flashed_messages() %} {{ message }} {% endfor %}
-
-
 <h3>Add Recipe</h3>
 <div class="row">
     <form action="{{url_for('insert_recipe')}}" method="POST" class="col s12">
@@ -51,24 +48,20 @@
                     <label>Chef selection</label>
         </div>
     <div class="input-field col s12">
-        <i class="material-icons prefix">description of the dish</i>
         <textarea name="food_context" id="food_context" class="materialize-textarea"></textarea>
-        <label for="description_food">facts</label>
+        <label for="food_context">Recipe facts</label>
     </div>
     <div class="input-field col s12">
-        <i class="material-icons prefix">insert_comment</i>
-        <input id="food_name" name="food_name" type="text" class="validate">
-        <label for="icon_prefix">Food Name</label>
+        <textarea name="food_name" id="food_name" class="materialize-textarea"></textarea>
+        <label for="food_name">Recipe Name</label>
     </div>
     <div class="input-field col s12">
-        <i class="material-icons prefix">description of the dish</i>
         <textarea name="food_ingredients" id="food_ingredients" class="materialize-textarea"></textarea>
-        <label for="description_food">Ingredients</label>
+        <label for="food_ingredients">Ingredients</label>
     </div>
     <div class="input-field col s12">
-        <i class="material-icons prefix">description of the dish</i>
         <textarea name="food_description" id="food_description" class="materialize-textarea"></textarea>
-        <label for="description_food">Task Description</label>
+        <label for="description_food">Preparation description</label>
     </div>
     <div class="row  col s2">
         <p><label><input name="celiacs" id="celiacs" type="checkbox" class="filled-in" checked="checked" /><span>Celiacs</span></label></p>
