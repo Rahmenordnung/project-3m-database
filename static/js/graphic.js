@@ -72,7 +72,8 @@ function makeGraphs(data) {
         .transitionDuration(500)
         .barPadding(0.1)
         .outerPadding(0.05)
-        .group(preparationSumGroup);
+        .group(preparationSumGroup).elasticY();
+        
 
     // console.log(preparationSumGroup.all());
 
@@ -88,7 +89,13 @@ function makeGraphs(data) {
         .transitionDuration(500)
         .barPadding(0.1)
         .outerPadding(0.05)
-        .group(preparationGroup)
+        .group(preparationGroup);
+        /*.renderHorizontalGridLines(true)
+            .on('renderlet',function(chart){
+                  chart.selectAll("g.x text")
+                    .attr('dx', '-15')
+                    .attr('transform', "rotate(-55)");
+                });*/
          
 
     // console.log(preparationSumGroup.all());

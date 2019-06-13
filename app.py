@@ -75,7 +75,6 @@ def get_paginated_list(**params):
         total_items = mongo.db.procedures.count()
         items = mongo.db.procedures.find().sort(order_by, order).skip(
             offset).limit(page_size)
-    
     if page_size > total_items:
         page_size = total_items
     if page_number < 1:
@@ -84,7 +83,6 @@ def get_paginated_list(**params):
         page_count = math.ceil(total_items / page_size)
     else:
         page_count = 0
-
     if page_number > page_count:
         page_number = page_count
         
@@ -110,15 +108,12 @@ def get_paginated_list(**params):
         KEY_ENTITIES: items
     }
 
-
-
 ###-----------------main route/home-page
 @app.route('/')
 @app.route('/get_tasks', methods=['GET'])
 def get_tasks():
     procedures = get_paginated_list(**request.args.to_dict())
     return render_template("tasks.html", result=procedures)
-
 
 ###-----------------Authentification--
 # def login_required(f):
