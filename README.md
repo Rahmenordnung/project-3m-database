@@ -34,8 +34,6 @@ Belly convent, the project name was chosen because the user as he enters the pag
 * [Media](#Media)
 * [Challenges](#Challenges)
 
-
-
 ----------------------
 
 ## <a name="User_Stories"></a> User Stories ##
@@ -232,7 +230,7 @@ A demo of this web application is available [here](https://bely-convent.herokuap
 * Implementing, or trying to extra features, such as pagination, user login that have taught me a parallel way of learning out of the course box, that I think I will be using in all my future carrer.
 
 
-
+##____-jjj___##
 
 
  
