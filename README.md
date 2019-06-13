@@ -2,7 +2,7 @@
 
 Tudor George Pascu  /student at Code Institute in Dublin, Ireland, 2019
 
-Third Milestone project, Flask , external Databases, Python
+Third Milestone project, Flask , external Databases-Mongo DB, Python
 
 ## <a name="Name"></a> Name  ##
 
@@ -40,7 +40,7 @@ Belly convent, the project name was chosen because the user as he enters the pag
 
 For example:
 
-* A mother staying at home bored, because she doesn't know how to get a superior recipes page, or very popular ones. Because she whants to impress her friends and get some good impressions and somehow climb up in the social scale.
+* A mother staying at home bored, because she doesn't know how to get a superior recipes page, or very popular ones. Because she wants to impress her friends and get some good impressions and somehow climb up in the social scale.
 
 * Anybody interrested in improving their cooking level, chefs, students, and they need a fast and quick selection of recipes sorted in different ways.
 
@@ -51,7 +51,8 @@ For example:
 
 ### <a name=" Existing_Features"></a>Existing Features ###
 
-* __Navbar__ - Consists of the __Bely Convent__ logo which returns the user to the Home page of the application. There is also links to the **Recipes**, **Add (recipes)**, **Graphs**, **Preferences** that contains a _dropdown_ with **Cuisine**, **Chefs**, **Courses**, **Food Group**. The navbar will appear on all pages.
+* Above the recipe list the page displays a menu  with the name of the restaurant. And options for Recipes, add recipe, cuisine and Graphics.
+* __Navbar__ - Consists of the __Bely Convent__ logo which returns the user to the Home page of the application. There is also links to the **Recipes**, **Add recipes**, **Graphs**, **Preferences** that contains a _dropdown_ with **Cuisine**, **Chefs**, **Courses**, **Food Group**. The navbar will appear on all pages.
 
 #### <a name="Belly_Convent"></a>Belly Convent  ####
 
@@ -66,7 +67,7 @@ For example:
 
 #### <a name="Add_Recipe"></a>__Add Recipe__ ####
 
- Contains a formular that takes data in different fiels and saves it into the Mongo Db database. This Fields are: 
+ Contains a formular that takes data from different fiels and saves it into the Mongo Db database. This Fields are: 
 * Cuisine Category
 * Chef Selection
 * Course Selection
@@ -102,8 +103,7 @@ Our food is sorted by different courses presented in a list that contans the pos
 #### <a name="Food_group"></a>__Food Group__ ####
 
  A list of the most important food group present in the daily nutrition. It integrates as in the rest of prefences the posibility of editing, deleting and adding new ones.
-
-*  Above the recipe list the page displays a menu  with the name of the restaurant. And options for Recipes, add recipe, cuisine and Graphics.
+ 
 * The sorting and search function will search by word among the recipes and sort the recipes in different ways, and criterium
 * The edit button will take you to edit the recipe as the user desires. Selecting cusine, author, predominant group of food, food course, allergens like Gluten free and celiacs. Also one ca select  in a range selector the preparation and the cooking time set by minutes, the foor ingredients, description, contect( that is small introduction) and finally the name.
 * The arrow next to the Edit recipe button will display fully the recipe with all the fiels(food ingredients, author name, gluten free, etc) available and with an image assigend by _html_. There is also a delete button that, when clicked will guide you to a modal dialogue that will ensure that the user is aware of the complet deletion of the recipe.
@@ -128,7 +128,7 @@ _pagination_ The pagination is allowing the user to move easily and quick throug
 **********************
 ## <a name="Database"></a>Database ##
 
-[MongoDB](https://www.mongodb.com/) is a document-oriented NoSQL database written in the C ++ programming language. Because the database is document-oriented, it can manage collections of JSON-like documents.
+[MongoDB](https://www.mongodb.com/) is a document-oriented NoSQL database written in the C++ programming language. Because the database is document-oriented, it can manage collections of JSON-like documents.
 
 ## <a name="Functionality"></a>Functionality ##
 
@@ -153,23 +153,25 @@ This is a web application which allows users to store and easily access cooking 
 
 * **_HTML, CSS, JaveScript_** with the help of jQuery fot the front end code
 
-* **_Materialize, Front awsome_** for the display, templates and icons
-
-* __Python__ This project uses Python, for general-purpose programming and used to write the logic of this game, which is included within .py files
+* [_Materialize_](https://materializecss.com)  A modern responsive front-end framework based on Material Design 
  
-*  **_Flask_** worked to connect the backend database to the frontend
+* [_Front awsome_](https://fontawesome.com/) Font Awesome is a web font containing all the icons from the Twitter Bootstrap framework, and now many more.
 
-* **_Mongo Db_** a not SQl database non-relational approach. These datastores do not require fixed table schemas and try to avoid joins.
+* [__Python__](https://www.python.org/) This project uses Python, for general-purpose programming and used to write the logic of this game, which is included within .py files. Python is an interpreted, high-level, general-purpose programming language.
+ 
+* [_Flask_](http://flask.pocoo.org/docs/1.0/) worked to connect the backend database to the frontend
 
-* **_Heroku_**  Platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
+* [_MongoDB_](https://www.mongodb.com/) a not SQl database non-relational approach. These datastores do not require fixed table schemas and try to avoid joins.
 
-* **_TravisCl_** continuous integration service used to build and test software projects hosted at GitHub.
+* [_Heroku_](https://www.heroku.com/) Platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
 
-* **_Flask_testing_** used to test framework functionality and its coninuous integration to Flask app and database (SQL or NON SQL)
+* [_TravisCl_](https://travis-ci.org/) is a hosted, distributed continuous integration service used to build and test projects hosted at GitHub. 
 
-* **_Unittest_** was used to build the testing framework.
+* [_Flask_testing_](http://flask.pocoo.org/docs/1.0/testing/) used to test framework functionality and its coninuous integration to Flask app and database (SQL or NON SQL)
 
-* **__Werkzeug__** Werkzeug is a comprehensive WSGI web application library.I used to hash and encript the users passwords.
+* [_Unittest_*](https://docs.python.org/2/library/unittest.html) supports test automation, sharing of setup and shutdown code for tests, aggregation of tests into collections, and independence of the tests from the reporting framework.
+
+* [_Werkzeug_](https://pypi.org/project/Werkzeug/) Werkzeug is a comprehensive WSGI web application library.I used to hash and encript the users passwords.
 
 *********************
 
