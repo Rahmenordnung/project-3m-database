@@ -140,33 +140,26 @@ nav a{
     text-align: center;
     margin-top: 20px;
     float: right;
-
-
 }
 
 .collection .collection-item.avatar .secondary-content {
     position: relative;
 }
 
-
 .modal-content {
-
     text-align: center;
-    background-image: url("/static/images/grid_bee.png");
+    background-image: url("/static/images/trash.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+    border:1px red double;
 }
-
 .modaltext {
     font-size: large;
     font-weight: bold;
-
 }
-
 .modal-footer1 {
-
     margin-bottom: 5px;
 }
-
-
 .circle_attention {
     height: 64px;
     width: 68px;

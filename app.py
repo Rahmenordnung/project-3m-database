@@ -11,10 +11,6 @@ from bson import json_util
 from bson.json_util import dumps
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
-##from flask_bcrypt import Bcrypt
-
-
-
 
 app = Flask(__name__)
 app.secret_key = "b'\xf2\xe8\x1f\x93n\xedT\xbe\x88\xd1\xf7\xddL\x106EO\x89\x91Xf\xe3d\x0b'"
@@ -127,8 +123,7 @@ def get_tasks():
 #     return wrap
 
         
-     
-# Route for handling the login page logic
+     # Route for handling the login page logic
 @app.route('/login', methods=['GET'])
 
 def login():
