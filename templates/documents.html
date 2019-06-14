@@ -3,8 +3,7 @@
 
 <!-- 
 	First check if you actually need a pagination....
-	If you have 6 documents for example and you display 6 documents as well 
-	there is no need for pagination ...
+	If you have less documents than the page size than no pagination required ...
  -->
 {% if args.num_results > args.p_limit %}
 <div class="container">

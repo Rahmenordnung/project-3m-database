@@ -150,50 +150,25 @@ def login():
     
     
 @app.route('/user_check', methods=['POST'])
-
 def user_check():
-
-	form = request.form.to_dict()
-
-	user_in_db = mongo.db.users.find_one({"username": form['username']})
-
-	# Check for user in database
-
-	if user_in_db:
-
-		# If passwords match (hashed / real password)
-
-		if check_password_hash(user_in_db['password'], form['pass']):
-
-			# Log user in (add to session)
-
-			session['user'] = form['username']
-
-			# If the user is admin redirect him to admin area
-
-			if session['user'] == "admin":
-
-				return redirect(url_for('admin'))
-
-			else:
-
-				flash("You were logged in!")
-
-				return redirect(url_for('profile', user=user_in_db['username']))
-
-			
-
-		else:
-
-			flash("Wrong password or user name!")
-
-			return redirect(url_for('login'))
-
-	else:
-
-		flash("You must be registered!")
-
-		return redirect(url_for('register'))
+    form = request.form.to_dict()
+    user_in_db = mongo.db.users.find_one({"username": form['username']})
+    if user_in_db:
+        # If passwords match (hashed / real password)
+        if check_password_hash(user_in_db['password'], form['pass']):
+            session['user'] = form['username']
+            # If the user is admin redirect him to admin area
+            if session['user'] == "admin":
+                return redirect(url_for('admin'))
+            else:
+                flash("You were logged in!")
+                return redirect(url_for('profile', user=user_in_db['username']))
+        else:
+            flash("Wrong authentification data")
+            return redirect(url_for('login'))
+    else:
+        flash("Registration required! Please sign up first!")
+        return redirect(url_for('register'))
 
 @app.route('/logout')
 #@login_required
