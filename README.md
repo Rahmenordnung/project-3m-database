@@ -4,6 +4,8 @@ Tudor George Pascu  /student at Code Institute in Dublin, Ireland, 2019
 
 Third Milestone project, Flask , external Databases-Mongo DB, Python
 
+[![Build Status](https://travis-ci.org/Rahmenordnung/project-3m-database.svg?branch=master)](https://travis-ci.org/Rahmenordnung/project-3m-database)
+
 ## <a name="Name"></a> Name  ##
 
 Belly convent, the project name was chosen because the user as he enters the page will be converted, for a litlle while , to a world of superiour cuisine aplied in various locations all over the world. Sometime will be the case that is a high class cuisine, other that will be a very famour recipe that represents so well a type of cuisine and it tastes so well that gain its own place among the Belly cuisine.
@@ -179,6 +181,8 @@ This is a web application which allows users to store and easily access cooking 
 
 - The app was tested on Mobile, all the mobile, tablet, laptop, desktop etc,(all the deviced served in the Chrome developer tools) and also using the Google Chrome inspect feature to test for repsonsiveness and any errors that occurred. There were many issues founded and the most critical for me was in the search function and in connection that with the main app and creation of sessions.
 
+Manual testing was undertaken for this application and satisfactorily passed:
+
 - The CRUD functionality has been test in relation with the database,to see if they comunicate and the records from the database are send, updated, deleted, etc with help of GET , POST methods
 
 - The login/logout functuanality works by creating a new record in the Users collection from the database and that the pashword is hashed correctly thanks to __Flask and Werkzeug__ tools.
@@ -188,6 +192,11 @@ This is a web application which allows users to store and easily access cooking 
 - The pagination updates withing the count of the recipes available in the database
 
 ### <a name="Responsive_Testing"></a>Responsive Testing ##
+
+The tests are located in the file tests.py and can be proved with the command:__python3 tests.py__ This test are ment to cover the CRUD functionality and prove if they work properly.
+
+Automated tests were carried out and all 24 tests passed satisfactorily (see screenshot in Testing folder). 
+
 
 **********************************
 ## <a name="Getting_started"></a>Getting started ## 
