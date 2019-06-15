@@ -28,10 +28,15 @@
         <a href="{{url_for('get_tasks')}}" class="brand-logo"><i class="fa fa-beer">  Belly convent</i></a>
         <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-
-          <li><a href="{{url_for('logout')}}"><i class="fa fa-sign-out"> log out </i></a></li>
-          <li class="login"><a href="{{url_for('login')}}"><i class="fa fa-sign-in"> log in </i></a></li>
-
+          {% if session.user %}
+  					<li class="profile"><a href="{{url_for('profile', user=session.user)}}"><i class="fa fa-user"> Profile </i></a></li>
+  					<li class="logout"><a href="{{url_for('logout')}}"><i class="fa fa-sign-out"> log out </i></a></li>
+  					<li class="divider"></li>
+					{% else %}
+  					<li class="register"><a href="{{url_for('register')}}"><i class="fa fa-user-plus"</i> Register </i></a></li>
+  					<li class="login"><a href="{{url_for('login')}}"><i class="fa fa-sign-in"> log in </i></a></li>
+					{% endif %}
+					<li class="divider"></li>
           <li><a href="{{url_for('get_tasks')}}">Recipes</a></li>
           <li><a href="{{url_for('add_recipe')}}">Add</a></li>
           <li><a href="{{url_for('graphic')}}">Graph</a></li>
@@ -48,8 +53,13 @@
           <li><a href="{{url_for('get_food_type')}}">Courses</a></li>
           <li><a href="{{url_for('get_food_group')}}">Food Group</a></li </ul>
           <li class="divider"></li>
-          <li><a href="{{url_for('logout')}}"><i class="fa fa-sign-out"> </i> log out </a></li>
-          <li><a href="{{url_for('login')}}"><i class="fa fa-sign-in"></i> log in </a></li>
+          {% if session.user %}
+  					<li class="profile"><a href="{{url_for('profile', user=session.user)}}"> Profile </a></li>
+  					<li class="logout"><a href="{{url_for('logout')}}"> log out </i></a></li>
+  				{% else %}
+  					<li class="register"><a href="{{url_for('register')}}"> Register </i></a></li>
+  					<li class="login"><a href="{{url_for('login')}}"> log in </i></a></li>
+					{% endif %}
       </div>
     </nav>
   </div>  

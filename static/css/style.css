@@ -36,6 +36,10 @@
 .login{
     border-right: 1px solid #ffffff;
 }
+.logout{
+    border-right: 1px solid #ffffff;
+}
+
 /*background images*/
 .sub_nav{
     margin-top: 10px;
@@ -151,7 +155,7 @@ nav a{
     background-image: url("/static/images/trash.jpg");
     background-repeat:no-repeat;
     background-size: cover;
-    border:1px red double;
+    border:1px red ouble;
 }
 .modaltext {
     font-size: large;
@@ -166,6 +170,11 @@ nav a{
     background-image: url("/static/images/icons8-cancel-64.png");
     border-radius: 50%;
     display: inline-block;
+}
+.avatar{
+    height: 50%;
+    width: 85%;
+    border-radius: 50%;
 }
 
 /*Footer*/

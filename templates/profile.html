@@ -2,4 +2,20 @@
 
 <h1> Welcome {{ user.username|title }} </h1>
 
+<h5> Email: {% if user.email  %}
+    <p>{{ user.email }}</p>
+        {% else %}
+    <p>No email provided</p>
+        {% endif  %}
+</h5>
+
+   <h5>Avatar: {% if user.image  %}
+      <img class="avatar featurette-image img-responsive" src="{{user.image}}" style="width:100%;" alt="Generic placeholder image">
+    {% else %}
+      <img class="featurette-image img-responsive" src="{{url_for('static', filename='/images/breakfast-buffet-after.jpg') }}" style="width:100%;" alt="Generic placeholder image">
+    {% endif  %}
+</h5>
+    
+    
+
 {% endblock content %}

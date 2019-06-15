@@ -125,28 +125,17 @@ def get_tasks():
         
      # Route for handling the login page logic
 @app.route('/login', methods=['GET'])
-
 def login():
-
-	# Check if user is not logged in already
-
-	if 'user' in session:
-
-		user_in_db = mongo.db.users.find_one({"username": session['user']})
-
-		if user_in_db:
-
-			# If so redirect user to his profile
-
-			flash("You are logged in already!")
-
-			return redirect(url_for('profile', user=user_in_db['username']))
-
-	else:
-
-		# Render the page for user to be able to log in
-
-		return render_template("login.html")
+    # Check if user is not logged in already
+    if 'user' in session:
+        user_in_db = mongo.db.users.find_one({"username": session['user']})
+        if user_in_db:
+            # If so redirect user to his profile
+            flash("You are logged in already!")
+            return redirect(url_for('profile', user=user_in_db['username']))
+    else:
+        # Render the page for user to be able to log in
+            return render_template("login.html")
     
     
 @app.route('/user_check', methods=['POST'])
@@ -161,7 +150,7 @@ def user_check():
             if session['user'] == "admin":
                 return redirect(url_for('admin'))
             else:
-                flash("You were logged in!")
+                flash("Log in successful!")
                 return redirect(url_for('profile', user=user_in_db['username']))
         else:
             flash("Wrong authentification data")
@@ -177,26 +166,16 @@ def logout():
     flash('you\'re now logged out')
     return redirect(url_for('get_tasks'))
     
-
+# Check if user is logged in
 @app.route('/profile/<user>')
 
 def profile(user): 
-
-	# Check if user is logged in
-
-	if 'user' in session:
-
-		# If so get the user and pass him to template for now
-
-		user_in_db = mongo.db.users.find_one({"username": user})
-
-		return render_template('profile.html', user=user_in_db)
-
-	else:
-
-		flash("You must be logged in!")
-
-		return redirect(url_for('index'))    
+    if 'user' in session:
+        user_in_db = mongo.db.users.find_one({"username": user})
+        return render_template('profile.html', user=user_in_db)
+    else:
+        flash("Login required!")
+        return redirect(url_for('register'))    
     
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -220,7 +199,7 @@ def register():
                         'username': form['username'],
                         'email': form ['email'],
                         'password': hash_pass,
-                        'recipes_user': [],
+                        'image':form['image']
                     }
                 )
                 return redirect(url_for('login'))
@@ -232,10 +211,10 @@ def register():
                     flash ("you were registered as {form['username']}")
                     return redirect(url_for('tasks'))
                 else:
-                    flash ("Something went wrong during your registration, Please try again!")
+                    flash ("Registration error, Please try again!")
                     return redirect(url_for('register'))
         else:
-            flash("Passwords matching error. Try again!!!")
+            flash("Password mismatch, Try again!")
             return redirect(url_for('register'))
     return render_template("register.html")        
         
