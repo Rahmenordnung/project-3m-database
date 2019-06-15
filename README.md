@@ -229,8 +229,7 @@ A demo of this web application is available [here](https://bely-convent.herokuap
 
 ## <a name="Media"></a>Media ##
 
-The images used in the web page were taken from different sites. All the locations from where the images were taken from are  recopilated in this [file](https://bely-convent.herokuapp.com/get_tasks)
-
+The images used in the web page were taken from different sites. All the locations from where the images were taken from are  recopilated in this [file](https://github.com/Rahmenordnung/project-3m-database/blob/master/image_roots_file.md)
 
 **********
 
@@ -241,6 +240,9 @@ The images used in the web page were taken from different sites. All the locatio
 * Managing routes and URL's with Flask was also very interesting and I learned a powerful feature from reading the documentation around Flask and MongoDB. This feature gives speed and facilitate the work of a programmer.
 
 * Implementing, or trying to extra features, such as pagination, user login that have taught me a parallel way of learning out of the course box, that I think I will be using in all my future carrer.
+
+
+__Thank you very much, for all the help recived from staff, mentors, chat, etc!!!!__ 
 
 
 

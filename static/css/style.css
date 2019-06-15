@@ -9,11 +9,11 @@
     margin: 5px 5px;
     padding: 0 0.5em;
 }
+/*navbar*/
 .nav-wrapper a {
     background-color: #d1d1d12e;
     color: #26a69a;
 }
-
 .s12 {line-height: 250%;}
 .nav {
     height: 100%;
@@ -33,6 +33,7 @@
 .brand-logo{
     color: -webkit-linear-gradient(#eee, #333);
 }
+/*login separator*/
 .login{
     border-right: 1px solid #ffffff;
 }
@@ -116,15 +117,9 @@
 nav a{
     color: blanchedalmond;
 }
-/*.row .col.s4{*/
-/*    float: inherit;*/
-/*}*/
-
-/*.row .col.s5{*/
-/*   width: 36%; */
-/*}*/
-
-
+.card-title{
+    text-align: center;
+}
 .recipes_title{
     text-align: center;
 }

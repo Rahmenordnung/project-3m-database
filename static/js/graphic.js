@@ -1,23 +1,6 @@
-/* global d3 */
-/* global dc */
-/* global crossfilter */
-// fetch('/procedures')
-//   .then(function(res) {
-//       return res.json();
-//   })
-//   .then(function(data) {
-//       makeGraphs(data);
-//   });
-  
 var recipes = $('#charts-container').data('recipes');
-//console.log(recipes);
 makeGraphs(recipes);
   
-// What are you trying to do with this?
-//   <script type="text/javascript">
-//     var $ENDPOINT = {{ request.script_root | tojson | safe }};
-//   </script>
-
 function makeGraphs(data) {
     var cookingTimeBarChart = dc.barChart('#cooking-time-chart');
     var preparationTimeBarChart = dc.barChart('#preparation-time-chart');
@@ -32,13 +15,6 @@ function makeGraphs(data) {
     const PREPARATION_FOOD = 'preparation_food'; //: "125"
     const AUTHOR_NAME = 'author_name';
     
-
-    // var parseDate = d3.timeParse("%d/%m/%Y");
-
-    data.forEach((d) => {
-        d[COOKING_TIME] = Number(d[COOKING_TIME]);
-        d[PREPARATION_FOOD] = Number(d[PREPARATION_FOOD]);
-    });
     
     console.log(data)
 
@@ -74,7 +50,7 @@ function makeGraphs(data) {
         .outerPadding(0.05)
         .group(preparationSumGroup).elasticY();
         
-
+        
     // console.log(preparationSumGroup.all());
 
     preparationTimeBarChart
@@ -86,18 +62,16 @@ function makeGraphs(data) {
         .xAxisLabel(PREPARATION_FOOD)
         .yAxisLabel("time for prep(min)")
         .dimension(cousineNameDimension)
-        .transitionDuration(500)
         .barPadding(0.1)
-        .outerPadding(0.05)
-        .group(preparationGroup);
-        /*.renderHorizontalGridLines(true)
+        .outerPadding(0.5)
+        .group(preparationGroup)
+        .renderHorizontalGridLines(true)
             .on('renderlet',function(chart){
                   chart.selectAll("g.x text")
                     .attr('dx', '-15')
-                    .attr('transform', "rotate(-55)");
-                });*/
+                    .attr('transform', "rotate(-20)");
+                });
          
-
     // console.log(preparationSumGroup.all());
 
     authorsBarChart
@@ -112,9 +86,14 @@ function makeGraphs(data) {
         .transitionDuration(500)
         .barPadding(0.1)
         .outerPadding(0.05)
-        .group(cuisineGroup);
+        .group(cuisineGroup)
+        .renderHorizontalGridLines(true)
+            .on('renderlet',function(chart){
+                  chart.selectAll("g.x text")
+                    .attr('dx', '-15')
+                    .attr('transform', "rotate(-20)");
+                });
         
-
     // console.log(preparationSumGroup.all());
     
     celiacsPieChart
@@ -125,7 +104,6 @@ function makeGraphs(data) {
         .group(foodGroup)
         .legend(dc.legend().x(290).y(10).itemHeight(8).gap(3) ); 
         
-
     // console.log(preparationSumGroup.all());
 
     gluttenFreePieChart

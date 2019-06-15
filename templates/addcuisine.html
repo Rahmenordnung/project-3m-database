@@ -5,9 +5,8 @@
     <form action="{{ url_for('insert_cuisine') }}" method="POST" class="col s12">
         <div class="row">
             <div class="input-field col s12">
-                <i class="material-icons prefix">filter_vintage</i>
-                <input id="cuisine_name" name="cuisine_name" type="text" class="validate" >
-                <label for="icon_prefix">Cuisine Name</label>
+                <textarea name="cuisine_name" id="cuisine_name" class="materialize-textarea"></textarea>
+                <label for="cuisine_name">Cuisine Name</label>
             </div>
         </div>
     <div class="row col s8">

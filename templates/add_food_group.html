@@ -5,15 +5,14 @@
     <form action="{{ url_for('insert_food_group') }}" method="POST" class="col s12">
         <div class="row">
             <div class="input-field col s12">
-                <i class="material-icons prefix">filter_vintage</i>
-                <input id="predominant_group" name="predominant_group" type="text" class="validate" >
-                <label for="icon_prefix">Course name</label>
+                <textarea name="predominant_group" id="predominant_group" class="materialize-textarea"></textarea>
+                <label for="predominant_group">Food group name</label>
             </div>
-        </div>
     <div class="row col s8">
             <button class="btn waves-effect waves-light" type="submit" name="action">Add Food_Group<i class="material-icons right">create</i></div>
     <div class="row col s8">     
-            <button  class="btn waves-effect waves-light red" type="cancel" name="action">Cancel edition<i class="material-icons right">cancel</i></button></div></form>
+            <button  class="btn waves-effect waves-light red" type="cancel" name="action">Cancel edition<i class="material-icons right">cancel</i></button></div>
+    </form>
 </div>
   
     {% endblock %}
