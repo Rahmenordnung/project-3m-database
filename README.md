@@ -236,9 +236,9 @@ A demo of this web application is available [here](https://bely-convent.herokuap
 ************
 ## <a name="Mockups"></a>Mockups
 
-All thw mockups for the project are in this link [here](/Mockups/project 3m mockups)
+All thw mockups for the project are in this link [mockups](https://github.com/Rahmenordnung/project-3m-database/tree/master/Mockups/project%203m%20mockups)
 
-I have also created a data base mockup for the better understanding of the project [database](/Mockups/project 3m mockups/database mpckup/belly convent_database.png)
+I have also created a data base mockup for the better understanding of the project [database](https://github.com/Rahmenordnung/project-3m-database/blob/master/Mockups/database%20mpckup/belly%20convent_database.png)
 
 ## <a name="Media"></a>Media ##
 
