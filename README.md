@@ -231,7 +231,7 @@ In heroku app settings set the config vars to add __DATABASE_URI__, __IP__ and _
 
 ## <a name="Demo"></a>Demo
 
-A demo of this web application is available [here](https://bely-convent.herokuapp.com/get_tasks).
+A demo of this web application is available [here](https://bely-convent.herokuapp.com/get_recipes).
 
 ************
 ## <a name="Mockups"></a>Mockups
@@ -259,7 +259,7 @@ The content for recipes was taken from the a cooking program that I am watchin i
 * Implementing, or trying to extra features, such as pagination, user login that have taught me a parallel way of learning out of the course box, that I think I will be using in all my future carrer.
 
 
-__Thank you very much, for all the help recived from staff, mentors, chat, etc!!!!__ 
+__Thank you very much, for all the help recived from staff, mentors, chat, etc!!!__ 
 
 
 
