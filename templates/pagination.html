@@ -1,0 +1,21 @@
+{%- macro pagination(url_name, result) -%}
+<ul class="pagination">
+    {% if result['prev_uri'] is none %}
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    {% else %}
+    <li class="waves-effect"><a href="{{ url_for('get_recipes') }}?page_number={{result['prev_uri']['page_number']}}&page_size={{result['prev_uri']['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">
+        <i class="material-icons">chevron_left</i></a></li>
+    {% endif %} {% for page in range(1, result['page_count'] + 1) %} {% if result['page_number'] == page %}
+    <li class="waves-effect active">
+        {% else %}
+        <li class="waves-effect">
+            {% endif %}
+            <a href="{{ url_for({{ url_name }}) }}?page_number={{page}}&page_size={{result['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">{{ page }}</a></li>
+        {% endfor %} {% if result['next_uri'] is none %}
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        {% else %}
+        <li class="waves-effect"><a href="{{ url_for({{ url_name }}) }}?page_number={{result['next_uri']['page_number']}}&page_size={{result['next_uri']['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">
+        <i class="material-icons">chevron_right</i></a></li>
+        {% endif %}
+</ul>
+{%- endmacro -%}

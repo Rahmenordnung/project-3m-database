@@ -1,22 +1,47 @@
-{% extends 'fundation_template.html' %} {% block content %}
-<div class="row">
-<div class="container sub_nav_course"></div>
-    <h3 class="recipes_title">Course type</h3>
-    <hr>
-{% for food_type in food_type %}
-    <div class="coll s5">
-        <ul class="collection with-header">
-            <li class="collection-item">
-                <div>Is a <em><strong>{{food_type.food_course}}</strong></em> creation .  
-                    <a href="{{url_for('delete_food_type', food_type_id=food_type._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light red btn_small"><i class="material-icons">delete_forever</i></a>
-                    <a href="{{url_for('edit_food_type', food_type_id=food_type._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light blue btn_small"><i class="material-icons">mode_edit</i></a></div>
-            </li>     
-        </ul>
-    </div>
-{% endfor %} 
-<div class="row">
-        <a  href="{{url_for('new_course')}}" class="waves-effect waves-light btn">
-        <i class="material-icons right">add_circle_outline</i>Add Course</a>
-</div>
+{% extends 'fundation_template.html' %}
+{% import 'components.html' as components %}
 
-{% endblock %} 
+{% block content %}
+    <div class="row">
+        <div class="container sub_nav_course"></div>
+        <h3 class="recipes_title">Food courses</h3>
+        <hr>
+        {% for item in food_type['items'] %}
+            <div class="coll s5">
+                <ul class="collection with-header">
+                    <li class="collection-item">
+                        <div>Is a <em><strong>{{item.food_course}}</strong></em> dish.  
+                            <a data-food_type-id={{item._id}} class="delete-btn secondary-content btn-floating btn-small waves-effect waves-light red btn_small"><i class="material-icons">delete_forever</i></a>
+                            <a href="{{url_for('edit_food_type', food_type_id=food_type._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light blue btn_small"><i class="material-icons">mode_edit</i></a>
+                        </div>
+                    </li>            
+                </ul>
+            </div>
+        {% endfor %} 
+        <div class="row">
+            <a  href="{{url_for('new_course')}}" class="waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add Chefs</a>
+        </div>
+        {{ components.pagination(url_for('get_food_type'), food_type) }}
+    </div>
+<!-- Modal Delete -->
+    {{ components.confirmation_delete('myModal', url_for('delete_food_type', food_type_id=''), 'Do you really want to delete this course?') }}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('body').on('click', '.delete-btn', function() {
+            $('.modal').modal('open');
+            var button = $('.modal .modal-btn-yes');
+            var href = $('.modal .modal-btn-yes').get(0).href;
+            button.attr('href', href.concat($(this).data('food_type-id')));
+        });
+    });
+</script>
+{% endblock %}
+
+
+
+
+

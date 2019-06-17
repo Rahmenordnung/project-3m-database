@@ -1,0 +1,75 @@
+{% extends 'fundation_template.html' %}
+{% import 'components.html' as components %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="container sub_nav"></div>
+        <h3 class="recipes_title">Recipes</h3>
+            <hr>
+    <div class="row customisations">
+        <div class="pull-left input-field col s5">
+            <form  id="search-form-mobile" action="{{ url_for('search_results') }}" value: "search" method="POST" >
+                <div class="input-field"><i class="material-icons prefix">search</i>
+                    <input class="mobile-search-bar" type="search" name="search_text" value="{{result['search_text']}}" placeholder="Search">
+                    <i class="material-icons" id="sendFormMobile" for="submit-form">search</i>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="pull-right ">
+                    <select id="filter-values" class="mdb-select md-form icons" searchable="Search for...">
+                        <option value="">Sorting options</option>
+                        {% for filter in filters %}
+                        <option {{ filter.selected }} value="{{filter.value}}" data-icon="{{filter.icon}}" class="rounded-circle">{{filter.displayValue}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+<hr>
+    <div class="tudor">
+        <ul class="collapsible" data-collapsible="accordion">
+            {% for procedure in result['items'] %}
+            <li>
+                <div class="collapsible-header">
+                    <div class="col s3">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                            <a href="{{url_for('edit_recipe', procedure_id=procedure._id)}}" class="waves-effect waves-light btn btn_large">Edit</a>
+                            <a href="{{url_for('see_recipe', procedure_id=procedure._id) }}" class="btn-floating btn-medium waves-effect waves-light red btn_small"><i class="material-icons">arrow_forward</i></a>
+                    </div>
+                <div class="coll s12"><strong>{{procedure.food_name}}</strong> - {{procedure.predominant_group}}</div>
+    </div>
+        <div class="collapsible-body"><span>{{procedure.food_context}}</span></div>
+            </li>
+            {% endfor %}
+            
+            {{ components.pagination(url_for('get_recipes'), result) }}
+
+            <div class="collapsible-header">
+                <div class="col s3 add_button">
+                    <a href="{{url_for('add_recipe')}}" class="waves-effect waves-light btn">
+                <i class="material-icons right">add_circle_outline</i>Add recipe</a>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select').formSelect();
+        
+        $('#filter-values').change(function() {
+            console.log(this.value);
+            window.location.href = this.value;
+        });
+    });
+</script>
+{% endblock %}
+

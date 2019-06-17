@@ -26,11 +26,9 @@ FIELDS = {
     'cuisine_name': True,
     '_id': False
 }
-
 mongo = PyMongo(app)
 
 ###---pagination and sorting----###
-
 PAGE_SIZE = 10
 KEY_PAGE_SIZE = 'page_size'
 KEY_PAGE_NUMBER = 'page_number'
@@ -43,7 +41,7 @@ KEY_SEARCH_TEXT = 'search_text'
 KEY_ORDER_BY = 'order_by'
 KEY_ORDER = 'order'
 
-def get_paginated_list(**params):
+def get_paginated_list(entity, **params):
     page_size = int(params.get(KEY_PAGE_SIZE, PAGE_SIZE))
     page_number = int(params.get(KEY_PAGE_NUMBER, 1))
     order_by = params.get(KEY_ORDER_BY, '_id')
@@ -58,18 +56,18 @@ def get_paginated_list(**params):
         search_text = params.get(KEY_SEARCH_TEXT)
         total_items = 0
         if len(search_text.split()) > 0:
-            mongo.db.procedures.create_index([("$**", 'text')])
-            result = mongo.db.procedures.find({'$text': {'$search': search_text}})
+            entity.create_index([("$**", 'text')])
+            result = entity.find({'$text': {'$search': search_text}})
             total_items = result.count()
             items = result.sort(order_by, order).skip(offset).limit(page_size)
         else:
-            total_items = mongo.db.procedures.count()
-            items = mongo.db.procedures.find().sort(
+            total_items = entity.count()
+            items = entity.find().sort(
                 order_by, order
             ).skip(offset).limit(page_size)
     else:
-        total_items = mongo.db.procedures.count()
-        items = mongo.db.procedures.find().sort(order_by, order).skip(
+        total_items = entity.count()
+        items = entity.find().sort(order_by, order).skip(
             offset).limit(page_size)
     if page_size > total_items:
         page_size = total_items
@@ -103,13 +101,34 @@ def get_paginated_list(**params):
         KEY_ORDER: order,
         KEY_ENTITIES: items
     }
-
 ###-----------------main route/home-page
 @app.route('/')
-@app.route('/get_tasks', methods=['GET'])
-def get_tasks():
-    procedures = get_paginated_list(**request.args.to_dict())
-    return render_template("tasks.html", result=procedures)
+@app.route('/get_recipes', methods=['GET'])
+def get_recipes():
+    result = get_paginated_list(mongo.db.procedures, **request.args.to_dict())
+    url = url_for('get_recipes')
+    order_map = { pymongo.ASCENDING: 'asc', pymongo.DESCENDING: 'desc' }
+    values = [
+        { 'value': 'order_by=gluten_free&order=desc', 'icon': '/static/images/gluten-free (1).png', 'displayValue': 'Gluten free'},
+        { 'value': 'order_by=celiacs_desc&order=desc', 'icon': '/static/images/celery (1).png', 'displayValue': 'Celiacs'},
+        { 'value': 'order_by=predominant_group&order=asc', 'icon': '/static/images/pyramid.png', 'displayValue': 'Food group up'},
+        { 'value': 'order_by=predominant_group&order=desc', 'icon': '/static/images/analytics.png', 'displayValue': 'Food group down'},
+        { 'value': 'order_by=author_name&order=asc', 'icon': '/static/images/chef (1).png', 'displayValue': 'Author up'},
+        { 'value': 'order_by=author_name&order=desc', 'icon': '/static/images/chef.png', 'displayValue': 'Author down'},
+        { 'value': 'order_by=cooking_time&order=asc', 'icon': '/static/images/alarm-clock-icon.png', 'displayValue': 'Cooking time up'},
+        { 'value': 'order_by=cooking_time&order=desc', 'icon': '/static/images/cooking-time.png', 'displayValue': 'Cooking time down'},
+        { 'value': 'order_by=votes&order=asc', 'icon': '/static/images/thumb-down-symbol-of-a-black-hand.png', 'displayValue': 'Downvote'},
+        { 'value': 'order_by=votes&order=desc', 'icon': '/static/images/ok-like-hand-sign.png', 'displayValue': 'Upvote'}
+        ]
+    print(result)
+    filters = [{
+        'value': '{}?{}'.format(url, item['value']),
+        'selected': 'selected' if result['order_by'] in item['value'] and order_map[result['order']] in item['value'] else '',
+        'icon': item['icon'],
+        'displayValue': item['displayValue']
+    } for item in values]
+    return render_template("recipe_main.page.html", result=result, filters=filters)
+    
 
 ###-----------------Authentification--
 # def login_required(f):
@@ -122,8 +141,7 @@ def get_tasks():
 #             return redirect(url_for('login'))
 #     return wrap
 
-        
-     # Route for handling the login page logic
+    # Route for handling the login page logic
 @app.route('/login', methods=['GET'])
 def login():
     # Check if user is not logged in already
@@ -136,8 +154,6 @@ def login():
     else:
         # Render the page for user to be able to log in
             return render_template("login.html")
-    
-    
 @app.route('/user_check', methods=['POST'])
 def user_check():
     form = request.form.to_dict()
@@ -164,7 +180,7 @@ def user_check():
 def logout():
     session.clear()
     flash('you\'re now logged out')
-    return redirect(url_for('get_tasks'))
+    return redirect(url_for('get_recipes'))
     
 # Check if user is logged in
 @app.route('/profile/<user>')
@@ -240,7 +256,7 @@ def insert_recipe_data(data):
 @app.route('/insert_recipe', methods=['POST'])    
 def insert_recipe():
     insert_recipe_data(request.form.to_dict())
-    return redirect(url_for('get_tasks'))        
+    return redirect(url_for('get_recipes'))        
     
 ##edit recipe--    
 @app.route('/edit_recipe/<procedure_id>')
@@ -272,13 +288,13 @@ def update_recipe(procedure_id):
         'predominant_group': request.form.get('predominant_group'),
         'image':request.form.get('image')
     })
-    return redirect(url_for('get_tasks'))
+    return redirect(url_for('get_recipes'))
     
 ##removes a recipe--    
 @app.route('/delete_recipe/<procedure_id>')
 def delete_recipe(procedure_id):
     mongo.db.procedures.remove({'_id': ObjectId(procedure_id)})
-    return redirect(url_for('get_tasks'))
+    return redirect(url_for('get_recipes'))
     
 ## full recipe view-- 
 @app.route('/see_recipe/<procedure_id>')
@@ -288,16 +304,11 @@ def see_recipe(procedure_id):
     ##procedure_ids = procedures_collection.find({},{"_id":1})
     return render_template("recipe_view.html", procedure=procedure )
 
-
-
-
-
 ###-----------------Cuisine(CRUD Functionality)    
 @app.route('/get_cuisine')
 def get_cuisine():
-    cuisine = get_paginated_list(**request.args.to_dict())
-    return render_template('cuisine.html',
-                           cuisine=mongo.db.cuisine.find(), result=cuisine)
+    result = get_paginated_list(mongo.db.cuisine, **request.args.to_dict())
+    return render_template('cuisine.html', cuisine=result)
                            
 @app.route('/edit_cuisine/<cuisine_id>')
 def edit_cuisine(cuisine_id):
@@ -339,8 +350,8 @@ def new_cuisine():
 ###-----------------Chefs(Authors)CRUD Functionality
 @app.route('/get_author')
 def get_author():
-    return render_template('author_chef.html',
-                           recipe_author=mongo.db.recipe_author.find())
+    result = get_paginated_list(mongo.db.recipe_author, **request.args.to_dict())
+    return render_template('author_chef.html', recipe_author=result)
                            
 @app.route('/edit_author/<recipe_author_id>')
 def edit_author(recipe_author_id):
@@ -380,9 +391,9 @@ def new_author():
 
 @app.route('/get_food_type')
 def get_food_type():
-    return render_template('food_type.html',
-                           food_type=mongo.db.food_type.find())
-                           
+    result = get_paginated_list(mongo.db.food_type, **request.args.to_dict())
+    return render_template('food_type.html', food_type=result)
+    
 @app.route('/edit_food_type/<food_type_id>')
 def edit_food_type(food_type_id):
     return render_template('edit_food_course.html', 
@@ -421,8 +432,8 @@ def new_course():
 
 @app.route('/get_food_group')
 def get_food_group():
-    return render_template('food_group.html',
-                           food_group=mongo.db.food_group.find())
+    result = get_paginated_list(mongo.db.food_group, **request.args.to_dict())
+    return render_template('food_group.html', food_group=result)
                            
 @app.route('/edit_food_group/<food_group_id>')
 def edit_food_group(food_group_id):
@@ -458,8 +469,6 @@ def insert_food_group():
 def new_food_group():
     return render_template('add_food_group.html')                           
     
-    
-       
 ###-----------------Votes-users, etc
     # Voting:
 # Upvote recipe
@@ -488,7 +497,7 @@ def downvote_recipe(procedure_id):
     return redirect(url_for('see_recipe', procedure_id=procedure_id))
     
 ###--------------------------grafic java---------  
-def get_recipes():
+def get_recipes_js():
     procedures = mongo.db.procedures.find()
     json_procedures = []
     for procedure in procedures:
@@ -498,14 +507,10 @@ def get_recipes():
 
 @app.route('/graphic')
 def graphic():
-    return render_template('graphos.html', recipes=get_recipes())
+    return render_template('graphos.html', recipes=get_recipes_js())
     
 @app.route("/cooking_book/procedures")
 def donor_projects():
-    #connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
-    # connection = MongoClient(MONGO_URI)
-#This connection is required when hosted using a remote mongo db.
-    # collection = connection['cooking_book']['procedures']
     procedures = mongo.db.procedures.find()
     json_procedures = []
     for procedure in procedures:
@@ -525,12 +530,10 @@ def search_box():
     else:
         return render_template("task.html", procedures=mongo.db.procedures.find())
 
-    
 # Search results route
 @app.route('/search_results', methods=["POST"])
 def search_results():
-    return redirect(url_for('get_tasks', search_text=request.form['search_text']))
-    
+    return redirect(url_for('get_recipes', search_text=request.form['search_text']))
     
 #Error handlers ---------------    
     

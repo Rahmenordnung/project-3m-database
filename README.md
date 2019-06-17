@@ -33,7 +33,9 @@ Belly convent, the project name was chosen because the user as he enters the pag
 * [Getting started](#Getting_started)
 * [Deployment](#Deployment)
 * [Demo](#Demo)
+* [Mockups](#Mockups)
 * [Media](#Media)
+* [Content](#Content)
 * [Challenges](#Challenges)
 
 ----------------------
@@ -125,7 +127,8 @@ _pagination_ The pagination is allowing the user to move easily and quick throug
 2. Expand the recipes with videos, more alergens and probably the option of buying a cooking book.
 2. Improve the recipes presentation.
 3. Improve the search function.
-4. Asign each recipe to an user and have a record about that
+4. Asign each recipe to an user and have a record about that.
+5. Make the log in functionallity work  as it would in real life and add a recipe to a logged user.
 
 **********************
 ## <a name="Database"></a>Database ##
@@ -144,10 +147,12 @@ This is a web application which allows users to store and easily access cooking 
 5. **Dashboard** displays a graphic relation between cooking time, preparation tyme, cuisine name, author name and food groups
 6. **Search and sort** function allow the user to search by word among the database, and the sort function orders the list under different criteria such as author, predominant group, etc.
 7. Also contains a dc.js **Interactive Graphic** made with java, dc.js... 
-8. Some **modal dialogues** used to advert the user that is going to delete a record, 
-9. **Pagination** that allows the user to move through the web page. 
+8. Some **modal dialogues** used to advert the user that is going to delete a record, implemented with macros
+9. **Pagination** that allows the user to move through the web page also helped by a Jinja macros
 10. For the images added in the data base I used a simple url input as Mongo dosn´t allow storring of image file as so.
-11. In addition I tried to implement a simple __log in__ function that it works .
+11. In addition I tried to implement a simple __log in__ function that it works even though it does not limit a user for to edit a page.
+12. I have used reusable components done by yourself such as the modal and the pagination as a **jinja macros**
+
  
 ***********************
 
@@ -162,6 +167,8 @@ This is a web application which allows users to store and easily access cooking 
 * [__Python__](https://www.python.org/) This project uses Python, for general-purpose programming and used to write the logic of this game, which is included within .py files. Python is an interpreted, high-level, general-purpose programming language.
  
 * [_Flask_](http://flask.pocoo.org/docs/1.0/) worked to connect the backend database to the frontend
+
+* [_Jinja_](http://jinja.pocoo.org/docs/2.10/) Jinja2 is a  templating language for Python, modelled after Django’s templates. Fast, widely used and secure with the optional sandboxed template execution environment, making much easier the connection between views, functions, and sites among the page
 
 * [_MongoDB_](https://www.mongodb.com/) a not SQl database non-relational approach. These datastores do not require fixed table schemas and try to avoid joins.
 
@@ -223,15 +230,25 @@ In the CLI toolbelt :
 In heroku app settings set the config vars to add __DATABASE_URI__, __IP__ and __PORT__. It is very important in the case of using an external database to configure the database Url or in my case database Uri.
 
 ## <a name="Demo"></a>Demo
+
 A demo of this web application is available [here](https://bely-convent.herokuapp.com/get_tasks).
 
 ************
+## <a name="Mockups"></a>Mockups
+
+All thw mockups for the project are in this link [here](/Mockups/project 3m mockups)
+
+I have also created a data base mockup for the better understanding of the project [database](/Mockups/project 3m mockups/database mpckup/belly convent_database.png)
 
 ## <a name="Media"></a>Media ##
 
 The images used in the web page were taken from different sites. All the locations from where the images were taken from are  recopilated in this [file](https://github.com/Rahmenordnung/project-3m-database/blob/master/image_roots_file.md)
 
 **********
+
+## <a name="Content"></a>Content ##
+
+The content for recipes was taken from the a cooking program that I am watchin in the German television called "Beat the Cook" (literraly translation) and also from recipes took from the restaurants menus that I have been looking when walking over Dublin streets.
 
 ### <a name="Challenges"></a>Challenges ##
 
@@ -243,6 +260,7 @@ The images used in the web page were taken from different sites. All the locatio
 
 
 __Thank you very much, for all the help recived from staff, mentors, chat, etc!!!!__ 
+
 
 
 

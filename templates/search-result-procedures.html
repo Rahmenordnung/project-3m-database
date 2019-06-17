@@ -39,10 +39,7 @@
     And nutritionally stand in the <em><strong>{{search.predominant_group}}</em></strong> group.
     The preparate is <em><strong>{{search.celiacs}}</strong></em> for <u>Celiacs</u> and
     <em><strong>{{search.gluten_free}}</strong></em> for <u>Gluten free</u> diet.
-
-
-    
- <ul class="pagination">
+<ul class="pagination">
     <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
     <li class="active"><a href="#!">1</a></li>
     <li class="waves-effect"><a href="#!">2</a></li>
@@ -53,7 +50,7 @@
  </ul>
  
 {% endfor %}
-<button a href="{{url_for('get_tasks')}}"  class="btn waves-effect waves-light red" type="cancel" name="action">Cancel edition
+<button a href="{{url_for('get_recipes')}}"  class="btn waves-effect waves-light red" type="cancel" name="action">Cancel edition
                      <i class="material-icons right">Back to recipes</i> 
 {% endif %}
 {% endblock content %}

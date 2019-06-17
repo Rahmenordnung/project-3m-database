@@ -1,45 +1,44 @@
-{% extends 'fundation_template.html' %} {% block content %}
-<div class="row">
-    <div class="container sub_nav_cuisine"></div>
-    <h3 class="recipes_title">Cuisines</h3>
-    <hr>
-{% for cuisine in cuisine %}
-    <div class="coll s5">
-        <ul class="collection with-header">
-            <li class="collection-item">
-                <div>The dish belongs to the <em><strong>{{cuisine.cuisine_name}}</strong></em> cuisine. 
-                    <a href="{{url_for('delete_cuisine', cuisine_id=cuisine._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light red btn_small"><i class="material-icons">delete_forever</i></a>
-                    <a href="{{url_for('edit_cuisine', cuisine_id=cuisine._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light blue btn_small"><i class="material-icons">mode_edit</i></a>
-                </div>
-            </li>            
-        </ul>
-    </div>
-{% endfor %} 
-    <div class="row">
-        <a  href="{{url_for('new_cuisine')}}" class="waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add cuisine</a>
-    </div>
-    <ul class="pagination">
-        {% if result['prev_uri'] is none %}
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-        {% else %}
-            <li class="waves-effect"><a href="{{ url_for('get_cuisine') }}?page_number={{result['prev_uri']['page_number']}}&page_size={{result['prev_uri']['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">
-            <i class="material-icons">chevron_left</i></a></li>
-        {% endif %} {% for page in range(1, result['page_count'] + 1) %} {% if result['page_number'] == page %}
-            <li class="waves-effect active">
-        {% else %}
-            <li class="waves-effect">
-        {% endif %}
-            <a href="{{ url_for('get_cuisine') }}?page_number={{page}}&page_size={{result['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">{{ page }}</a></li>
-        {% endfor %} {% if result['next_uri'] is none %}
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-        {% else %}
-            <li class="waves-effect"><a href="{{ url_for('get_cuisine') }}?page_number={{result['next_uri']['page_number']}}&page_size={{result['next_uri']['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">
-            <i class="material-icons">chevron_right</i></a></li>
-        {% endif %}
-    </ul>
-    
-    
+{% extends 'fundation_template.html' %}
+{% import 'components.html' as components %}
 
+{% block content %}
+    <div class="row">
+        <div class="container sub_nav_cuisine"></div>
+        <h3 class="recipes_title">Cuisines</h3>
+        <hr>
+        {% for item in cuisine['items'] %}
+            <div class="coll s5">
+                <ul class="collection with-header">
+                    <li class="collection-item">
+                        <div>The dish belongs to the <em><strong>{{item.cuisine_name}}</strong></em> cuisine. 
+                            <a data-cuisine-id={{item._id}} class="delete-btn secondary-content  btn-floating btn-small waves-effect waves-light red btn_small"><i class="material-icons">delete_forever</i></a>
+                            <a href="{{url_for('edit_cuisine', cuisine_id=item._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light blue btn_small"><i class="material-icons">mode_edit</i></a>
+                        </div>
+                    </li>            
+                </ul>
+            </div>
+        {% endfor %} 
+        <div class="row">
+            <a href="{{url_for('new_cuisine')}}" class="waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add cuisine</a>
+        </div>
+        {{ components.pagination(url_for('get_cuisine'), cuisine) }}
+    </div>
+    <!-- Modal Delete -->
+    {{ components.confirmation_delete('myModal', url_for('delete_cuisine', cuisine_id=''), 'Do you really want to delete the cuisine?') }}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('body').on('click', '.delete-btn', function() {
+            $('.modal').modal('open');
+            var button = $('.modal .modal-btn-yes');
+            var href = $('.modal .modal-btn-yes').get(0).href;
+            button.attr('href', href.concat($(this).data('cuisine-id')));
+        });
+    });
+</script>
 {% endblock %}
 
 

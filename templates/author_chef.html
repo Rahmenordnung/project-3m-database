@@ -1,23 +1,43 @@
-{% extends 'fundation_template.html' %} {% block content %}
-<div class="row">
-    <div class="container sub_nav_author"></div>
-    <h3 class="recipes_title">Chefs</h3>
-    <hr>
-    
-{% for recipe_author in recipe_author %}
-    <div class="coll s5">
-        <ul class="collection with-header">
-            <li class="collection-item">
-                <div>Is a <em><strong>{{recipe_author.author_name}}</strong></em> creation .  
-                    <a href="{{url_for('delete_author', recipe_author_id=recipe_author._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light red btn_small"><i class="material-icons">delete_forever</i></a>
-                    <a href="{{url_for('edit_author', recipe_author_id=recipe_author._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light blue btn_small"><i class="material-icons">mode_edit</i></a></div>
-            </li>            
-        </ul>
+{% extends 'fundation_template.html' %}
+{% import 'components.html' as components %}
+
+{% block content %}
+    <div class="row">
+        <div class="container sub_nav_author"></div>
+        <h3 class="recipes_title">Chefs</h3>
+        <hr>
+        {% for item in recipe_author['items'] %}
+            <div class="coll s5">
+                <ul class="collection with-header">
+                    <li class="collection-item">
+                        <div>Is a <em><strong>{{item.author_name}}</strong></em> creation.  
+                            <a data-recipe_author-id={{item._id}} class="delete-btn secondary-content  btn-floating btn-small waves-effect waves-light red btn_small"><i class="material-icons">delete_forever</i></a>
+                            <a href="{{url_for('edit_author', recipe_author_id=recipe_author._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light blue btn_small"><i class="material-icons">mode_edit</i></a>
+                        </div>
+                    </li>            
+                </ul>
+            </div>
+        {% endfor %} 
+        <div class="row">
+            <a  href="{{url_for('new_author')}}" class="waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add Chefs</a>
+        </div>
+        {{ components.pagination(url_for('get_author'), recipe_author) }}
     </div>
-{% endfor %} 
-
-<div class="row">
-    <a  href="{{url_for('new_author')}}" class="waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add Chefs</a>
+<!-- Modal Delete -->
+    {{ components.confirmation_delete('myModal', url_for('delete_author', recipe_author_id=''), 'Do you really want to delete the recipe chef?') }}
 </div>
+{% endblock %}
 
-{% endblock %}      
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('body').on('click', '.delete-btn', function() {
+            $('.modal').modal('open');
+            var button = $('.modal .modal-btn-yes');
+            var href = $('.modal .modal-btn-yes').get(0).href;
+            button.attr('href', href.concat($(this).data('recipe_author-id')));
+        });
+    });
+</script>
+{% endblock %}
+

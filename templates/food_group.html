@@ -1,21 +1,42 @@
-{% extends 'fundation_template.html' %} {% block content %}
-<div class="row">
-    <div class="container sub_nav_food_group"></div>
-    <h3 class="recipes_title">Food groups</h3>
-    <hr>
-{% for food_group in food_group %}
-    <div class="coll s5">
-        <ul class="collection with-header">
-            <li class="collection-item">
-                <div>The dish belongs to the <em><strong> {{food_group.predominant_group}}</strong></em> group  .  
-                <a href="{{url_for('delete_food_group', food_group_id=food_group._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light red btn_small"><i class="material-icons">delete_forever</i></a>
-                <a href="{{url_for('edit_food_group', food_group_id=food_group._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light blue btn_small"><i class="material-icons">mode_edit</i></a></div>  
-            </li>     
-        </ul>
-    </div>
-{% endfor %} 
-<div class="row">
-    <a  href="{{url_for('new_food_group')}}" class="waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add Group</a>
-</div>
+{% extends 'fundation_template.html' %} 
+{% import 'components.html' as components %}
 
+{% block content %}
+    <div class="row">
+        <div class="container sub_nav_food_group"></div>
+        <h3 class="recipes_title">Food groups</h3>
+        <hr>
+        {% for item in food_group['items'] %}
+        <div class="coll s5">
+            <ul class="collection with-header">
+                <li class="collection-item">
+                    <div>The dish belongs to the <em><strong> {{item.predominant_group}}</strong></em> group  .  
+                        <a data-food_group-id={{item._id}} class="delete-btn secondary-content  btn-floating btn-small waves-effect waves-light red btn_small"><i class="material-icons">delete_forever</i></a>
+                        <a href="{{url_for('edit_food_group', food_group_id=food_group._id)}}" class="secondary-content  btn-floating btn-small waves-effect waves-light blue btn_small"><i class="material-icons">mode_edit</i></a>
+                    </div>  
+                </li>     
+            </ul>
+        </div>
+    {% endfor %} 
+    <div class="row">
+        <a href="{{url_for('new_food_group')}}" class="waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add Group</a>
+        </div>
+        {{ components.pagination(url_for('get_food_group'), food_group) }}
+    </div>
+    <!-- Modal Delete -->
+    {{ components.confirmation_delete('myModal', url_for('delete_food_group', food_group_id=''), 'Do you really want to delete this food group?') }}
+</div>    
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('body').on('click', '.delete-btn', function() {
+            $('.modal').modal('open');
+            var button = $('.modal .modal-btn-yes');
+            var href = $('.modal .modal-btn-yes').get(0).href;
+            button.attr('href', href.concat($(this).data('food_group-id')));
+        });
+    });
+</script>
 {% endblock %}

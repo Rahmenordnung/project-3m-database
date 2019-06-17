@@ -1,20 +1,21 @@
 {% extends 'fundation_template.html' %} {% block content %}
 
+<div class="login_function">
 <h1> Welcome {{ user.username|title }} </h1>
 
-<h5> Email: {% if user.email  %}
+<h5> <u>Email:</u> {% if user.email  %}
     <p>{{ user.email }}</p>
         {% else %}
     <p>No email provided</p>
         {% endif  %}
-</h5>
-
-   <h5>Avatar: {% if user.image  %}
-      <img class="avatar featurette-image img-responsive" src="{{user.image}}" style="width:100%;" alt="Generic placeholder image">
+</h5 class="avatar">
+    <h5><u>Avatar</u>: {% if user.image  %}
+      <img class=" featurette-image img-responsive" src="{{user.image}}" style="width:100%;" alt="Generic placeholder image">
     {% else %}
-      <img class="featurette-image img-responsive" src="{{url_for('static', filename='/images/breakfast-buffet-after.jpg') }}" style="width:100%;" alt="Generic placeholder image">
+      <p>No image was provided by the user</p>
     {% endif  %}
 </h5>
+</div>
     
     
 

@@ -1,0 +1,35 @@
+{%- macro pagination(url, result) -%}
+<ul class="pagination">
+    {% if result['prev_uri'] is none %}
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    {% else %}
+    <li class="waves-effect"><a href="{{ url_for('get_recipes') }}?page_number={{result['prev_uri']['page_number']}}&page_size={{result['prev_uri']['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">
+        <i class="material-icons">chevron_left</i></a></li>
+    {% endif %} {% for page in range(1, result['page_count'] + 1) %} {% if result['page_number'] == page %}
+    <li class="waves-effect active">
+        {% else %}
+        <li class="waves-effect">
+            {% endif %}
+            <a href="{{ url }}?page_number={{page}}&page_size={{result['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">{{ page }}</a></li>
+        {% endfor %} {% if result['next_uri'] is none %}
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        {% else %}
+        <li class="waves-effect"><a href="{{ url }}?page_number={{result['next_uri']['page_number']}}&page_size={{result['next_uri']['page_size']}}&search_text={{result['search_text']}}&order_by={{result['order_by']}}&order={{result['order']}}">
+        <i class="material-icons">chevron_right</i></a></li>
+        {% endif %}
+</ul>
+{%- endmacro -%}
+
+{%- macro confirmation_delete(modal_id, url, confirmation_message) -%}
+<div id="{{ modal_id }}" class="modal">
+    <div class="modal-content">
+      <p class='modaltext'>{{ confirmation_message }}</p>
+      <span class="circle_attention"></span>
+    <div class="modal-footer1">
+      <a href="{{ url }}" class="modal-btn-yes modal-close waves-effect waves-red btn waves-effect waves-light green">Yes</a>
+    </div>
+    <div class="modal-footer2">
+      <a href="#!" class="modal-close waves-effect waves-green btn waves-effect waves-light red">No</a>
+    </div>
+</div>
+{%- endmacro -%}

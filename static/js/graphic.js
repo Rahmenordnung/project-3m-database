@@ -16,7 +16,7 @@ function makeGraphs(data) {
     const AUTHOR_NAME = 'author_name';
     
     
-    console.log(data)
+    console.log(data);
 
     var ndx = crossfilter(data);
     var cousineNameDimension = ndx.dimension((d) => d[COUSINE_NAME]);
