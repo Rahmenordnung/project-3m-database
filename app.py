@@ -128,7 +128,6 @@ def get_recipes():
         'displayValue': item['displayValue']
     } for item in values]
     return render_template("recipe_main.page.html", result=result, filters=filters)
-    
 
 ###-----------------Authentification--
 # def login_required(f):

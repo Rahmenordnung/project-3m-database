@@ -26,6 +26,7 @@ https://www.flaticon.com/packs/reports-and-analytics-----analytics.png
                                                     -----thumb-down-symbol-of-a-black-hand.png
                                                     -----alarm-clock-icon.png
                                                     -----icons8-cancel-64.png
+                                                    -----Download.png
                                                     
 _NAVBAR_
 
@@ -47,4 +48,4 @@ _FOOD GROUP_
 https://www.ndtv.com/food/weight-loss-6-low-carb-high-protein-foods-you-must-eat-to-lose-weight-1928751-----protein_650x400_41502086273.jpg
 
 
-                                                    
+                     https://iconscout.com/icon/ecology-environment-recycle-trash-delete-clean-dustbin-5                               

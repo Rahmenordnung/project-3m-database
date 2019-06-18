@@ -4,11 +4,9 @@ Tudor George Pascu  /student at Code Institute in Dublin, Ireland, 2019
 
 Third Milestone project, Flask , external Databases-Mongo DB, Python
 
-[![Build Status](https://travis-ci.org/Rahmenordnung/project-3m-database.svg?branch=master)](https://travis-ci.org/Rahmenordnung/project-3m-database)
-
 ## <a name="Name"></a> Name  ##
 
-Belly convent, the project name was chosen because the user as he enters the page will be converted, for a litlle while , to a world of superiour cuisine aplied in various locations all over the world. Sometime will be the case that is a high class cuisine, other that will be a very famour recipe that represents so well a type of cuisine and it tastes so well that gain its own place among the Belly cuisine.
+Belly convent, the project name was chosen because the user as he enters the page will be converted, for a little while , to a world of superiour cuisine aplied in various locations all over the world. Sometime will be the case that is a high class cuisine, other that will be a very famour recipe that represents so well a type of cuisine and it tastes so well that gain its own place among the Belly cuisine.
 
 
 ## Sumary
@@ -55,14 +53,13 @@ For example:
 
 ### <a name=" Existing_Features"></a>Existing Features ###
 
-* Above the recipe list the page displays a menu  with the name of the restaurant. And options for Recipes, add recipe, cuisine and Graphics.
 * __Navbar__ - Consists of the __Bely Convent__ logo which returns the user to the Home page of the application. There is also links to the **Recipes**, **Add recipes**, **Graphs**, **Preferences** that contains a _dropdown_ with **Cuisine**, **Chefs**, **Courses**, **Food Group**. The navbar will appear on all pages.
 
 #### <a name="Belly_Convent"></a>Belly Convent  ####
 
-* Or Recipes is a __list of recipes__ that at the same time is the Home page. This consist of the recipes list containing  the recipe name and their food group shown in a __acordeon__ that if *clicked* will display a small intro acout the recipe. Before each recipe name there are __two options__, one is for **editing** the recipe and one is for **viewing the full recipe**, preceded by a **glyphicon**.
+* Or Recipes is a __list of recipes__ that at the same time is the Home page. This consist of a head photo that adds some style to the page, The search bar and the sorting selector that improve the User experience, and the recipes list containing  the recipe name and their food group shown in a __acordeon__ when *clicked* will display a small intro about the recipe. Before each recipe name there are __two options__, one is for **editing** the recipe and one is for **viewing the full recipe**, preceded by a **glyphicon**.
     * The __editing button__ edites the recipe in all the fields that are available in the database.
-    * The __red arrow__ redirects the user to the recipe __full detail__, differentiated from the small preview present in the accordeon. This full detailed page consits of all the data present in the database, image, name, prep-time, etc
+    * The __red arrow__ redirects the user to the __recipe_view__ , differentiated from the small preview present in the accordeon. This full detailed page consits of all the data present in the database, image, name, prep-time, etc, and also contain some buttons to vote for the recipe and to delete it if required.
 * __Sorting dropdown__ above the list, delievers different parameters to order the recipe list.
 * __The Search box__ offers the user the function of searching by words in the data-base
 * __Pagination__ is present in the Recipe list and in the searching results if required by the results number
@@ -88,8 +85,6 @@ For example:
 #### <a name="Graphics"></a>__Graphics__ ####
 Five diagrams that reflect in a statistical manner different relations between different variables among the recipes database. That allows the user to easily diferenciate between authors and type of cuisine, for instance and many other different relationships. They are realized with dc.js, crossfilter, queue, and d3.js. 
 
-In this formular I didn't added the upvotes function, that is only available in the __recipes detail view__
-
 ## <a name="Preferences"></a> Preferences ##
 
 #### <a name="Cuisines"></a>__Cuisines__ ####
@@ -108,18 +103,6 @@ Our food is sorted by different courses presented in a list that contans the pos
 
  A list of the most important food group present in the daily nutrition. It integrates as in the rest of prefences the posibility of editing, deleting and adding new ones.
  
-* The sorting and search function will search by word among the recipes and sort the recipes in different ways, and criterium
-* The edit button will take you to edit the recipe as the user desires. Selecting cusine, author, predominant group of food, food course, allergens like Gluten free and celiacs. Also one ca select  in a range selector the preparation and the cooking time set by minutes, the foor ingredients, description, contect( that is small introduction) and finally the name.
-* The arrow next to the Edit recipe button will display fully the recipe with all the fiels(food ingredients, author name, gluten free, etc) available and with an image assigend by _html_. There is also a delete button that, when clicked will guide you to a modal dialogue that will ensure that the user is aware of the complet deletion of the recipe.
-* 
-_pagination_ The pagination is allowing the user to move easily and quick through the list of recipes. It was implemented 
-
-* Add recipe. Here the user will be able to ad a recipe.
-
-* Cuisine_author_, _predominant.........     etc_  a page where one can see all the cuisine list, edit them and delete them as well
-
-* Graphic a serie of five graphichs displayed with the help of d3, crossfilter that help the user see in an easy and graphic way the relation bethween for instance time of cooking and cuisine type. 
-
 **********************
 ### <a name="Features_Left_to_Implement"></a>Features Left to Implement ###
 
@@ -151,10 +134,9 @@ This is a web application which allows users to store and easily access cooking 
 9. **Pagination** that allows the user to move through the web page also helped by a Jinja macros
 10. For the images added in the data base I used a simple url input as Mongo dosn´t allow storring of image file as so.
 11. In addition I tried to implement a simple __log in__ function that it works even though it does not limit a user for to edit a page.
-12. I have used reusable components done by yourself such as the modal and the pagination as a **jinja macros**
+12. I have used reusable components done by myself such as the modal and the pagination as a **jinja macros**
 
- 
-***********************
+ ***********************
 
 ## <a name="Technologies_Used"></a>Technologies Used ####
 
@@ -231,14 +213,14 @@ In heroku app settings set the config vars to add __DATABASE_URI__, __IP__ and _
 
 ## <a name="Demo"></a>Demo
 
-A demo of this web application is available [here](https://bely-convent.herokuapp.com/get_recipes).
+A demo of this web application is available [here](https://bely-convent.herokuapp.com/get_tasks).
 
 ************
 ## <a name="Mockups"></a>Mockups
 
-All thw mockups for the project are in this link [mockups](https://github.com/Rahmenordnung/project-3m-database/tree/master/Mockups/project%203m%20mockups)
+All thw mockups for the project are in this link [here](/Mockups/project 3m mockups)
 
-I have also created a data base mockup for the better understanding of the project [database](https://github.com/Rahmenordnung/project-3m-database/blob/master/Mockups/database%20mpckup/belly%20convent_database.png)
+I have also created a data base mockup for the better understanding of the project [database](/Mockups/project 3m mockups/database mpckup/belly convent_database.png)
 
 ## <a name="Media"></a>Media ##
 
@@ -259,7 +241,7 @@ The content for recipes was taken from the a cooking program that I am watchin i
 * Implementing, or trying to extra features, such as pagination, user login that have taught me a parallel way of learning out of the course box, that I think I will be using in all my future carrer.
 
 
-__Thank you very much, for all the help recived from staff, mentors, chat, etc!!!__ 
+__Thank you very much, for all the help recived from staff, mentors, chat, etc!!!!__ 
 
 
 

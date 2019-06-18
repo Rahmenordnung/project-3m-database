@@ -23,8 +23,8 @@
 {%- macro confirmation_delete(modal_id, url, confirmation_message) -%}
 <div id="{{ modal_id }}" class="modal">
     <div class="modal-content">
+    <span class="circle_attention"></span>
       <p class='modaltext'>{{ confirmation_message }}</p>
-      <span class="circle_attention"></span>
     <div class="modal-footer1">
       <a href="{{ url }}" class="modal-btn-yes modal-close waves-effect waves-red btn waves-effect waves-light green">Yes</a>
     </div>

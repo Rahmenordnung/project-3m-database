@@ -15,7 +15,6 @@ function makeGraphs(data) {
     const PREPARATION_FOOD = 'preparation_food'; //: "125"
     const AUTHOR_NAME = 'author_name';
     
-    
     console.log(data);
 
     var ndx = crossfilter(data);
