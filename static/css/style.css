@@ -163,7 +163,9 @@ nav a{
     font-size: large;
     font-weight: bold;
     margin-left: 50px;
+    margin-top: 15px;
 }
+
 .modal-footer1 {
     margin-bottom: 5px;
     margin-top: 15px;

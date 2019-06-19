@@ -100,6 +100,7 @@ def get_paginated_list(entity, **params):
         KEY_ORDER_BY: order_by,
         KEY_ORDER: order,
         KEY_ENTITIES: items
+        
     }
 ###-----------------main route/home-page
 @app.route('/')
@@ -534,7 +535,7 @@ def search_box():
 def search_results():
     return redirect(url_for('get_recipes', search_text=request.form['search_text']))
     
-#Error handlers ---------------    
+## Error handlers ---------------    
     
 @app.errorhandler(404)
 def not_found(error):

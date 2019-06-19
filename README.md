@@ -232,6 +232,8 @@ The images used in the web page were taken from different sites. All the locatio
 
 The content for recipes was taken from the a cooking program that I am watchin in the German television called "Beat the Cook" (literraly translation) and also from recipes took from the restaurants menus that I have been looking when walking over Dublin streets.
 
+Also from pages such as [_All recipes_](https://www.allrecipes.com/), [_BBC Recipes_](https://www.bbc.co.uk/food/recipes)
+
 ### <a name="Challenges"></a>Challenges ##
 
 * Learning how to integrate Flask and MongoDB was a great learning experience. I learned much from how to manage and interact with a NoSQL data store. I saw that a good organized database gives powers to a novel programmer like me.

@@ -38,20 +38,20 @@
             <!-- Modal Delete -->
       <div id="modal1" class="modal">
         <div class="modal-content">
-          <p class='modaltext'>Do you really want to delete the recipe?</p>
           <span class="circle_attention"></span>
+          <p class='modaltext'>Do you really want to delete the recipe?</p>
         <div class="modal-footer1">
-          <a href="{{url_for('delete_recipe', procedure_id = procedure._id)}}" class="modal-close waves-effect waves-red btn waves-effect waves-light green">Agree</a>
+          <a href="{{url_for('delete_recipe', procedure_id = procedure._id)}}" class="modal-close waves-effect waves-red btn waves-effect waves-light green">Yes</a>
         </div>
         <div class="modal-footer2">
-          <a href="#!" class="modal-close waves-effect waves-green btn waves-effect waves-light red">Decline</a>
+          <a href="#!" class="modal-close waves-effect waves-green btn waves-effect waves-light red">No</a>
         </div>
       </div>
     </div>
         </p>
   </div>
         <div class="card-content">
-          The author of the recipe is <em><strong>{{procedure.author_name}}</em></strong>. And nutritionally stand in the <em><strong>{{procedure.predominant_group}}</em></strong> group. The preparate is<em><strong>{{procedure.celiacs}}</strong></em> for <u>Celiacs</u> and <em><strong>{{procedure.gluten_free}}</strong></em> for <u>Gluten free</u> diet.
+          The author of the recipe is <em><strong>{{procedure.author_name}}</em></strong>. And nutritionally stand in the <em><strong>{{procedure.predominant_group}}</em></strong> group. The preparate is <em><strong>{{procedure.celiacs}}</strong></em> for <u>Celiacs</u> and <em><strong>{{procedure.gluten_free}}</strong></em> for <u>Gluten free</u> diet.
         </div>
           </form>
         </div>
