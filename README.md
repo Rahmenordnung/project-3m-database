@@ -144,7 +144,7 @@ This is a web application which allows users to store and easily access cooking 
 
 * [_Materialize_](https://materializecss.com)  A modern responsive front-end framework based on Material Design 
  
-* [_Front awsome_](https://fontawesome.com/) Font Awesome is a web font containing all the icons from the Twitter Bootstrap framework, and now many more.
+* [_Font awsome_](https://fontawesome.com/) Font Awesome is a web font containing all the icons from the Twitter Bootstrap framework, and now many more.
 
 * [__Python__](https://www.python.org/) This project uses Python, for general-purpose programming and used to write the logic of this game, which is included within .py files. Python is an interpreted, high-level, general-purpose programming language.
  
@@ -218,9 +218,9 @@ A demo of this web application is available [here](https://bely-convent.herokuap
 ************
 ## <a name="Mockups"></a>Mockups
 
-All thw mockups for the project are in this link [here](/Mockups/project 3m mockups)
+All thw mockups for the project are in this link [here](https://github.com/Rahmenordnung/project-3m-database/tree/master/Mockups/project%203m%20mockups)
 
-I have also created a data base mockup for the better understanding of the project [database](https://github.com/Rahmenordnung/project-3m-database/tree/master/Mockups)
+I have also created a data base mockup for the better understanding of the project [database](https://github.com/Rahmenordnung/project-3m-database/blob/master/Mockups/database%20mpckup/belly%20convent_database.png)
 
 ## <a name="Media"></a>Media ##
 
