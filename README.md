@@ -9,7 +9,7 @@ Third Milestone project, Flask , external Databases-Mongo DB, Python
 Belly convent, the project name was chosen because the user as he enters the page will be converted, for a little while , to a world of superiour cuisine aplied in various locations all over the world. Sometime will be the case that is a high class cuisine, other that will be a very famour recipe that represents so well a type of cuisine and it tastes so well that gain its own place among the Belly cuisine.
 
 
-## Sumary
+## Summary
 * [Name](#Name)
 * [User Stories](#User_Stories)
 * [Features](#Features)
@@ -220,7 +220,7 @@ A demo of this web application is available [here](https://bely-convent.herokuap
 
 All thw mockups for the project are in this link [here](/Mockups/project 3m mockups)
 
-I have also created a data base mockup for the better understanding of the project [database](/Mockups/project 3m mockups/database mpckup/belly convent_database.png)
+I have also created a data base mockup for the better understanding of the project [database](https://github.com/Rahmenordnung/project-3m-database/tree/master/Mockups)
 
 ## <a name="Media"></a>Media ##
 
