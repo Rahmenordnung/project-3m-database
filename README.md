@@ -184,7 +184,7 @@ Manual testing was undertaken for this application and satisfactorily passed:
 
 The tests are located in the file tests.py and can be proved with the command:__python3 tests.py__ This test are ment to cover the CRUD functionality and prove if they work properly.
 
-Automated tests were carried out and all 24 tests passed satisfactorily [here](/test_screenshot/Screenshot (25).png). 
+Automated tests were carried out and all 24 tests passed satisfactorily [here](https://github.com/Rahmenordnung/project-3m-database/blob/master/test_screenshot/Screenshot%20(25).png). 
 
 
 **********************************
